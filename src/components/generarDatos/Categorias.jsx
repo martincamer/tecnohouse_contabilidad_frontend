@@ -56,7 +56,7 @@ export const Categorias = () => {
   console.log(fechaActual);
 
   return (
-    <div className="bg-white w-full py-4 px-6 border-[1px] border-slate-300 shadow-md rounded-lg flex gap-4">
+    <div className="bg-white w-full py-4 px-6 border-[1px] border-slate-300 shadow rounded-lg flex gap-4">
       <div>
         <button
           className="bg-indigo-500 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"

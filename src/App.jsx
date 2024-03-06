@@ -17,10 +17,15 @@ import { Estadistica } from "./routes/pages/protected/Estadistica";
 import { GenerarRecibosEstadistica } from "./routes/pages/protected/GenerarRecibosEstadistica";
 import { NavbarStatick } from "./components/ui/NavbarStatick";
 import { ViewIngreso } from "./routes/pages/protected/ViewIngreso";
+import { Empleados } from "./routes/pages/protected/Empleados";
 //import normales
 import RutaProtegida from "./layouts/RutaProtejida";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import { EmpleadosProvider } from "./context/EmpleadosProvider";
+import { CrearNuevoEmpleado } from "./routes/pages/protected/CrearNuevoEmpleado";
+import { EditarEmpleado } from "./routes/pages/protected/EditarEmpleado";
+import { ViewEmpleado } from "./routes/pages/protected/ViewEmpleado";
 
 function App() {
   const { isAuth } = useAuth();
@@ -44,10 +49,12 @@ function App() {
                 <PresupuestosProvider>
                   <IngresosProvider>
                     <TiposProvider>
-                      <main className="flex gap-2 h-full">
-                        <SideBar />
-                        <Outlet />
-                      </main>
+                      <EmpleadosProvider>
+                        <main className="flex gap-2 h-full">
+                          <SideBar />
+                          <Outlet />
+                        </main>
+                      </EmpleadosProvider>
                     </TiposProvider>
                   </IngresosProvider>
                 </PresupuestosProvider>
@@ -62,8 +69,12 @@ function App() {
                 element={<GenerarRecibosEstadistica />}
               />
               <Route path="/cuenta" element={<Cuenta />} />
-              <Route path="/view-pdf/:id" element={<ViewPdf />} />
+              <Route path="/view-pdf" element={<ViewPdf />} />
               <Route path="/view-ingreso/:id" element={<ViewIngreso />} />
+              <Route path="/empleados" element={<Empleados />} />
+              <Route path="/empleado-nuevo" element={<CrearNuevoEmpleado />} />
+              <Route path="/editar-empleado/:id" element={<EditarEmpleado />} />
+              <Route path="/empleados/:id" element={<ViewEmpleado />} />
             </Route>
           </Route>
           <Route path="*" element={<NotFound />} />

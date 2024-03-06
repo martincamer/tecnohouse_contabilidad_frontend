@@ -1,34 +1,28 @@
 import { PDFViewer } from "@react-pdf/renderer";
-import { ImprimirIngresoUnico } from "./ImprimirIngresoUnico";
 import { useParams } from "react-router-dom";
 import { obtenerUnicoIngreso } from "../../api/ingresos";
 import { useEffect, useState } from "react";
+import { ImprimirComprobante } from "../empleados/ImprimirComprobante";
+import { obtenerUnicoEmpleado } from "../../api/empleados.api";
 
 // import { ImprimirPdf } from "./ImprirmirPdf";
 
 export const ViewPdf = () => {
-  //obtener datos
   const [datos, setDatos] = useState([]);
-
-  //   params obtener
-  const params = useParams();
-
-  console.log(params);
 
   useEffect(() => {
     async function loadData() {
-      const response = await obtenerUnicoIngreso(params.id);
+      const res = await obtenerUnicoEmpleado("12");
 
-      setDatos(response.data);
+      setDatos(res.data);
     }
+
     loadData();
   }, []);
 
-  console.log("datos", datos);
-
   return (
     <PDFViewer style={{ width: "100%", height: "100vh" }}>
-      <ImprimirIngresoUnico datos={datos} />
+      <ImprimirComprobante datos={datos} />
     </PDFViewer>
   );
 };

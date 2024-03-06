@@ -66,9 +66,35 @@ export const IntroActual = () => {
   // Mostrar la fecha formateada
   console.log("Fecha actual:", fechaFormateada);
 
+  const totalPresupuestos = presupuestoMensual.reduce(
+    (total, p) => total + Number(p?.total),
+    0
+  );
+  const porcentaje = totalPresupuestos / 100; // Si el totalPresupuestos es 105000, esto imprimirá 1050.
+
+  console.log(porcentaje);
+
   return (
-    <div className="bg-slate-100 w-full border-[1px] border-slate-300 shadow-sm shadow-slate-400 rounded-lg flex gap-4 items-center justify-center">
-      <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
+    <div className="bg-white w-full border-[1px] border-slate-300 shadow rounded-xl flex gap-4 items-center justify-center py-5 px-10">
+      <div className="py-5 px-6 flex flex-col justify-center items-center gap-1 w-full h-full bg-white border-slate-300 border-[1px] rounded-xl shadow">
+        <div class="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+            />
+          </svg>
+
+          <span class="text-xs font-medium"> {porcentaje}%</span>
+        </div>
         <p className="text-indigo-500 text-sm">
           Total del presupuesto estimado
         </p>
@@ -82,7 +108,7 @@ export const IntroActual = () => {
         ))}
       </div>
 
-      <div className="py-5 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
+      <div className="py-5 px-6 flex flex-col justify-center items-center gap-1 w-full h-full bg-white border-slate-300 border-[1px] rounded-xl shadow">
         <p className="text-indigo-500 text-sm">
           Gastos del mes{" "}
           <span className="text-slate-700 capitalize">{fechaFormateada}</span>
@@ -104,7 +130,25 @@ export const IntroActual = () => {
         </p>
       </div>
 
-      <div className="py-5 px-6 flex flex-col justify-center items-center gap-1 w-full h-full">
+      <div className="py-5 px-6 flex flex-col justify-center items-center gap-1 w-full h-full bg-white border-slate-300 border-[1px] rounded-xl shadow">
+        <div class="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+            />
+          </svg>
+
+          <span class="text-xs font-medium"> {totalIngreso / 100} %</span>
+        </div>
         <p className="text-indigo-500 text-sm">Ingreso final</p>
         <p className="text-slate-700 text-sm font-semibold">
           {Number(totalIngreso).toLocaleString("es-AR", {

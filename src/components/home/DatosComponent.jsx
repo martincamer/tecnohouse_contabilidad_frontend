@@ -1,11 +1,31 @@
 export const DatosComponent = ({ title, total, icono }) => {
   return (
-    <div className="hover:shadow-black/10 border-slate-300 border-[1px] bg-indigo-100 py-5 px-10 rounded-lg text-indigo-600 shadow-md shadow-slate-100 hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer justify-center flex flex-col items-center">
-      <p className="font-semibold flex items-center gap-2">
-        {title}
-        {icono}
-      </p>
-      <p>{total}</p>
+    <div class="flex flex-col gap-2 rounded-lg border border-slate-300 shadow bg-white p-3">
+      <div class="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+          />
+        </svg>
+
+        <span class="text-xs font-medium"> {total}% </span>
+      </div>
+      <div className="flex gap-1 flex-col justify-center w-full items-center">
+        <p className="font-semibold flex items-center gap-2">
+          {title}
+          {icono}
+        </p>
+        <p>{total}</p>
+      </div>
     </div>
   );
 };
