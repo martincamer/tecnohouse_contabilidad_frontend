@@ -185,7 +185,7 @@ export const Empleados = () => {
         VOLVER
       </Link>
       <div className="px-10">
-        <div className=" bg-slate-100 w-full border-[1px] border-slate-300 shadow-sm shadow-slate-400 rounded-lg flex gap-4 items-center justify-center">
+        <div className=" bg-white w-full border-[1px] border-slate-300 shadow-sm shadow rounded-xl flex gap-4 items-center justify-center">
           <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
             <p className="text-indigo-500 text-sm">Total empleados cargados</p>
             <p className="text-slate-700 text-sm font-semibold">
@@ -319,7 +319,7 @@ export const Empleados = () => {
         </div>
       </div>
       <div className="flex gap-16 items-center px-10">
-        <div className="relative w-1/5 rounded-md border-slate-300 border-[1px] py-2.5 pr-10 shadow-sm sm:text-sm">
+        <div className="relative w-1/5 rounded-xl border-slate-300 border-[1px] py-2.5 pr-10 shadow-sm sm:text-sm">
           <input
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
@@ -357,7 +357,7 @@ export const Empleados = () => {
           <select
             value={filtroFabrica}
             onChange={(e) => setFiltroFabrica(e.target.value)}
-            className="rounded-md bg-white px-4 border-slate-300 border-[1px] py-2.5 shadow uppercase text-slate-600 text-sm"
+            className="rounded-xl bg-white px-4 border-slate-300 border-[1px] py-2.5 shadow uppercase text-slate-600 text-sm"
             name=""
             id=""
           >
@@ -544,11 +544,12 @@ export const Empleados = () => {
                       </svg>
                     </Link>
                   </td>
+
                   <td className="py-3 px-3 text-sm text-left text-slate-700">
                     <Link
                       to={`/editar-empleado/${e.id}`}
                       type="button"
-                      className="bg-indigo-500/10 border-[1px] border-indigo-500 py-1 px-3 text-indigo-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold"
+                      className="bg-indigo-500/10 border-[1px] border-indigo-500 py-1 px-3 text-indigo-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold w-20"
                     >
                       Editar
                       <svg

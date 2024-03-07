@@ -68,7 +68,7 @@ export const Cuenta = () => {
   return (
     <section className="px-10 py-16 w-full flex flex-col gap-5 h-screen">
       <ToastContainer />
-      <div className="flow-root rounded-lg border border-gray-100 py-3 shadow-sm">
+      <div className="flow-root rounded-xl border border-slate-300 py-3 shadow">
         <dl className="-my-3 divide-y divide-gray-100 text-sm">
           <div className="grid grid-cols-1 gap-1 p-3 even:bg-slate-200 sm:grid-cols-3 sm:gap-4">
             <dt className="font-medium text-gray-900">Admin</dt>
@@ -93,7 +93,7 @@ export const Cuenta = () => {
         </dl>
       </div>
 
-      <div className="border border-gray-100  shadow-sm py-10 px-10 flex flex-col gap-2">
+      <div className="border border-slate-300 rounded-xl   shadow py-10 px-10 flex flex-col gap-2">
         <div>
           <p className="text-slate-700">Usuarios creados</p>
         </div>

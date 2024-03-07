@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../context/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const SideBar = () => {
   const [click, setClick] = useState(false);
@@ -10,6 +10,8 @@ export const SideBar = () => {
     setClick(!click);
   };
 
+  const location = useLocation();
+
   return (
     <div
       className={`flex ${
@@ -18,13 +20,13 @@ export const SideBar = () => {
     >
       <div className="flex h-full w-16 flex-col justify-between border-e bg-white">
         <div>
-          <div className="border-t border-gray-100">
+          <div className="border-t border-slate-300">
             <div className="px-2">
               <div className="py-4">
                 <a
                   onClick={() => toggleSidebar()}
                   href="#"
-                  className="t group relative flex justify-center rounded bg-blue-50 px-2 py-1.5 text-blue-700"
+                  className="t group relative flex justify-center rounded bg-slate-200 px-2 py-1.5 text-indigo-500"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -47,11 +49,15 @@ export const SideBar = () => {
                 </a>
               </div>
 
-              <ul className="space-y-1 border-t border-gray-100 pt-4">
+              <ul className="space-y-1 border-t border-slate-300 pt-4">
                 <Link to={"/"}>
                   <a
                     href="#"
-                    className="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                    className={`${
+                      location.pathname === "/"
+                        ? "bg-slate-200 text-indigo-500"
+                        : "bg-white"
+                    } group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-slate-200 hover:text-gray-700`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +83,11 @@ export const SideBar = () => {
                 <Link to={"generar-datos"}>
                   <a
                     href="#"
-                    className="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                    className={`${
+                      location.pathname === "/generar-datos"
+                        ? "bg-slate-200 text-indigo-500"
+                        : "bg-white"
+                    } group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-slate-200 hover:text-gray-700`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +113,11 @@ export const SideBar = () => {
                 <Link to={"estadistica"}>
                   <a
                     href="#"
-                    className="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                    className={`${
+                      location.pathname === "/estadistica"
+                        ? "bg-slate-200 text-indigo-500"
+                        : "bg-white"
+                    } group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-slate-200 hover:text-gray-700`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +143,11 @@ export const SideBar = () => {
                 <Link to={"/generar-recibos"}>
                   <a
                     href="#"
-                    className="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                    className={`${
+                      location.pathname === "/generar-recibos"
+                        ? "bg-slate-200 text-indigo-500"
+                        : "bg-white"
+                    } group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-slate-200 hover:text-gray-700`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -154,7 +172,11 @@ export const SideBar = () => {
                 <Link to={"/estadistica-recibos"}>
                   <a
                     href="#"
-                    className="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                    className={`${
+                      location.pathname === "/estadistica-recibos"
+                        ? "bg-slate-200 text-indigo-500"
+                        : "bg-white"
+                    } group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-slate-200 hover:text-gray-700`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -180,7 +202,11 @@ export const SideBar = () => {
                 <Link to={"/empleados"}>
                   <a
                     href="#"
-                    className="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                    className={`${
+                      location.pathname === "/empleados"
+                        ? "bg-slate-200 text-indigo-500"
+                        : "bg-white"
+                    } group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-slate-200 hover:text-gray-700`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -206,7 +232,11 @@ export const SideBar = () => {
                 <Link to={"/cuenta"}>
                   <a
                     href="#"
-                    className="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                    className={`${
+                      location.pathname === "/cuenta"
+                        ? "bg-slate-200 text-indigo-500"
+                        : "bg-white"
+                    } group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-slate-200 hover:text-gray-700`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

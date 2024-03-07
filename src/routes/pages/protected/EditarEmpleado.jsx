@@ -246,12 +246,7 @@ export const EditarEmpleado = () => {
         VOLVER
       </Link>
 
-      <div className="bg-white w-full border-[1px] border-slate-300 shadow-sm shadow-slate-400 rounded-lg flex gap-4 items-center justify-center">
-        {/* <div className="py-5 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
-          <p className="text-indigo-500 text-sm">Total empleados creados</p>
-          <p className="text-slate-700 text-sm font-semibold">12</p>
-        </div> */}
-
+      <div className="bg-white w-full border-[1px] border-slate-300 shadow-sm rounded-xl flex gap-4 items-center justify-center">
         <div className="py-5 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
           <p className="text-indigo-500 text-sm">Fecha</p>
           <p className="text-slate-700 text-sm capitalize">

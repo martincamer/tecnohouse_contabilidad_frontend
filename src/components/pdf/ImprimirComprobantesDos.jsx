@@ -139,7 +139,16 @@ export const ImprimirComprobantes = ({ datos }) => {
       })}, Comida: ${Number(comida_produccion).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
-      })}`,
+      })} ${
+        tipo_fabrica === "gerencia" &&
+        `, Premio Producción: ${Number(premio_produccion).toLocaleString(
+          "es-AR",
+          {
+            style: "currency",
+            currency: "ARS",
+          }
+        )}`
+      }`,
     ];
   } else {
     mensajes = ["Tipo de pago no reconocido."];
@@ -187,7 +196,16 @@ export const ImprimirComprobantes = ({ datos }) => {
       })}, Comida: ${Number(comida_produccion).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
-      })}`,
+      })}  ${
+        tipo_fabrica === "gerencia" &&
+        `, Premio Producción: ${Number(premio_produccion).toLocaleString(
+          "es-AR",
+          {
+            style: "currency",
+            currency: "ARS",
+          }
+        )}`
+      }`,
     ];
   } else {
     obsReal = ["Tipo de pago no reconocido."];

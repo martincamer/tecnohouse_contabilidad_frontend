@@ -244,14 +244,14 @@ export const Home = () => {
           })}
         />
       </div>
-      <div className="bg-slate-100/50 rounded-lg py-10 px-3 border-slate-300 border-[1px]">
+      <div className="bg-white rounded-xl py-10 px-3 border-slate-300 border-[1px]">
         <ChartComponent />
       </div>{" "}
-      <div className="flex gap-5 bg-slate-100/50 rounded-lg py-10 px-3 border-slate-300 border-[1px]">
+      <div className="flex gap-5 bg-white rounded-xl py-10 px-3 border-slate-300 border-[1px]">
         <ChartComponentTwo datosFormateados={datosFormateados} />
         <ChartComponentTree />
       </div>
-      <div className=" bg-slate-100/50 rounded-lg py-10 px-3 border-slate-300 border-[1px]">
+      <div className="bg-white rounded-xl py-10 px-3 border-slate-300 border-[1px]">
         <ChartComponentColumnTwo datosFormateados={datosFormateados} />
       </div>
     </section>

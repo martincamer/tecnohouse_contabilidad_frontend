@@ -166,7 +166,7 @@ export const Estadistica = () => {
         VOLVER
       </Link>
 
-      <div className=" bg-slate-100 border-slate-300 border-[1px] shadow rounded-lg grid grid-cols-3">
+      <div className=" bg-white border-slate-300 border-[1px] shadow rounded-xl grid grid-cols-3">
         <div className="border-r-[1px] border-slate-300 py-5 px-5 flex flex-col gap-1 items-center justify-center">
           <p className="text-slate-600 text-sm">Total generado</p>
           <p className="text-indigo-600">
@@ -276,7 +276,7 @@ export const Estadistica = () => {
         </div>
       </div>
 
-      <div className="bg-slate-100/30 rounded-lg border-[1px] border-slate-300 shadow py-10 px-10 mt-10">
+      <div className="bg-white rounded-xl border-[1px] border-slate-300 shadow py-10 px-10 mt-10">
         <BarChart
           width={1220}
           height={500}

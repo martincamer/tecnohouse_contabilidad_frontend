@@ -322,18 +322,9 @@ export const ViewEmpleado = () => {
               </strong>
 
               <p>
-                <span className="text-xl font-medium text-gray-900">
+                <span className="text-xl font-medium text-gray-900 capitalize">
                   {fechaFormateada}
                 </span>
-
-                {/* <span className="text-xs text-gray-500">
-                  {" "}
-                  +
-                  {Number(totalSumadoTwo).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}{" "}
-                </span> */}
               </p>
             </div>
           </article>
@@ -348,41 +339,43 @@ export const ViewEmpleado = () => {
 
           <div className="border-slate-300 border-[1px] rounded-xl px-5 py-10 shadow w-1/2 mt-5 space-y-3">
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">
+              <p className="uppercase text-slate-700 font-bold">
                 Nombre y Apellido
               </p>
-              <p className="capitalize text-slate-700">{datos.empleado}</p>
+              <p className="uppercase text-slate-700">{datos.empleado}</p>
             </div>
 
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">
+              <p className="uppercase text-slate-700 font-bold">
                 Tipo de sueldo
               </p>
-              <p className="capitalize text-slate-700">{datos.tipo}</p>
+              <p className="uppercase text-slate-700">{datos.tipo}</p>
             </div>
 
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">
+              <p className="uppercase text-slate-700 font-bold">
                 Fabrica o Suc.
               </p>
-              <p className="capitalize text-slate-700">{datos.tipo_fabrica}</p>
+              <p className="uppercase text-slate-700">{datos.tipo_fabrica}</p>
             </div>
 
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">Fecha</p>
-              <p className="capitalize text-slate-700">{fechaFormateadaTwo}</p>
+              <p className="uppercase text-slate-700 font-bold">
+                Fecha de inicio/ingreso
+              </p>
+              <p className="uppercase text-slate-700">{fechaFormateadaTwo}</p>
             </div>
 
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">Antiguedad</p>
-              <p className="capitalize text-slate-700">
+              <p className="uppercase text-slate-700 font-bold">Antiguedad</p>
+              <p className="uppercase text-slate-700">
                 {datos.antiguedad} Años
               </p>
             </div>
 
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">Banco</p>
-              <p className="capitalize text-slate-700">
+              <p className="uppercase text-slate-700 font-bold">Banco</p>
+              <p className="uppercase text-slate-700">
                 {" "}
                 -
                 {Number(datos.otros).toLocaleString("es-AR", {
@@ -393,8 +386,8 @@ export const ViewEmpleado = () => {
             </div>
 
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">Descuentos</p>
-              <p className="capitalize text-slate-700">
+              <p className="uppercase text-slate-700 font-bold">Descuentos</p>
+              <p className="uppercase text-slate-700">
                 {" "}
                 -{" "}
                 {Number(datos.descuento).toLocaleString("es-AR", {
@@ -405,8 +398,8 @@ export const ViewEmpleado = () => {
             </div>
 
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">Otros</p>
-              <p className="capitalize text-slate-700">
+              <p className="uppercase text-slate-700 font-bold">Otros</p>
+              <p className="uppercase text-slate-700">
                 {" "}
                 {Number(datos.banco).toLocaleString("es-AR", {
                   style: "currency",
@@ -416,10 +409,10 @@ export const ViewEmpleado = () => {
             </div>
 
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">
+              <p className="uppercase text-slate-700 font-bold">
                 Premio asistencia
               </p>
-              <p className="capitalize text-slate-700">
+              <p className="uppercase text-slate-700">
                 +
                 {Number(datos.premio_asistencia).toLocaleString("es-AR", {
                   style: "currency",
@@ -431,12 +424,12 @@ export const ViewEmpleado = () => {
             {datos.tipo_fabrica !== "administracion" &&
               datos.tipo_fabrica !== "clubes" && (
                 <div className="flex gap-2">
-                  <p className="capitalize text-slate-700 font-bold">
+                  <p className="uppercase text-slate-700 font-bold">
                     {datos.tipo_fabrica !== "administracion" &&
                       datos.tipo_fabrica !== "clubes" &&
                       "Premio produccion"}
                   </p>
-                  <p className="capitalize text-slate-700">
+                  <p className="uppercase text-slate-700">
                     {datos.tipo_fabrica !== "administracion" &&
                     datos.tipo_fabrica !== "gerencia" &&
                     datos.tipo_fabrica !== "clubes" ? (
@@ -458,8 +451,8 @@ export const ViewEmpleado = () => {
               )}
 
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">Comida</p>
-              <p className="capitalize text-slate-700">
+              <p className="uppercase text-slate-700 font-bold">Comida</p>
+              <p className="uppercase text-slate-700">
                 +
                 {Number(datos.comida_produccion).toLocaleString("es-AR", {
                   style: "currency",
@@ -469,10 +462,8 @@ export const ViewEmpleado = () => {
             </div>
 
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">
-                Quincena del 5 sin descuentos y producción,etc.
-              </p>
-              <p className="capitalize text-slate-700">
+              <p className="uppercase text-slate-700 font-bold">Mes 5 normal</p>
+              <p className="uppercase text-slate-700">
                 {" "}
                 {Number(datos.quincena_del_cinco).toLocaleString("es-AR", {
                   style: "currency",
@@ -481,24 +472,26 @@ export const ViewEmpleado = () => {
               </p>
             </div>
 
-            <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">
-                Quincena del 20 sin descuentos, produccion,etc.
-              </p>
-              <p className="capitalize text-slate-700">
-                {" "}
-                {Number(datos.quincena_del_veinte).toLocaleString("es-AR", {
-                  style: "currency",
-                  currency: "ARS",
-                })}
-              </p>
-            </div>
+            {datos.tipo !== "mensual" && (
+              <div className="flex gap-2">
+                <p className="uppercase text-slate-700 font-bold">
+                  mes 20 normal
+                </p>
+                <p className="uppercase text-slate-700">
+                  {" "}
+                  {Number(datos.quincena_del_veinte).toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  })}
+                </p>
+              </div>
+            )}
 
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">
-                Quincena del 5 total
+              <p className="uppercase text-slate-700 font-bold">
+                mes 5 total neto
               </p>
-              <p className="capitalize text-slate-700">
+              <p className="uppercase text-slate-700">
                 {" "}
                 {Number(datos.total_quincena).toLocaleString("es-AR", {
                   style: "currency",
@@ -507,22 +500,26 @@ export const ViewEmpleado = () => {
               </p>
             </div>
 
-            <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">
-                Quincena del 20 total
-              </p>
-              <p className="capitalize text-slate-700">
-                {" "}
-                {Number(datos.total_quincena_veinte).toLocaleString("es-AR", {
-                  style: "currency",
-                  currency: "ARS",
-                })}
-              </p>
-            </div>
+            {datos.tipo !== "mensual" && (
+              <div className="flex gap-2">
+                <p className="uppercase text-slate-700 font-bold">
+                  mes 20 total neto
+                </p>
+                <p className="uppercase text-slate-700">
+                  {" "}
+                  {Number(datos.total_quincena_veinte).toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  })}
+                </p>
+              </div>
+            )}
 
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">Sueldo Neto</p>
-              <p className="capitalize text-slate-700">
+              <p className="uppercase text-slate-700 font-bold">
+                Sueldo Neto final
+              </p>
+              <p className="uppercase text-slate-700">
                 {" "}
                 {Number(datos.total_final).toLocaleString("es-AR", {
                   style: "currency",
