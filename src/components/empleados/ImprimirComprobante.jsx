@@ -249,7 +249,7 @@ export const ImprimirComprobante = ({ datos }) => {
             display: "flex",
             flexDirection: "column",
             gap: "10px",
-            border: "1px solid #d1d1d1",
+            border: "1px solid #000",
             padding: "20px 20px",
             borderRadius: "10px",
           }}
