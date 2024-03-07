@@ -1,6 +1,5 @@
 import { PDFViewer } from "@react-pdf/renderer";
 import { useParams } from "react-router-dom";
-import { obtenerUnicoIngreso } from "../../api/ingresos";
 import { useEffect, useState } from "react";
 import { ImprimirComprobante } from "../empleados/ImprimirComprobante";
 import { obtenerUnicoEmpleado } from "../../api/empleados.api";
