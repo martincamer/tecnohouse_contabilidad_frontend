@@ -125,6 +125,31 @@ export const ImprimirComprobante = ({ datos }) => {
     mensaje = "Tipo de pago no reconocido.";
   }
 
+  let quincenaReal = "";
+
+  if (tipoPago === "quincenal") {
+    if (hoyEsDia >= 1 && hoyEsDia <= 10) {
+      quincenaReal = Number(datos.quincena_del_cinco).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      });
+    } else if (hoyEsDia >= 11 && hoyEsDia <= 31) {
+      quincenaReal = Number(datos.quincena_del_veinte).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      });
+    } else {
+      quincenaReal = "No hay quincena disponible para hoy.";
+    }
+  } else if (tipoPago === "mensual") {
+    quincenaReal = Number(datos.total_final).toLocaleString("es-AR", {
+      style: "currency",
+      currency: "ARS",
+    });
+  } else {
+    quincenaReal = "Tipo de pago no reconocido.";
+  }
+
   let mensajes = [];
 
   if (tipoPago === "quincenal") {
@@ -165,6 +190,49 @@ export const ImprimirComprobante = ({ datos }) => {
   } else {
     mensajes = ["Tipo de pago no reconocido."];
   }
+
+  let obsReal = [];
+
+  if (tipoPago === "quincenal") {
+    if (hoyEsDia >= 1 && hoyEsDia <= 10) {
+      obsReal = [
+        `Premio Producción ${Number(datos.premio_produccion).toLocaleString(
+          "es-AR",
+          {
+            style: "currency",
+            currency: "ARS",
+          }
+        )}`,
+        `Premio Asistencia ${Number(datos.premio_asistencia).toLocaleString(
+          "es-AR",
+          {
+            style: "currency",
+            currency: "ARS",
+          }
+        )}`,
+      ];
+    } else if (
+      hoyEsDia >= 11 &&
+      hoyEsDia <= 31 &&
+      datos.tipo_fabrica === "aberturas"
+    ) {
+      obsReal = [
+        `Comida Producción ${Number(datos.comida_produccion).toLocaleString(
+          "es-AR",
+          {
+            style: "currency",
+            currency: "ARS",
+          }
+        )}`,
+      ];
+    } else {
+      obsReal = ["No hay quincena disponible para hoy."];
+    }
+  } else {
+    obsReal = ["Tipo de pago no reconocido."];
+  }
+
+  console.log(obsReal);
 
   return (
     <Document>
@@ -573,6 +641,137 @@ export const ImprimirComprobante = ({ datos }) => {
                 {mensajes}
               </Text>
             </Text>
+
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "2px",
+                marginTop: "5px",
+              }}
+            >
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: "8px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "bold",
+                    marginTop: "5px",
+                    borderStyle: "solid",
+                    borderWidth: "1px",
+                    borderColor: "#000",
+                    padding: "5px",
+                  }}
+                >
+                  Sueldo Observación
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  fontSize: "8px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "normal",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1px",
+                  borderBottom: "1px",
+                }}
+              >
+                <Text>Descuento por faltas/etc </Text>
+                <Text
+                  style={{
+                    fontSize: "8px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "bold",
+                  }}
+                >
+                  -{datos.descuento}
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  fontSize: "8px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "normal",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1px",
+                  borderBottom: "1px",
+                }}
+              >
+                <Text>Premios</Text>
+
+                {obsReal.map((d) => (
+                  <Text
+                    style={{
+                      fontSize: "8px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    + {d}
+                  </Text>
+                ))}
+              </View>
+
+              <View
+                style={{
+                  fontSize: "8px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "normal",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1px",
+                  borderBottom: "1px",
+                }}
+              >
+                <Text>Otros/Bancos/etc</Text>
+                <Text
+                  style={{
+                    fontSize: "8px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "bold",
+                  }}
+                >
+                  +{" "}
+                  {Number(datos.banco).toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  })}
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  fontSize: "8px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "normal",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1px",
+                  borderBottom: "1px",
+                }}
+              >
+                <Text>Monto quincena real</Text>
+                <Text
+                  style={{
+                    fontSize: "8px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {quincenaReal}
+                </Text>
+              </View>
+            </View>
+
             <Text
               style={{
                 marginTop: "10px",
@@ -583,7 +782,7 @@ export const ImprimirComprobante = ({ datos }) => {
                 width: "100%",
               }}
             >
-              Remuneracion <Text> {mensaje} </Text>
+              Remuneracion Final<Text> {mensaje} </Text>
             </Text>
           </View>
 
