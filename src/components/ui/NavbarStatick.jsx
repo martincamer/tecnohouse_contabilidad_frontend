@@ -7,7 +7,7 @@ export const NavbarStatick = () => {
   console.log(user);
 
   return (
-    <div className="absolute top-2 right-5 flex gap-2 items-start">
+    <div className="absolute top-2 right-5 flex gap-2 items-start z-[-1]">
       <p className="bg-indigo-500 py-1 px-4 rounded-lg shadow text-white">
         Usuario Logeado{" "}
         <span className="bg-slate-800 text-white py-[2px] px-2 rounded-lg capitalize">

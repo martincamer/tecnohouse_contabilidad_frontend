@@ -176,13 +176,10 @@ export const ImprimirComprobante = ({ datos }) => {
       datos.tipo_fabrica !== "administracion"
     ) {
       mensajes = [
-        `Comida Producción: ${Number(datos.comida_produccion).toLocaleString(
-          "es-AR",
-          {
-            style: "currency",
-            currency: "ARS",
-          }
-        )}`,
+        `Comida: ${Number(datos.comida_produccion).toLocaleString("es-AR", {
+          style: "currency",
+          currency: "ARS",
+        })}`,
       ];
     } else {
       mensajes = ["No hay quincena disponible para hoy."];
@@ -195,7 +192,10 @@ export const ImprimirComprobante = ({ datos }) => {
           style: "currency",
           currency: "ARS",
         }
-      )}`,
+      )}, Comida: ${Number(datos.comida_produccion).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      })}`,
     ];
   } else {
     mensajes = ["Tipo de pago no reconocido."];
@@ -227,13 +227,10 @@ export const ImprimirComprobante = ({ datos }) => {
       datos.tipo_fabrica !== "administracion"
     ) {
       obsReal = [
-        `Comida Producción: ${Number(datos.comida_produccion).toLocaleString(
-          "es-AR",
-          {
-            style: "currency",
-            currency: "ARS",
-          }
-        )}`,
+        `Comida: ${Number(datos.comida_produccion).toLocaleString("es-AR", {
+          style: "currency",
+          currency: "ARS",
+        })}`,
       ];
     } else {
       obsReal = ["No hay quincena disponible para hoy."];
@@ -246,7 +243,10 @@ export const ImprimirComprobante = ({ datos }) => {
           style: "currency",
           currency: "ARS",
         }
-      )}`,
+      )}, Comida: ${Number(datos.comida_produccion).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      })}`,
     ];
   } else {
     obsReal = ["Tipo de pago no reconocido."];
