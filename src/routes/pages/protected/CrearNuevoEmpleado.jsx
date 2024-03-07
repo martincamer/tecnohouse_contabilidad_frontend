@@ -29,6 +29,7 @@ export const CrearNuevoEmpleado = () => {
   const [setTotalFinal] = useState(0);
   const [tipo_fabrica, setTipoFabrica] = useState("");
   const [obs, setObs] = useState("");
+  const [otros, setOtros] = useState(0);
 
   const total_antiguedad =
     (Number(quincena_del_cinco) + Number(quincena_del_veinte)) *
@@ -40,6 +41,7 @@ export const CrearNuevoEmpleado = () => {
     Number(premio_asistencia) +
     Number(premio_produccion) +
     Number(total_antiguedad) -
+    Number(otros) -
     Number(descuento);
 
   const total_quincena_veinte =
@@ -66,6 +68,7 @@ export const CrearNuevoEmpleado = () => {
         premio_produccion,
         comida_produccion,
         descuento,
+        otros,
         total_quincena,
         total_quincena_veinte,
         total_final,
@@ -401,7 +404,7 @@ export const CrearNuevoEmpleado = () => {
                 className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
               >
                 <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                  Total Banco
+                  Otros / etc
                 </span>
                 <div className=" relative peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3">
                   <span className="absolute top-2 left-2 text-lg bg-white p-0.5 text-slate-500">
@@ -514,7 +517,31 @@ export const CrearNuevoEmpleado = () => {
             </div>
           </article>
 
-          <div className="w-1/3">
+          <div className="w-full flex gap-2">
+            <label
+              htmlFor=""
+              className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+            >
+              <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                Banco
+              </span>
+              <div className=" relative peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3">
+                <span className="absolute top-2 left-2 text-lg bg-white p-0.5 text-slate-500">
+                  $
+                </span>
+                <input
+                  value={otros}
+                  onChange={(e) => setOtros(e.target.value)}
+                  className="outline-none py-0 px-4 text-slate-600"
+                  type="text"
+                  id=""
+                />
+
+                <span className="absolute top-2 right-2 text-lg bg-white p-0.5 text-slate-500">
+                  ARS
+                </span>
+              </div>
+            </label>
             <label
               htmlFor=""
               className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"

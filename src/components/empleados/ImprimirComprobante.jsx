@@ -173,7 +173,7 @@ export const ImprimirComprobante = ({ datos }) => {
     } else if (
       hoyEsDia >= 11 &&
       hoyEsDia <= 31 &&
-      datos.tipo_fabrica === "aberturas"
+      datos.tipo_fabrica !== "administracion"
     ) {
       mensajes = [
         `Comida Producción: ${Number(datos.comida_produccion).toLocaleString(
@@ -187,6 +187,16 @@ export const ImprimirComprobante = ({ datos }) => {
     } else {
       mensajes = ["No hay quincena disponible para hoy."];
     }
+  } else if (tipoPago === "mensual") {
+    mensajes = [
+      `Premio Asistencia: ${Number(datos.premio_asistencia).toLocaleString(
+        "es-AR",
+        {
+          style: "currency",
+          currency: "ARS",
+        }
+      )}`,
+    ];
   } else {
     mensajes = ["Tipo de pago no reconocido."];
   }
@@ -196,14 +206,14 @@ export const ImprimirComprobante = ({ datos }) => {
   if (tipoPago === "quincenal") {
     if (hoyEsDia >= 1 && hoyEsDia <= 10) {
       obsReal = [
-        `Premio Producción ${Number(datos.premio_produccion).toLocaleString(
+        `Premio Producción: ${Number(datos.premio_produccion).toLocaleString(
           "es-AR",
           {
             style: "currency",
             currency: "ARS",
           }
         )}`,
-        `Premio Asistencia ${Number(datos.premio_asistencia).toLocaleString(
+        `Premio Asistencia: ${Number(datos.premio_asistencia).toLocaleString(
           "es-AR",
           {
             style: "currency",
@@ -214,10 +224,10 @@ export const ImprimirComprobante = ({ datos }) => {
     } else if (
       hoyEsDia >= 11 &&
       hoyEsDia <= 31 &&
-      datos.tipo_fabrica === "aberturas"
+      datos.tipo_fabrica !== "administracion"
     ) {
       obsReal = [
-        `Comida Producción ${Number(datos.comida_produccion).toLocaleString(
+        `Comida Producción: ${Number(datos.comida_produccion).toLocaleString(
           "es-AR",
           {
             style: "currency",
@@ -228,10 +238,19 @@ export const ImprimirComprobante = ({ datos }) => {
     } else {
       obsReal = ["No hay quincena disponible para hoy."];
     }
+  } else if (tipoPago === "mensual") {
+    obsReal = [
+      `Premio Asistencia: ${Number(datos.premio_asistencia).toLocaleString(
+        "es-AR",
+        {
+          style: "currency",
+          currency: "ARS",
+        }
+      )}`,
+    ];
   } else {
     obsReal = ["Tipo de pago no reconocido."];
   }
-
   const currentDay = new Date().getDate();
 
   const shouldShowAntiguedadRemunerada = currentDay >= 1 && currentDay <= 11;
@@ -347,7 +366,8 @@ export const ImprimirComprobante = ({ datos }) => {
                 style={{
                   display: "flex",
                   flexDirection: "row",
-                  backgroundColor: "#d1d1d1",
+                  backgroundColor: "#000",
+                  color: "white",
                   padding: "5px",
                 }}
               >
@@ -423,7 +443,7 @@ export const ImprimirComprobante = ({ datos }) => {
                     width: "100%",
                   }}
                 >
-                  {datos.antiguedad}
+                  {datos.antiguedad} años
                 </Text>
               </View>
             </View>
@@ -440,7 +460,8 @@ export const ImprimirComprobante = ({ datos }) => {
                 style={{
                   display: "flex",
                   flexDirection: "row",
-                  backgroundColor: "#d1d1d1",
+                  backgroundColor: "#000",
+                  color: "white",
                   padding: "5px",
                 }}
               >
@@ -533,7 +554,8 @@ export const ImprimirComprobante = ({ datos }) => {
                 style={{
                   display: "flex",
                   flexDirection: "row",
-                  backgroundColor: "#d1d1d1",
+                  backgroundColor: "#000",
+                  color: "white",
                   padding: "5px",
                 }}
               >
@@ -546,7 +568,7 @@ export const ImprimirComprobante = ({ datos }) => {
                     width: "100%",
                   }}
                 >
-                  Otros / Banco / Etc
+                  Otros / etc
                 </Text>
               </View>
 
@@ -588,8 +610,10 @@ export const ImprimirComprobante = ({ datos }) => {
                   marginBottom: "5px",
                 }}
               >
-                Descuento{" "}
-                {Number(datos.descuento).toLocaleString("es-AR", {
+                Descuento por faltas / banco{" "}
+                {Number(
+                  Number(datos.descuento) + Number(datos.otros)
+                ).toLocaleString("es-AR", {
                   style: "currency",
                   currency: "ARS",
                 })}{" "}
@@ -772,7 +796,36 @@ export const ImprimirComprobante = ({ datos }) => {
                   }}
                 >
                   +{" "}
-                  {Number(datos.banco).toLocaleString("es-AR", {
+                  {hoyEsDia >= 1 && hoyEsDia <= 10
+                    ? Number(datos.otros).toLocaleString("es-AR", {
+                        style: "currency",
+                        currency: "ARS",
+                      })
+                    : null}
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  fontSize: "8px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "normal",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1px",
+                  borderBottom: "1px",
+                }}
+              >
+                <Text>Descuentos Banco</Text>
+                <Text
+                  style={{
+                    fontSize: "8px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "bold",
+                  }}
+                >
+                  -{" "}
+                  {Number(datos.otros).toLocaleString("es-AR", {
                     style: "currency",
                     currency: "ARS",
                   })}
@@ -840,7 +893,7 @@ export const ImprimirComprobante = ({ datos }) => {
                   textAlign: "center",
                 }}
               >
-                Aclaracion del empleador
+                Aclaración del empleador / Firma
               </Text>
             </View>
 

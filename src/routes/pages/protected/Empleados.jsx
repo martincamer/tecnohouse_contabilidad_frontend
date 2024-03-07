@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { ModalCrearFabrica } from "../../../components/empleados/ModalCrearFabrica";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { ImprimirPdfEmpleados } from "../../../components/empleados/ImprimirPdfEmpleados";
+import { ImprimirComprobante } from "../../../components/empleados/ImprimirComprobante";
+import { obtenerUnicoEmpleado } from "../../../api/empleados.api";
 
 export const Empleados = () => {
   const { empleados, fabricas } = useEmpleadosContext();
@@ -107,6 +109,31 @@ export const Empleados = () => {
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
+
+  const [obtenerId, setObtenerId] = useState(null);
+  const [nuevosDatos, setNuevosDatos] = useState([]);
+  const [click, setClick] = useState(false);
+
+  const handleId = (id) => {
+    setObtenerId(id);
+  };
+
+  useEffect(() => {
+    if (obtenerId) {
+      // Aquí puedes realizar alguna lógica adicional con el nuevo ID
+      console.log("ID actualizado:", obtenerId);
+    }
+  }, [obtenerId]);
+
+  useEffect(() => {
+    async function loadData() {
+      const res = await obtenerUnicoEmpleado(obtenerId);
+
+      setNuevosDatos(res.data);
+    }
+
+    loadData();
+  }, []);
 
   return (
     <section className=" py-16 w-full h-full flex flex-col gap-5">
@@ -322,7 +349,7 @@ export const Empleados = () => {
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Antiguedad
                 </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
+                {/* <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Premio Asist.
                 </th>
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
@@ -330,7 +357,7 @@ export const Empleados = () => {
                 </th>
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Comida Prod.
-                </th>
+                </th> */}
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Desc.
                 </th>
@@ -342,6 +369,9 @@ export const Empleados = () => {
                 </th>
                 <th className="py-2 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Editar
+                </th>
+                <th className="py-2 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
+                  Descargar
                 </th>
               </tr>
             </thead>
@@ -385,7 +415,7 @@ export const Empleados = () => {
                       currency: "ARS",
                     })}
                   </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
+                  {/* <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
                     {Number(e.premio_asistencia).toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
@@ -402,7 +432,7 @@ export const Empleados = () => {
                       style: "currency",
                       currency: "ARS",
                     })}
-                  </td>
+                  </td> */}
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
                     {Number(e.descuento).toLocaleString("es-AR", {
                       style: "currency",
@@ -460,6 +490,19 @@ export const Empleados = () => {
                         />
                       </svg>
                     </Link>
+                  </td>
+
+                  <td className="py-3 px-3 flex text-sm text-left text-slate-700">
+                    {
+                      <PDFDownloadLink
+                        fileName="julio"
+                        document={<ImprimirComprobante datos={nuevosDatos} />}
+                        type="button"
+                        className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
+                      >
+                        descagar pdf
+                      </PDFDownloadLink>
+                    }
                   </td>
                   {/* 
                   <td className="py-3 px-3 text-sm text-left text-slate-700">

@@ -35,6 +35,7 @@ export const EditarEmpleado = () => {
   const [setTotalQuincenaVeinte] = useState(0);
   const [setTotalFinal] = useState(0);
   const [obs, setObs] = useState("");
+  const [otros, setOtros] = useState(0);
 
   const params = useParams();
 
@@ -64,8 +65,7 @@ export const EditarEmpleado = () => {
       setDescuento(empleadoData.descuento || 0);
       setTipoFabrica(empleadoData.tipo_fabrica || "");
       setObs(empleadoData.obs || "");
-
-      console.log("hola", res.data.fecha);
+      setOtros(empleadoData.otros || "");
     }
 
     loadData();
@@ -81,6 +81,7 @@ export const EditarEmpleado = () => {
     Number(premio_asistencia) +
     Number(premio_produccion) +
     Number(total_antiguedad) -
+    Number(otros) -
     Number(descuento);
 
   const total_quincena_veinte =
@@ -109,6 +110,7 @@ export const EditarEmpleado = () => {
         comida_produccion,
         descuento,
         obs,
+        otros,
         total_quincena,
         total_quincena_veinte,
         total_final,
@@ -142,6 +144,7 @@ export const EditarEmpleado = () => {
           total_quincena_veinte: updatedEmpleado.total_quincena_veinte,
           total_final: updatedEmpleado.total_final,
           obs: updatedEmpleado.obs,
+          otros: updatedEmpleado.otros,
         };
         return newTipos;
       });
@@ -614,13 +617,37 @@ export const EditarEmpleado = () => {
             </div>
           </article>
 
-          <div className="w-1/3">
+          <div className="w-full flex gap-2">
             <label
               htmlFor=""
               className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
             >
               <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                Descuentos
+                Banco
+              </span>
+              <div className=" relative peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3">
+                <span className="absolute top-2 left-2 text-lg bg-white p-0.5 text-slate-500">
+                  $
+                </span>
+                <input
+                  value={otros}
+                  onChange={(e) => setOtros(e.target.value)}
+                  className="outline-none py-0 px-4 text-slate-600"
+                  type="text"
+                  id=""
+                />
+
+                <span className="absolute top-2 right-2 text-lg bg-white p-0.5 text-slate-500">
+                  ARS
+                </span>
+              </div>
+            </label>
+            <label
+              htmlFor=""
+              className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+            >
+              <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                Descuentos / por falta / etc
               </span>
               <div className=" relative peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3">
                 <span className="absolute top-2 left-2 text-lg bg-white p-0.5 text-slate-500">

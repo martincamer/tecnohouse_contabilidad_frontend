@@ -12,7 +12,7 @@ export const ViewPdf = () => {
 
   useEffect(() => {
     async function loadData() {
-      const res = await obtenerUnicoEmpleado("12");
+      const res = await obtenerUnicoEmpleado("13");
 
       setDatos(res.data);
     }
