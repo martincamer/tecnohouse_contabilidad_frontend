@@ -544,7 +544,7 @@ export const Empleados = () => {
                       to={`/view-pdf/${e.id}`}
                       className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
                     >
-                      Descargar pdf
+                      Imprimir pdf
                     </Link>
                   </td>
                 </tr>
