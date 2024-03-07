@@ -10,9 +10,11 @@ import { obtenerUnicoEmpleado } from "../../api/empleados.api";
 export const ViewPdf = () => {
   const [datos, setDatos] = useState([]);
 
+  const params = useParams();
+
   useEffect(() => {
     async function loadData() {
-      const res = await obtenerUnicoEmpleado("13");
+      const res = await obtenerUnicoEmpleado(params.id);
 
       setDatos(res.data);
     }

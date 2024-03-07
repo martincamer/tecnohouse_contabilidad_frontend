@@ -69,7 +69,7 @@ function App() {
                 element={<GenerarRecibosEstadistica />}
               />
               <Route path="/cuenta" element={<Cuenta />} />
-              <Route path="/view-pdf" element={<ViewPdf />} />
+              <Route path="/view-pdf/:id" element={<ViewPdf />} />
               <Route path="/view-ingreso/:id" element={<ViewIngreso />} />
               <Route path="/empleados" element={<Empleados />} />
               <Route path="/empleado-nuevo" element={<CrearNuevoEmpleado />} />

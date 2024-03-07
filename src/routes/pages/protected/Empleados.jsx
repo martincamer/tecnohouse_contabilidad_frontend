@@ -135,6 +135,32 @@ export const Empleados = () => {
     loadData();
   }, []);
 
+  const [descargando, setDescargando] = useState(false);
+
+  const handleDescarga = () => {
+    setDescargando(true);
+
+    // Simula un retraso de 10 segundos antes de iniciar la descarga
+    setTimeout(() => {
+      // Aquí podrías realizar cualquier lógica adicional antes de la descarga, si es necesario
+      // ...
+
+      // Inicia la descarga
+      descargarArchivo();
+    }, 10000);
+  };
+
+  const descargarArchivo = () => {
+    // Simula un retraso adicional de 10 segundos antes de completar la descarga
+    setTimeout(() => {
+      // Aquí podrías realizar cualquier lógica adicional después de la descarga, si es necesario
+      // ...
+
+      // Limpia el estado de descargando
+      setDescargando(false);
+    }, 10000);
+  };
+
   return (
     <section className=" py-16 w-full h-full flex flex-col gap-5">
       <Link
@@ -362,6 +388,12 @@ export const Empleados = () => {
                   Desc.
                 </th>
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
+                  Banco
+                </th>
+                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
+                  Otros
+                </th>
+                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Total Final
                 </th>
                 <th className="py-2 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
@@ -434,7 +466,22 @@ export const Empleados = () => {
                     })}
                   </td> */}
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
+                    -{" "}
                     {Number(e.descuento).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}
+                  </td>
+                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
+                    -{" "}
+                    {Number(e.otros).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}
+                  </td>
+                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
+                    +{" "}
+                    {Number(e.banco).toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     })}
@@ -493,40 +540,13 @@ export const Empleados = () => {
                   </td>
 
                   <td className="py-3 px-3 flex text-sm text-left text-slate-700">
-                    {
-                      <PDFDownloadLink
-                        fileName="julio"
-                        document={<ImprimirComprobante datos={nuevosDatos} />}
-                        type="button"
-                        className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
-                      >
-                        descagar pdf
-                      </PDFDownloadLink>
-                    }
-                  </td>
-                  {/* 
-                  <td className="py-3 px-3 text-sm text-left text-slate-700">
-                    <button
-                      type="button"
-                      className="bg-red-500/10 border-[1px] border-red-500 py-1 px-3 rounded-lg text-left text-red-700 flex gap-2 items-center"
+                    <Link
+                      to={`/view-pdf/${e.id}`}
+                      className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
                     >
-                      Eliminar
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-4 h-4"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                        />
-                      </svg>
-                    </button>
-                  </td> */}
+                      Descargar pdf
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>
