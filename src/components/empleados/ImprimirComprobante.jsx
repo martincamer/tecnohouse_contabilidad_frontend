@@ -820,18 +820,18 @@ export const ImprimirComprobante = ({ datos }) => {
           <View
             style={{
               borderWidth: "0.8px",
-              borderColor: "#d1d1d1",
+              borderColor: "#000",
               borderStyle: "solid",
             }}
           >
             <View
               style={{
-                backgroundColor: "#d1d1d1",
+                backgroundColor: "#000",
               }}
             >
               <Text
                 style={{
-                  color: "#000",
+                  color: "white",
                   textTransform: "capitalize",
                   fontSize: "9px",
                   fontFamily: "Montserrat",
