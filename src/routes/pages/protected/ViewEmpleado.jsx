@@ -167,7 +167,7 @@ export const ViewEmpleado = () => {
             <div>
               <strong className="block text-sm font-medium text-gray-500">
                 {" "}
-                Neto a cobrar quincena del 5{" "}
+                Neto a a cobrar el 5{" "}
               </strong>
 
               <p>
@@ -191,55 +191,60 @@ export const ViewEmpleado = () => {
             </div>
           </article>
 
-          <article className="flex flex-col gap-4 rounded-lg border border-slate-300 bg-white p-6">
-            <div className="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                />
-              </svg>
+          {datos.tipo !== "mensual" && (
+            <article className="flex flex-col gap-4 rounded-lg border border-slate-300 bg-white p-6">
+              <div className="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                  />
+                </svg>
 
-              <span className="text-xs font-medium">
-                {" "}
-                {datos.total_quincena_veinte}%{" "}
-              </span>
-            </div>
-
-            <div>
-              <strong className="block text-sm font-medium text-gray-500">
-                {" "}
-                Neto a cobrar quincena del 20{" "}
-              </strong>
-
-              <p>
-                <span className="text-2xl font-medium text-gray-900">
+                <span className="text-xs font-medium">
                   {" "}
-                  {Number(datos.total_quincena_veinte).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
+                  {datos.total_quincena_veinte}%{" "}
                 </span>
+              </div>
 
-                <span className="text-xs text-gray-500">
+              <div>
+                <strong className="block text-sm font-medium text-gray-500">
                   {" "}
-                  +
-                  {Number(totalSumadoTwo).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}{" "}
-                </span>
-              </p>
-            </div>
-          </article>
+                  Neto a cobrar el 20{" "}
+                </strong>
+
+                <p>
+                  <span className="text-2xl font-medium text-gray-900">
+                    {" "}
+                    {Number(datos.total_quincena_veinte).toLocaleString(
+                      "es-AR",
+                      {
+                        style: "currency",
+                        currency: "ARS",
+                      }
+                    )}
+                  </span>
+
+                  <span className="text-xs text-gray-500">
+                    {" "}
+                    +
+                    {Number(totalSumadoTwo).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}{" "}
+                  </span>
+                </p>
+              </div>
+            </article>
+          )}
 
           <article className="flex flex-col gap-4 rounded-lg border border-slate-300 bg-white p-6">
             <div className="inline-flex gap-2 self-end rounded bg-indigo-100 p-1 text-indigo-600">
@@ -423,26 +428,34 @@ export const ViewEmpleado = () => {
               </p>
             </div>
 
-            <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">
-                Premio produccion
-              </p>
-              <p className="capitalize text-slate-700">
-                {datos.tipo_fabrica !== "administracion" &&
-                datos.tipo_fabrica !== "gerencia" &&
-                datos.tipo_fabrica !== "clubes" ? (
-                  <p>
-                    +
-                    {Number(datos.premio_produccion).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
+            {datos.tipo_fabrica !== "administracion" &&
+              datos.tipo_fabrica !== "clubes" && (
+                <div className="flex gap-2">
+                  <p className="capitalize text-slate-700 font-bold">
+                    {datos.tipo_fabrica !== "administracion" &&
+                      datos.tipo_fabrica !== "clubes" &&
+                      "Premio produccion"}
                   </p>
-                ) : (
-                  ""
-                )}
-              </p>
-            </div>
+                  <p className="capitalize text-slate-700">
+                    {datos.tipo_fabrica !== "administracion" &&
+                    datos.tipo_fabrica !== "gerencia" &&
+                    datos.tipo_fabrica !== "clubes" ? (
+                      <p>
+                        +
+                        {Number(datos.premio_produccion).toLocaleString(
+                          "es-AR",
+                          {
+                            style: "currency",
+                            currency: "ARS",
+                          }
+                        )}
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </p>
+                </div>
+              )}
 
             <div className="flex gap-2">
               <p className="capitalize text-slate-700 font-bold">Comida</p>

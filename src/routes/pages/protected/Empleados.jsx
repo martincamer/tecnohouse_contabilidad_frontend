@@ -367,10 +367,10 @@ export const Empleados = () => {
                   Sucrsal o Fabr.
                 </th>
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Quincena 5
+                  mes 5
                 </th>
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Quincena 20
+                  mes 20
                 </th>
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Antiguedad
@@ -435,10 +435,11 @@ export const Empleados = () => {
                     })}
                   </td>
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {Number(e.total_quincena_veinte).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
+                    {e.tipo !== "mensual" &&
+                      Number(e.total_quincena_veinte).toLocaleString("es-AR", {
+                        style: "currency",
+                        currency: "ARS",
+                      })}
                   </td>
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
                     {/* Mostrar el total de antigüedad para el empleado actual */}
