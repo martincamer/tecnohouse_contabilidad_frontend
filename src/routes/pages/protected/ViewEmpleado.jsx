@@ -139,7 +139,7 @@ export const ViewEmpleado = () => {
         </svg>
         VOLVER
       </Link>
-      <div className="h-screen">
+      <div className="h-full">
         <div className="border-[1px] py-10 px-10 border-slate-300 shadow rounded-xl grid grid-cols-4 gap-3">
           <article className="flex flex-col gap-4 rounded-lg border border-slate-300 bg-white p-6">
             <div className="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
@@ -372,6 +372,84 @@ export const ViewEmpleado = () => {
               <p className="capitalize text-slate-700 font-bold">Antiguedad</p>
               <p className="capitalize text-slate-700">
                 {datos.antiguedad} Años
+              </p>
+            </div>
+
+            <div className="flex gap-2">
+              <p className="capitalize text-slate-700 font-bold">Banco</p>
+              <p className="capitalize text-slate-700">
+                {" "}
+                -
+                {Number(datos.otros).toLocaleString("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                })}
+              </p>
+            </div>
+
+            <div className="flex gap-2">
+              <p className="capitalize text-slate-700 font-bold">Descuentos</p>
+              <p className="capitalize text-slate-700">
+                {" "}
+                -{" "}
+                {Number(datos.descuento).toLocaleString("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                })}
+              </p>
+            </div>
+
+            <div className="flex gap-2">
+              <p className="capitalize text-slate-700 font-bold">Otros</p>
+              <p className="capitalize text-slate-700">
+                {" "}
+                {Number(datos.banco).toLocaleString("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                })}
+              </p>
+            </div>
+
+            <div className="flex gap-2">
+              <p className="capitalize text-slate-700 font-bold">Produccion</p>
+              <p className="capitalize text-slate-700">
+                {datos.tipo_fabrica !== "administracion" &&
+                datos.tipo_fabrica !== "gerencia" &&
+                datos.tipo_fabrica !== "clubes" ? (
+                  <p>
+                    +
+                    {Number(datos.premio_produccion).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}
+                  </p>
+                ) : (
+                  ""
+                )}
+              </p>
+            </div>
+
+            <div className="flex gap-2">
+              <p className="capitalize text-slate-700 font-bold">Comida</p>
+              <p className="capitalize text-slate-700">
+                +
+                {Number(datos.comida_produccion).toLocaleString("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                })}
+              </p>
+            </div>
+
+            <div className="flex gap-2">
+              <p className="capitalize text-slate-700 font-bold">
+                Premio producción
+              </p>
+              <p className="capitalize text-slate-700">
+                +
+                {Number(datos.premio_produccion).toLocaleString("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                })}
               </p>
             </div>
 
