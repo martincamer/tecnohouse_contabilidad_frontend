@@ -599,7 +599,7 @@ export const ImprimirComprobante = ({ datos }) => {
           </View>
 
           <View>
-            {datos.descuento > 0 && (
+            {datos.descuento && datos.otros > 0 && (
               <Text
                 style={{
                   textTransform: "capitalize",
@@ -620,7 +620,7 @@ export const ImprimirComprobante = ({ datos }) => {
               </Text>
             )}
 
-            {datos.descuento > 0 && (
+            {datos.descuento && datos.otros > 0 && (
               <Text
                 style={{
                   fontSize: "8px",
@@ -630,7 +630,7 @@ export const ImprimirComprobante = ({ datos }) => {
                   marginBottom: "5px",
                 }}
               >
-                Observación por faltas o descuento:{" "}
+                Observación por descuentos:{" "}
                 <Text
                   style={{
                     fontSize: "8px",
