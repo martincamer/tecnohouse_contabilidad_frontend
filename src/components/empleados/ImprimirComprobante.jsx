@@ -899,7 +899,7 @@ export const ImprimirComprobante = ({ datos }) => {
 
             <View
               style={{
-                padding: "20px",
+                padding: "35px 50px",
               }}
             ></View>
           </View>

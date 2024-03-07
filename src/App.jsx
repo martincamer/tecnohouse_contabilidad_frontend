@@ -26,6 +26,7 @@ import { EmpleadosProvider } from "./context/EmpleadosProvider";
 import { CrearNuevoEmpleado } from "./routes/pages/protected/CrearNuevoEmpleado";
 import { EditarEmpleado } from "./routes/pages/protected/EditarEmpleado";
 import { ViewEmpleado } from "./routes/pages/protected/ViewEmpleado";
+import { ViewPdfTwo } from "./components/pdf/ViewPdfTwo";
 
 function App() {
   const { isAuth } = useAuth();
@@ -70,7 +71,9 @@ function App() {
               />
               <Route path="/cuenta" element={<Cuenta />} />
               <Route path="/view-pdf/:id" element={<ViewPdf />} />
+              <Route path="/view-pdf/app" element={<ViewPdfTwo />} />
               <Route path="/view-ingreso/:id" element={<ViewIngreso />} />
+
               <Route path="/empleados" element={<Empleados />} />
               <Route path="/empleado-nuevo" element={<CrearNuevoEmpleado />} />
               <Route path="/editar-empleado/:id" element={<EditarEmpleado />} />
