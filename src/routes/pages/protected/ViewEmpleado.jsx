@@ -374,9 +374,36 @@ export const ViewEmpleado = () => {
                 {datos.antiguedad} Años
               </p>
             </div>
+
             <div className="flex gap-2">
               <p className="capitalize text-slate-700 font-bold">
-                Quincena del 5
+                Quincena del 5 sin descuentos y producción,etc.
+              </p>
+              <p className="capitalize text-slate-700">
+                {" "}
+                {Number(datos.quincena_del_cinco).toLocaleString("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                })}
+              </p>
+            </div>
+
+            <div className="flex gap-2">
+              <p className="capitalize text-slate-700 font-bold">
+                Quincena del 20 sin descuentos, produccion,etc.
+              </p>
+              <p className="capitalize text-slate-700">
+                {" "}
+                {Number(datos.quincena_del_veinte).toLocaleString("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                })}
+              </p>
+            </div>
+
+            <div className="flex gap-2">
+              <p className="capitalize text-slate-700 font-bold">
+                Quincena del 5 total
               </p>
               <p className="capitalize text-slate-700">
                 {" "}
@@ -389,7 +416,7 @@ export const ViewEmpleado = () => {
 
             <div className="flex gap-2">
               <p className="capitalize text-slate-700 font-bold">
-                Quincena del 20
+                Quincena del 20 total
               </p>
               <p className="capitalize text-slate-700">
                 {" "}
