@@ -140,14 +140,15 @@ export const ImprimirComprobantes = ({ datos }) => {
         style: "currency",
         currency: "ARS",
       })} ${
-        tipo_fabrica === "gerencia" &&
-        `, Premio Producción: ${Number(premio_produccion).toLocaleString(
-          "es-AR",
-          {
-            style: "currency",
-            currency: "ARS",
-          }
-        )}`
+        tipo_fabrica === "gerencia"
+          ? `, Premio Producción: ${Number(premio_produccion).toLocaleString(
+              "es-AR",
+              {
+                style: "currency",
+                currency: "ARS",
+              }
+            )}`
+          : ""
       }`,
     ];
   } else {
@@ -197,14 +198,15 @@ export const ImprimirComprobantes = ({ datos }) => {
         style: "currency",
         currency: "ARS",
       })}  ${
-        tipo_fabrica === "gerencia" &&
-        `, Premio Producción: ${Number(premio_produccion).toLocaleString(
-          "es-AR",
-          {
-            style: "currency",
-            currency: "ARS",
-          }
-        )}`
+        tipo_fabrica === "gerencia"
+          ? `, Premio Producción: ${Number(premio_produccion).toLocaleString(
+              "es-AR",
+              {
+                style: "currency",
+                currency: "ARS",
+              }
+            )}`
+          : ""
       }`,
     ];
   } else {
