@@ -307,7 +307,7 @@ export const ImprimirComprobante = ({ datos }) => {
                   fontWeight: "bold",
                 }}
               >
-                Pago de aberes - Comprobante
+                Pago de haberes - Comprobante
               </Text>
               <Text
                 style={{
