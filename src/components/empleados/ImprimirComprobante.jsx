@@ -142,7 +142,7 @@ export const ImprimirComprobante = ({ datos }) => {
       quincenaReal = "No hay quincena disponible para hoy.";
     }
   } else if (tipoPago === "mensual") {
-    quincenaReal = Number(datos.total_final).toLocaleString("es-AR", {
+    quincenaReal = Number(datos.quincena_del_cinco).toLocaleString("es-AR", {
       style: "currency",
       currency: "ARS",
     });
@@ -843,7 +843,7 @@ export const ImprimirComprobante = ({ datos }) => {
                   borderBottom: "1px",
                 }}
               >
-                <Text>Monto quincena real</Text>
+                <Text>Monto</Text>
                 <Text
                   style={{
                     fontSize: "8px",

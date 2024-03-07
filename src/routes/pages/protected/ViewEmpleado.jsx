@@ -411,7 +411,22 @@ export const ViewEmpleado = () => {
             </div>
 
             <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">Produccion</p>
+              <p className="capitalize text-slate-700 font-bold">
+                Premio asistencia
+              </p>
+              <p className="capitalize text-slate-700">
+                +
+                {Number(datos.premio_asistencia).toLocaleString("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                })}
+              </p>
+            </div>
+
+            <div className="flex gap-2">
+              <p className="capitalize text-slate-700 font-bold">
+                Premio produccion
+              </p>
               <p className="capitalize text-slate-700">
                 {datos.tipo_fabrica !== "administracion" &&
                 datos.tipo_fabrica !== "gerencia" &&
@@ -434,19 +449,6 @@ export const ViewEmpleado = () => {
               <p className="capitalize text-slate-700">
                 +
                 {Number(datos.comida_produccion).toLocaleString("es-AR", {
-                  style: "currency",
-                  currency: "ARS",
-                })}
-              </p>
-            </div>
-
-            <div className="flex gap-2">
-              <p className="capitalize text-slate-700 font-bold">
-                Premio producción
-              </p>
-              <p className="capitalize text-slate-700">
-                +
-                {Number(datos.premio_produccion).toLocaleString("es-AR", {
                   style: "currency",
                   currency: "ARS",
                 })}
