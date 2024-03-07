@@ -232,7 +232,9 @@ export const ImprimirComprobante = ({ datos }) => {
     obsReal = ["Tipo de pago no reconocido."];
   }
 
-  console.log(obsReal);
+  const currentDay = new Date().getDate();
+
+  const shouldShowAntiguedadRemunerada = currentDay >= 1 && currentDay <= 11;
 
   return (
     <Document>
@@ -720,6 +722,35 @@ export const ImprimirComprobante = ({ datos }) => {
                   </Text>
                 ))}
               </View>
+
+              {shouldShowAntiguedadRemunerada && (
+                <View
+                  style={{
+                    fontSize: "8px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "normal",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1px",
+                    borderBottom: "1px",
+                  }}
+                >
+                  <Text>Antiguedad remunerada</Text>
+                  <Text
+                    style={{
+                      fontSize: "8px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    +{" "}
+                    {Number(datos.total_antiguedad).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}
+                  </Text>
+                </View>
+              )}
 
               <View
                 style={{
