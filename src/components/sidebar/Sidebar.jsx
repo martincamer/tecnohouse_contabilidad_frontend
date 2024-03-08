@@ -49,7 +49,7 @@ export const SideBar = () => {
                 </a>
               </div>
 
-              <ul className="space-y-1 border-t border-slate-300 pt-4">
+              <ul className="space-y-1 flex flex-col border-t border-slate-300 pt-4">
                 <Link to={"/"}>
                   <a
                     href="#"
