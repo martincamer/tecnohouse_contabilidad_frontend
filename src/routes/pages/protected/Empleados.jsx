@@ -123,9 +123,13 @@ export const Empleados = () => {
   };
 
   const handleSubmit = async () => {
-    // Send a POST request to the "/empleados-datos" endpoint
     try {
-      const response = await guardarDatosEmpleado({ datos: empleados });
+      const response = await client.post("/empleados-datos", {
+        datos: empleados,
+      });
+      // Handle the response as needed
+
+      console.log(response);
     } catch (error) {
       console.log(error.response);
     }
