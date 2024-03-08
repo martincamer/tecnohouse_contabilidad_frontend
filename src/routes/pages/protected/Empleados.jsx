@@ -111,20 +111,7 @@ export const Empleados = () => {
     setCurrentPage(newPage);
   };
 
-  const [obtenerId, setObtenerId] = useState(null);
   const [nuevosDatos, setNuevosDatos] = useState([]);
-  const [click, setClick] = useState(false);
-
-  const handleId = (id) => {
-    setObtenerId(id);
-  };
-
-  useEffect(() => {
-    if (obtenerId) {
-      // Aquí puedes realizar alguna lógica adicional con el nuevo ID
-      console.log("ID actualizado:", obtenerId);
-    }
-  }, [obtenerId]);
 
   useEffect(() => {
     async function loadData() {
@@ -135,32 +122,6 @@ export const Empleados = () => {
 
     loadData();
   }, []);
-
-  const [descargando, setDescargando] = useState(false);
-
-  const handleDescarga = () => {
-    setDescargando(true);
-
-    // Simula un retraso de 10 segundos antes de iniciar la descarga
-    setTimeout(() => {
-      // Aquí podrías realizar cualquier lógica adicional antes de la descarga, si es necesario
-      // ...
-
-      // Inicia la descarga
-      descargarArchivo();
-    }, 10000);
-  };
-
-  const descargarArchivo = () => {
-    // Simula un retraso adicional de 10 segundos antes de completar la descarga
-    setTimeout(() => {
-      // Aquí podrías realizar cualquier lógica adicional después de la descarga, si es necesario
-      // ...
-
-      // Limpia el estado de descargando
-      setDescargando(false);
-    }, 10000);
-  };
 
   return (
     <section className=" py-16 w-full h-full flex flex-col gap-5">
