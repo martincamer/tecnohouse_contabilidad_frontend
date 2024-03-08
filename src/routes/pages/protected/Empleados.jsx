@@ -45,6 +45,19 @@ export const Empleados = () => {
     return acumulador + parseFloat(empleado?.total_final);
   }, 0);
 
+  const totalFinalQuincenaCinco = resultados?.reduce((acumulador, empleado) => {
+    // Convertir el valor de total_final a número y sumarlo al acumulador
+    return acumulador + parseFloat(empleado?.total_quincena);
+  }, 0);
+
+  const totalFinalQuincenaVeinte = resultados?.reduce(
+    (acumulador, empleado) => {
+      // Convertir el valor de total_final a número y sumarlo al acumulador
+      return acumulador + parseFloat(empleado?.total_quincena_veinte);
+    },
+    0
+  );
+
   // Crear un conjunto para almacenar tipos de fábrica únicos
   const tiposFabricaUnicos = new Set(
     empleados.map((empleado) => empleado.tipo_fabrica)
@@ -155,6 +168,26 @@ export const Empleados = () => {
           </div>
 
           <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
+            <p className="text-indigo-500 text-sm">Total quincena 5</p>
+            <p className="text-slate-700 text-sm font-semibold">
+              {Number(totalFinalQuincenaCinco).toLocaleString("es-AR", {
+                style: "currency",
+                currency: "ARS",
+              })}
+            </p>
+          </div>
+
+          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
+            <p className="text-indigo-500 text-sm">Total quincena 20</p>
+            <p className="text-slate-700 text-sm font-semibold">
+              {Number(totalFinalQuincenaVeinte).toLocaleString("es-AR", {
+                style: "currency",
+                currency: "ARS",
+              })}
+            </p>
+          </div>
+
+          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
             <p className="text-indigo-500 text-sm">Total a pagar</p>
             <p className="text-slate-700 text-sm font-semibold">
               {Number(totalFinalSum).toLocaleString("es-AR", {
@@ -164,7 +197,7 @@ export const Empleados = () => {
             </p>
           </div>
 
-          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
+          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full">
             <p className="text-indigo-500 text-sm">Total fabricas cargadas</p>
             <p className="text-slate-700 text-sm font-semibold">
               {fabricas.length}
