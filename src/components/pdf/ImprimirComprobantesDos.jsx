@@ -825,7 +825,6 @@ export const ImprimirComprobantes = ({ datos }) => {
           </Text>
         </View>
 
-        {/* Employer clarification / signature section */}
         <View
           style={{
             borderWidth: "0.8px",
@@ -849,28 +848,15 @@ export const ImprimirComprobantes = ({ datos }) => {
                 textAlign: "center",
               }}
             >
-              Empleador
+              Aclaración del empleador / Firma
             </Text>
           </View>
 
           <View
             style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
+              padding: "35px 50px",
             }}
-          >
-            <Text
-              style={{
-                fontSize: "9px",
-                fontFamily: "Montserrat",
-                fontWeight: "bold",
-              }}
-            >
-              Firma y aclaracion
-            </Text>
-          </View>
+          ></View>
         </View>
       </View>
     </View>
