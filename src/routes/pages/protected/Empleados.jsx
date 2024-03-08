@@ -2,12 +2,9 @@ import { Link } from "react-router-dom";
 import { useEmpleadosContext } from "../../../context/EmpleadosProvider";
 import { useEffect, useState } from "react";
 import { ModalCrearFabrica } from "../../../components/empleados/ModalCrearFabrica";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { ImprimirPdfEmpleados } from "../../../components/empleados/ImprimirPdfEmpleados";
-import { ImprimirComprobante } from "../../../components/empleados/ImprimirComprobante";
-import { obtenerUnicoEmpleado } from "../../../api/empleados.api";
-import { ImprimirComprobanteDos } from "../../../components/pdf/ImprimirComprobantesDos";
+
 import client from "../../../api/axios";
+import { guardarDatosEmpleado } from "../../../api/createDatos";
 
 export const Empleados = () => {
   const { empleados, fabricas } = useEmpleadosContext();
@@ -127,11 +124,11 @@ export const Empleados = () => {
 
   const handleSubmit = async () => {
     // Send a POST request to the "/empleados-datos" endpoint
-    const response = await client.post("/empleados-datos", {
-      datos: empleados,
-    });
-
-    console.log(response);
+    try {
+      const response = await guardarDatosEmpleado({ datos: empleados });
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   return (
