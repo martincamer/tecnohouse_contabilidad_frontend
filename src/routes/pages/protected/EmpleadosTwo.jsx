@@ -1,14 +1,12 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useEmpleadosContext } from "../../../context/EmpleadosProvider";
-import { useEffect, useState } from "react";
 import { ModalCrearFabrica } from "../../../components/empleados/ModalCrearFabrica";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { ImprimirPdfEmpleados } from "../../../components/empleados/ImprimirPdfEmpleados";
-import { ImprimirComprobante } from "../../../components/empleados/ImprimirComprobante";
-import { obtenerUnicoEmpleado } from "../../../api/empleados.api";
 import { ImprimirComprobanteDos } from "../../../components/pdf/ImprimirComprobantesDos";
 
-export const Empleados = () => {
+export const EmpleadosTwo = () => {
   const { empleados, fabricas } = useEmpleadosContext();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +32,7 @@ export const Empleados = () => {
         .includes(busqueda.toLowerCase());
       const cumpleFiltro =
         !filtroFabrica || empleado.tipo_fabrica === filtroFabrica;
-      return cumpleBusqueda && cumpleFiltro;
+      return cumpleBusqueda && cumpleFiltro && [];
     });
 
     setResultados(empleadosFiltrados);
@@ -124,10 +122,35 @@ export const Empleados = () => {
     setCurrentPage(newPage);
   };
 
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const [dataLoadedTwo, setDataLoadedTwo] = useState(false);
+
+  const downloadRef = useRef(false);
+
+  const handleLoadData = () => {
+    // Simulate data loading (replace with your actual logic)
+    setTimeout(() => {
+      setDataLoaded(true);
+      downloadRef.current = true;
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (downloadRef.current) {
+      setDataLoaded(false);
+      downloadRef.current = false;
+    }
+  }, [resultados]);
+
+  const handleLoadDataTwo = () => {
+    // Simulate data loading (replace with your actual logic)
+    setTimeout(() => setDataLoadedTwo(true), 3000);
+  };
+
   return (
     <section className=" py-16 w-full h-full flex flex-col gap-5">
       <Link
-        to={"/"}
+        to={"/empleados"}
         className="px-10 absolute flex top-4 text-sm font-bold text-indigo-500 gap-2 items-center"
       >
         <svg
@@ -144,9 +167,9 @@ export const Empleados = () => {
             d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
           />
         </svg>
-        VOLVER
+        VOLVER A EMPLEADOS
       </Link>
-      <div className="px-10">
+      {/* <div className="px-10">
         <div className=" bg-white w-full border-[1px] border-slate-300 shadow-sm shadow rounded-xl flex gap-4 items-center justify-center">
           <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
             <p className="text-indigo-500 text-sm">Total empleados cargados</p>
@@ -192,10 +215,10 @@ export const Empleados = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="px-10">
         <div className="bg-white w-full py-4 px-6 border-[1px] border-slate-300 shadow-md rounded-lg flex gap-4">
-          <div>
+          {/* <div>
             <button
               className="bg-indigo-500 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
               type="button"
@@ -240,43 +263,40 @@ export const Empleados = () => {
                 />
               </svg>
             </button>
-          </div>
+          </div> */}
 
           <div>
             <button
               className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
               type="button"
             >
-              <Link to={"/empleados-comprobantes"}>
-                Ir a pagina comprobantes
-              </Link>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
+              {/* <PDFDownloadLink
+                fileName={`Resumen empleados ${tiposFabricaUnicosArray.map(
+                  (tipo) => tipo
+                )} - fecha_${fechaFormateada}`}
+                document={<ImprimirPdfEmpleados empleados={resultados} />}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </button>
-          </div>
-          {/* 
-          <div>
-            <button
-              className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
-              type="button"
-            >
-              <PDFDownloadLink
-                document={<ImprimirComprobanteDos datos={resultados} />}
-              >
-                Descargar comprobantes
-              </PDFDownloadLink>
+                Imprimir los datos
+              </PDFDownloadLink> */}
+
+              <div>
+                {!dataLoaded && (
+                  <button onClick={handleLoadData}>
+                    Descargar todo el resumen
+                  </button>
+                )}
+                {dataLoaded && (
+                  <PDFDownloadLink
+                    fileName={`Resumen empleados ${tiposFabricaUnicosArray.map(
+                      (tipo) => tipo
+                    )} - fecha_${fechaFormateada}`}
+                    document={<ImprimirPdfEmpleados empleados={resultados} />}
+                    download={() => setDataLoaded(false)}
+                  >
+                    Hacer click para descargar..
+                  </PDFDownloadLink>
+                )}
+              </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -292,7 +312,44 @@ export const Empleados = () => {
                 />
               </svg>
             </button>
-          </div> */}
+          </div>
+
+          <div>
+            <button
+              className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
+              type="button"
+            >
+              <div>
+                {!dataLoadedTwo && (
+                  <button onClick={handleLoadDataTwo}>
+                    Descargar comprobantes..
+                  </button>
+                )}
+                {dataLoadedTwo && (
+                  <PDFDownloadLink
+                    document={<ImprimirComprobanteDos datos={resultados} />}
+                    download={() => setDataLoadedTwo(false)}
+                  >
+                    Hacer click.
+                  </PDFDownloadLink>
+                )}
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
       <div className="flex gap-16 items-center px-10">
@@ -401,7 +458,7 @@ export const Empleados = () => {
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Total Final
                 </th>
-                <th className="py-2 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
+                {/* <th className="py-2 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Ver
                 </th>
                 <th className="py-2 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
@@ -409,7 +466,7 @@ export const Empleados = () => {
                 </th>
                 <th className="py-2 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Descargar
-                </th>
+                </th> */}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 text-left">
@@ -498,7 +555,7 @@ export const Empleados = () => {
                       currency: "ARS",
                     })}
                   </td>
-
+                  {/* 
                   <td className="py-3 px-3 text-sm text-left text-slate-700 flex items-start">
                     <Link
                       to={`/empleados/${e.id}`}
@@ -553,7 +610,7 @@ export const Empleados = () => {
                     >
                       Imprimir pdf
                     </Link>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

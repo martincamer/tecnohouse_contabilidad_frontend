@@ -28,6 +28,7 @@ import RutaProtegida from "./layouts/RutaProtejida";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import { ViewPdfPruebas } from "./components/pdf/ViewPdfPruebas";
+import { EmpleadosTwo } from "./routes/pages/protected/EmpleadosTwo";
 
 function App() {
   const { isAuth } = useAuth();
@@ -77,6 +78,10 @@ function App() {
               <Route path="/view-ingreso/:id" element={<ViewIngreso />} />
 
               <Route path="/empleados" element={<Empleados />} />
+              <Route
+                path="/empleados-comprobantes"
+                element={<EmpleadosTwo />}
+              />
               <Route path="/empleado-nuevo" element={<CrearNuevoEmpleado />} />
               <Route path="/editar-empleado/:id" element={<EditarEmpleado />} />
               <Route path="/empleados/:id" element={<ViewEmpleado />} />
