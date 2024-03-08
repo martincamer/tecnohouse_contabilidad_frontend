@@ -384,134 +384,31 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                         </Text>
                       </View>
 
-                      <View
+                      <Text
                         style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          gap: "8px",
+                          fontSize: "8px",
+                          fontWeight: "bold",
+                          fontFamily: "Montserrat",
                         }}
                       >
+                        Premio Asistencia{"  "}
                         <Text
                           style={{
                             fontSize: "8px",
-                            fontWeight: "bold",
+                            fontWeight: "normal",
+                            textTransform: "capitalize",
                             fontFamily: "Montserrat",
                           }}
                         >
-                          Premio Asistencia{"  "}
-                          <Text
-                            style={{
-                              fontSize: "8px",
-                              fontWeight: "normal",
-                              textTransform: "capitalize",
-                              fontFamily: "Montserrat",
-                            }}
-                          >
-                            {Number(e.premio_asistencia).toLocaleString(
-                              "es-AR",
-                              {
-                                style: "currency",
-                                currency: "ARS",
-                              }
-                            )}
-                          </Text>
+                          {Number(e.premio_asistencia).toLocaleString("es-AR", {
+                            style: "currency",
+                            currency: "ARS",
+                          })}
                         </Text>
+                      </Text>
 
-                        <React.Fragment>
-                          {e.tipo_fabrica !== "administracion" && (
-                            <Text
-                              style={{
-                                fontSize: "8px",
-                                fontWeight: "bold",
-                                fontFamily: "Montserrat",
-                              }}
-                            >
-                              Premio producción{" "}
-                              <Text
-                                style={{
-                                  fontSize: "8px",
-                                  fontWeight: "normal",
-                                  textTransform: "capitalize",
-                                  fontFamily: "Montserrat",
-                                }}
-                              >
-                                {Number(e.premio_produccion).toLocaleString(
-                                  "es-AR",
-                                  {
-                                    style: "currency",
-                                    currency: "ARS",
-                                  }
-                                )}
-                              </Text>
-                            </Text>
-                          )}
-                        </React.Fragment>
-
-                        <React.Fragment>
-                          {
-                            <Text
-                              style={{
-                                fontSize: "8px",
-                                fontWeight: "bold",
-                                fontFamily: "Montserrat",
-                              }}
-                            >
-                              Comida/Premio
-                              <Text
-                                style={{
-                                  fontSize: "8px",
-                                  fontWeight: "normal",
-                                  textTransform: "capitalize",
-                                  fontFamily: "Montserrat",
-                                }}
-                              >
-                                {Number(e.comida_produccion).toLocaleString(
-                                  "es-AR",
-                                  {
-                                    style: "currency",
-                                    currency: "ARS",
-                                  }
-                                )}
-                              </Text>
-                            </Text>
-                          }
-                        </React.Fragment>
-                      </View>
-
-                      <View
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          gap: "8px",
-                        }}
-                      >
-                        <Text
-                          style={{
-                            fontSize: "8px",
-                            fontWeight: "bold",
-                            fontFamily: "Montserrat",
-                          }}
-                        >
-                          Mes cobro dia 5{"  "}
-                          <Text
-                            style={{
-                              fontSize: "8px",
-                              fontWeight: "normal",
-                              textTransform: "capitalize",
-                              fontFamily: "Montserrat",
-                            }}
-                          >
-                            {Number(e.quincena_del_cinco).toLocaleString(
-                              "es-AR",
-                              {
-                                style: "currency",
-                                currency: "ARS",
-                              }
-                            )}
-                          </Text>
-                        </Text>
-
-                        {e.tipo !== "mensual" && (
+                      <React.Fragment>
+                        {e.tipo_fabrica !== "administracion" && (
                           <Text
                             style={{
                               fontSize: "8px",
@@ -519,7 +416,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                               fontFamily: "Montserrat",
                             }}
                           >
-                            Mes cobro dia 20{"  "}
+                            Premio producción{" "}
                             <Text
                               style={{
                                 fontSize: "8px",
@@ -528,7 +425,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                                 fontFamily: "Montserrat",
                               }}
                             >
-                              {Number(e.quincena_del_veinte).toLocaleString(
+                              {Number(e.premio_produccion).toLocaleString(
                                 "es-AR",
                                 {
                                   style: "currency",
@@ -538,7 +435,65 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             </Text>
                           </Text>
                         )}
+                      </React.Fragment>
 
+                      <React.Fragment>
+                        {
+                          <Text
+                            style={{
+                              fontSize: "8px",
+                              fontWeight: "bold",
+                              fontFamily: "Montserrat",
+                            }}
+                          >
+                            Comida/Premio
+                            <Text
+                              style={{
+                                fontSize: "8px",
+                                fontWeight: "normal",
+                                textTransform: "capitalize",
+                                fontFamily: "Montserrat",
+                              }}
+                            >
+                              {Number(e.comida_produccion).toLocaleString(
+                                "es-AR",
+                                {
+                                  style: "currency",
+                                  currency: "ARS",
+                                }
+                              )}
+                            </Text>
+                          </Text>
+                        }
+                      </React.Fragment>
+
+                      <Text
+                        style={{
+                          fontSize: "8px",
+                          fontWeight: "bold",
+                          fontFamily: "Montserrat",
+                        }}
+                      >
+                        Sin descuentos y premios quincena 5{"  "}
+                        <Text
+                          style={{
+                            fontSize: "8px",
+                            fontWeight: "normal",
+                            textTransform: "capitalize",
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          {Number(e.quincena_del_cinco).toLocaleString(
+                            "es-AR",
+                            {
+                              style: "currency",
+                              currency: "ARS",
+                            }
+                          )}
+                        </Text>
+                      </Text>
+
+                      {e.tipo !== "mensual" && (
                         <Text
                           style={{
                             fontSize: "8px",
@@ -546,7 +501,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             fontFamily: "Montserrat",
                           }}
                         >
-                          Total Antiguedad{"  "}
+                          Sin descuentos y premios Quincena 20
                           <Text
                             style={{
                               fontSize: "8px",
@@ -555,24 +510,64 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                               fontFamily: "Montserrat",
                             }}
                           >
-                            {Number(e.total_antiguedad).toLocaleString(
+                            {Number(e.total_quincena_veinte).toLocaleString(
                               "es-AR",
                               {
                                 style: "currency",
                                 currency: "ARS",
                               }
-                            )}{" "}
+                            )}
                           </Text>
                         </Text>
-                      </View>
+                      )}
 
-                      <View
+                      <Text
                         style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          gap: "8px",
+                          fontSize: "8px",
+                          fontWeight: "bold",
+                          fontFamily: "Montserrat",
                         }}
                       >
+                        Total Antiguedad{"  "}
+                        <Text
+                          style={{
+                            fontSize: "8px",
+                            fontWeight: "normal",
+                            textTransform: "capitalize",
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          {Number(e.total_antiguedad).toLocaleString("es-AR", {
+                            style: "currency",
+                            currency: "ARS",
+                          })}{" "}
+                        </Text>
+                      </Text>
+
+                      <Text
+                        style={{
+                          fontSize: "8px",
+                          fontWeight: "bold",
+                          fontFamily: "Montserrat",
+                        }}
+                      >
+                        Mes cobro dia 5{"  "}
+                        <Text
+                          style={{
+                            fontSize: "8px",
+                            fontWeight: "normal",
+                            textTransform: "capitalize",
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          {Number(e.total_quincena).toLocaleString("es-AR", {
+                            style: "currency",
+                            currency: "ARS",
+                          })}
+                        </Text>
+                      </Text>
+
+                      {e.tipo !== "mensual" && (
                         <Text
                           style={{
                             fontSize: "8px",
@@ -580,7 +575,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             fontFamily: "Montserrat",
                           }}
                         >
-                          Descuento{"  "}
+                          Mes cobro dia 20{"  "}
                           <Text
                             style={{
                               fontSize: "8px",
@@ -589,14 +584,41 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                               fontFamily: "Montserrat",
                             }}
                           >
-                            {Number(e.descuento).toLocaleString("es-AR", {
-                              style: "currency",
-                              currency: "ARS",
-                            })}
+                            {Number(e.total_quincena_veinte).toLocaleString(
+                              "es-AR",
+                              {
+                                style: "currency",
+                                currency: "ARS",
+                              }
+                            )}
                           </Text>
                         </Text>
+                      )}
 
-                        {/* <Text
+                      <Text
+                        style={{
+                          fontSize: "8px",
+                          fontWeight: "bold",
+                          fontFamily: "Montserrat",
+                        }}
+                      >
+                        Descuento{"  "}
+                        <Text
+                          style={{
+                            fontSize: "8px",
+                            fontWeight: "normal",
+                            textTransform: "capitalize",
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          {Number(e.descuento).toLocaleString("es-AR", {
+                            style: "currency",
+                            currency: "ARS",
+                          })}
+                        </Text>
+                      </Text>
+
+                      {/* <Text
                           style={{
                             fontSize: "8px",
                             fontWeight: "bold",
@@ -615,84 +637,94 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             {e.obs}
                           </Text>
                         </Text> */}
-                        <Text
-                          style={{
-                            fontSize: "8px",
-                            fontWeight: "bold",
-                            fontFamily: "Montserrat",
-                          }}
-                        >
-                          Otros{"  "}
-                          <Text
-                            style={{
-                              fontSize: "8px",
-                              fontWeight: "normal",
-                              textTransform: "capitalize",
-                              fontFamily: "Montserrat",
-                            }}
-                          >
-                            {Number(e.banco).toLocaleString("es-AR", {
-                              style: "currency",
-                              currency: "ARS",
-                            })}
-                          </Text>
-                        </Text>
-
-                        <Text
-                          style={{
-                            fontSize: "8px",
-                            fontWeight: "bold",
-                            fontFamily: "Montserrat",
-                          }}
-                        >
-                          Banco{"  "}
-                          <Text
-                            style={{
-                              fontSize: "8px",
-                              fontWeight: "normal",
-                              textTransform: "capitalize",
-                              fontFamily: "Montserrat",
-                            }}
-                          >
-                            {Number(e.otros).toLocaleString("es-AR", {
-                              style: "currency",
-                              currency: "ARS",
-                            })}
-                          </Text>
-                        </Text>
-                      </View>
-
-                      <View
+                      <Text
                         style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          gap: "8px",
+                          fontSize: "8px",
+                          fontWeight: "bold",
+                          fontFamily: "Montserrat",
                         }}
                       >
+                        Otros{"  "}
+                        <Text
+                          style={{
+                            fontSize: "8px",
+                            fontWeight: "normal",
+                            textTransform: "capitalize",
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          {Number(e.banco).toLocaleString("es-AR", {
+                            style: "currency",
+                            currency: "ARS",
+                          })}
+                        </Text>
+                      </Text>
+
+                      <Text
+                        style={{
+                          fontSize: "8px",
+                          fontWeight: "bold",
+                          fontFamily: "Montserrat",
+                        }}
+                      >
+                        Banco{"  "}
+                        <Text
+                          style={{
+                            fontSize: "8px",
+                            fontWeight: "normal",
+                            textTransform: "capitalize",
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          {Number(e.otros).toLocaleString("es-AR", {
+                            style: "currency",
+                            currency: "ARS",
+                          })}
+                        </Text>
+                      </Text>
+
+                      <Text
+                        style={{
+                          fontSize: "8px",
+                          fontWeight: "bold",
+                          fontFamily: "Montserrat",
+                        }}
+                      >
+                        Observaciónes{"  "}
+                        <Text
+                          style={{
+                            fontSize: "8px",
+                            fontWeight: "normal",
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          {e.obs}
+                        </Text>
+                      </Text>
+
+                      <Text
+                        style={{
+                          fontSize: "9px",
+                          fontWeight: "bold",
+                          fontFamily: "Montserrat",
+                          marginTop: "5px",
+                        }}
+                      >
+                        Total Final Cobro{"  "}
                         <Text
                           style={{
                             fontSize: "9px",
-                            fontWeight: "bold",
+                            fontWeight: "normal",
+                            textTransform: "capitalize",
                             fontFamily: "Montserrat",
-                            marginTop: "5px",
                           }}
                         >
-                          Total Final Cobro{"  "}
-                          <Text
-                            style={{
-                              fontSize: "9px",
-                              fontWeight: "normal",
-                              textTransform: "capitalize",
-                              fontFamily: "Montserrat",
-                            }}
-                          >
-                            {Number(e.total_final).toLocaleString("es-AR", {
-                              style: "currency",
-                              currency: "ARS",
-                            })}
-                          </Text>
+                          {Number(e.total_final).toLocaleString("es-AR", {
+                            style: "currency",
+                            currency: "ARS",
+                          })}
                         </Text>
-                      </View>
+                      </Text>
                     </View>
                   </React.Fragment>
                 ))}
