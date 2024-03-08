@@ -124,18 +124,6 @@ export const Empleados = () => {
     setCurrentPage(newPage);
   };
 
-  const [nuevosDatos, setNuevosDatos] = useState([]);
-
-  useEffect(() => {
-    async function loadData() {
-      const res = await obtenerUnicoEmpleado(obtenerId);
-
-      setNuevosDatos(res.data);
-    }
-
-    loadData();
-  }, []);
-
   return (
     <section className=" py-16 w-full h-full flex flex-col gap-5">
       <Link
