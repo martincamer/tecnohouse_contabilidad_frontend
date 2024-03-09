@@ -29,6 +29,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import { ViewPdfPruebas } from "./components/pdf/ViewPdfPruebas";
 import { EmpleadosTwo } from "./routes/pages/protected/EmpleadosTwo";
+import { DatosGuardados } from "./routes/pages/protected/DatosGuardados";
 
 function App() {
   const { isAuth } = useAuth();
@@ -85,6 +86,7 @@ function App() {
               <Route path="/empleado-nuevo" element={<CrearNuevoEmpleado />} />
               <Route path="/editar-empleado/:id" element={<EditarEmpleado />} />
               <Route path="/empleados/:id" element={<ViewEmpleado />} />
+              <Route path="/empleados-datos" element={<DatosGuardados />} />
             </Route>
           </Route>
           <Route path="*" element={<NotFound />} />
