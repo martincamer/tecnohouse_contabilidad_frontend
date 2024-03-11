@@ -552,6 +552,9 @@ export const Empleados = () => {
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Total Final
                 </th>
+                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
+                  Total Final Mes
+                </th>
                 <th className="py-2 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Ver
                 </th>
@@ -645,6 +648,18 @@ export const Empleados = () => {
                   </td>
                   <td className="py-3 px-3 text-xs font-semibold text-left text-indigo-600">
                     {Number(Number(e.total_final)).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}
+                  </td>
+
+                  <td className="py-3 px-3 text-xs font-semibold text-left text-indigo-600">
+                    {Number(
+                      Number(e.total_quincena) +
+                        Number(e.total_quincena_veinte) +
+                        Number(e.otros) +
+                        Number(e.banco)
+                    ).toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     })}
