@@ -141,6 +141,18 @@ export const Empleados = () => {
       Antiguedad: e.antiguedad,
       Tipo: e.tipo,
       "Sucrsal o Fabr.": e.tipo_fabrica,
+      "mes 5 sin premios,descuentos,etc": Number(
+        e.quincena_del_cinco
+      ).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }),
+      "mes 20 sin premios,descuentos,etc": Number(
+        e.quincena_del_veinte
+      ).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }),
       "mes 5": Number(e.total_quincena).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
@@ -164,13 +176,13 @@ export const Empleados = () => {
         }),
       Banco:
         "+" +
-        Number(e.banco).toLocaleString("es-AR", {
+        Number(e.otros).toLocaleString("es-AR", {
           style: "currency",
           currency: "ARS",
         }),
       Otros:
         "-" +
-        Number(e.otros).toLocaleString("es-AR", {
+        Number(e.banco).toLocaleString("es-AR", {
           style: "currency",
           currency: "ARS",
         }),
