@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import { ImprimirEstadisticaPdf } from "../../../components/pdf/ImprirmirEstadisticaPdf";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import * as XLSX from "xlsx";
 
 export const Estadistica = () => {
   const { setIngresoMensual, ingresoMensual } = useIngresosContext();
@@ -143,6 +144,30 @@ export const Estadistica = () => {
   // Formatear la fecha
   const fechaFormateada = `${diasSemana[diaDeLaSemana]}_${meses[mes]}_${diaDelMes}_${ano}`;
 
+  const downloadDataAsExcel = () => {
+    // Prepare data for Excel
+    const data = ingresosDistribuidos.map((item, index) => ({
+      TIPO: item.tipo.toUpperCase(),
+      Total: new Intl.NumberFormat("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }).format(item.total),
+      "PORCENTAJE USADO": `${(item.porcentaje * 100).toFixed(2)}%`,
+      "DIFERENCIA PRESUPUESTO ESTIMADO": new Intl.NumberFormat("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }).format(diferenciaPorTipo[index].diferencia),
+    }));
+
+    // Create worksheet and workbook
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Datos");
+
+    // Save the file
+    XLSX.writeFile(wb, "datos.xlsx");
+  };
+
   return (
     <section className="px-10 py-16 w-full h-full flex flex-col gap-5">
       <Link
@@ -218,6 +243,14 @@ export const Estadistica = () => {
             </PDFDownloadLink>
           </div>
         </div>
+
+        <button
+          onClick={downloadDataAsExcel}
+          type="button"
+          className="bg-green-500 text-white py-2 px-4 mt-4 rounded-xl shadow"
+        >
+          Descargar estadistica en formato excel
+        </button>
 
         <div className="overflow-x-auto rounded-lg border border-gray-200 mt-5">
           <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">

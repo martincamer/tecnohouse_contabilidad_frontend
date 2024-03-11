@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useEmpleadosContext } from "../../../context/EmpleadosProvider";
 import { useEffect, useState } from "react";
 import { ModalCrearFabrica } from "../../../components/empleados/ModalCrearFabrica";
-
+import * as XLSX from "xlsx";
 import client from "../../../api/axios";
 import { guardarDatosEmpleado } from "../../../api/createDatos";
 
@@ -132,6 +132,58 @@ export const Empleados = () => {
     } catch (error) {
       console.log(error.response);
     }
+  };
+
+  const downloadExcel = () => {
+    const data = currentResults.map((e) => ({
+      Empleado: e.empleado,
+      Fecha: new Date(e.fecha).getFullYear(),
+      Antiguedad: e.antiguedad,
+      Tipo: e.tipo,
+      "Sucrsal o Fabr.": e.tipo_fabrica,
+      "mes 5": Number(e.total_quincena).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }),
+      "mes 20":
+        e.tipo !== "mensual"
+          ? Number(e.total_quincena_veinte).toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })
+          : "",
+      AntiguedadTotal: Number(e.total_antiguedad).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }),
+      Descuento:
+        "-" +
+        Number(e.descuento).toLocaleString("es-AR", {
+          style: "currency",
+          currency: "ARS",
+        }),
+      Banco:
+        "+" +
+        Number(e.banco).toLocaleString("es-AR", {
+          style: "currency",
+          currency: "ARS",
+        }),
+      Otros:
+        "-" +
+        Number(e.otros).toLocaleString("es-AR", {
+          style: "currency",
+          currency: "ARS",
+        }),
+      "Total Final": Number(e.total_final).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }),
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet 1");
+    XLSX.writeFile(wb, "ingresos-egresos_excel");
   };
 
   return (
@@ -403,6 +455,12 @@ export const Empleados = () => {
             ))}
           </select>
         </div>
+        <button
+          onClick={downloadExcel}
+          className="bg-green-500  py-2 px-5 text-white rounded-xl text-sm"
+        >
+          Descargar en formato excel
+        </button>
       </div>
 
       <div className="h-screen px-4">

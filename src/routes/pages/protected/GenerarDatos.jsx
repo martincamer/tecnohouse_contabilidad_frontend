@@ -12,6 +12,7 @@ import { ModalCrearTipo } from "../../../components/tipos/ModalCrearTipo";
 import { ModalVerTipos } from "../../../components/tipos/ModalVerTipos";
 import { useIngresosContext } from "../../../context/IngresosProvider";
 import { Link } from "react-router-dom";
+import * as XLSX from "xlsx";
 
 export const GenerarDatos = () => {
   const [isOpenEliminar, setIsOpenEliminar] = useState(false);
@@ -61,10 +62,6 @@ export const GenerarDatos = () => {
       porcentaje: (ingreso.total / totalGlobal) * porcentajeDistribucion,
     })
   );
-
-  console.log("Ingresos Consolidados 1:", ingresosConsolidados);
-  console.log("Total Global 2:", totalGlobal);
-  console.log("Ingresos Distribuidos 3:", ingresosDistribuidos);
 
   return (
     <section className="px-10 py-16 w-full h-full flex flex-col gap-5">

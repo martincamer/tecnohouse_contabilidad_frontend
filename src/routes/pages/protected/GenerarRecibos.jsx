@@ -11,6 +11,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { ImprimirPdf } from "../../../components/pdf/ImprirmirPdf";
 import { css } from "@emotion/react";
 import { SyncLoader } from "react-spinners";
+import * as XLSX from "xlsx";
 
 export const GenerarRecibos = () => {
   //   const { ingresos } = useIngresosContext();
@@ -146,7 +147,27 @@ export const GenerarRecibos = () => {
     currency: "ARS",
   });
 
-  console.log(totalFormatted);
+  const downloadDataAsExcel = () => {
+    const data = resultadosFiltrados.map((i) => ({
+      NUMERO: i.id,
+      TIPO: i.tipo.toUpperCase(),
+      DETALLE: i.detalle.toUpperCase(),
+      INGRESO: Number(i?.total).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }),
+      TOTAL: Number(i?.total).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }),
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Datos");
+
+    XLSX.writeFile(wb, `ingresos${fechaInicio}_${fechaFin}.xlsx`);
+  };
 
   return (
     <section className="px-10 py-16 w-full h-full flex flex-col gap-5">
@@ -260,6 +281,7 @@ export const GenerarRecibos = () => {
           </button>
         </div>
       </div>
+
       <div className="flex gap-5">
         <div className="text-sm text-slate-700 font-normal flex gap-3 items-center">
           Total del presupuesto{" "}
@@ -279,6 +301,16 @@ export const GenerarRecibos = () => {
             {totalFormatted}
           </span>
         </div>
+      </div>
+
+      <div>
+        <button
+          onClick={downloadDataAsExcel}
+          type="button"
+          className="bg-green-500 text-white py-2 px-4 mt-4 rounded-xl shadow"
+        >
+          Descargar en formato excel
+        </button>
       </div>
 
       <div className="h-screen">

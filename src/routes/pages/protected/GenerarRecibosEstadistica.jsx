@@ -9,6 +9,7 @@ import { ModalEditarIngreso } from "../../../components/generarRecibos/ModalEdit
 import { eliminarIngreso } from "../../../api/ingresos";
 import { ToastContainer } from "react-toastify";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import * as XLSX from "xlsx";
 import { ImprimirEstadisticaPdf } from "../../../components/pdf/ImprirmirEstadisticaPdf";
 
 export const GenerarRecibosEstadistica = () => {
@@ -175,6 +176,27 @@ export const GenerarRecibosEstadistica = () => {
     }
   );
 
+  const downloadExcel = () => {
+    const data = ingresosDistribuidos.map((item, index) => ({
+      TIPO: item.tipo.toUpperCase(),
+      TOTAL: new Intl.NumberFormat("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }).format(item.total),
+      "PORCENTAJE USADO": `${(item.porcentaje * 100).toFixed(2)}%`,
+      "DIFERENCIA PRESUPUESTO ESTIMADO": new Intl.NumberFormat("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }).format(diferenciaPorTipo[index].diferencia),
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Ingresos");
+
+    XLSX.writeFile(wb, `estadistica_${fechaInicio}_${fechaFin}.xlsx`);
+  };
+
   return (
     <section className="px-10 py-16 w-full h-full flex flex-col gap-5">
       <Link
@@ -303,6 +325,16 @@ export const GenerarRecibosEstadistica = () => {
             {totalFormatted}
           </span>
         </div>
+      </div>
+
+      <div>
+        <button
+          onClick={downloadExcel}
+          className="bg-green-500 text-white py-2 px-5 rounded-xl text-sm flex gap-2 items-center"
+          type="button"
+        >
+          Descargar en formato excel
+        </button>
       </div>
 
       <div className="h-screen">
