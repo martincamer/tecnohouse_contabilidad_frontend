@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import client from "../../../api/axios";
 import { SyncLoader } from "react-spinners";
+import { Link } from "react-router-dom";
+import * as XLSX from "xlsx";
 
 export const DatosGuardados = () => {
   const [fechaInicio, setFechaInicio] = useState("");
@@ -67,6 +69,26 @@ export const DatosGuardados = () => {
       setDatos(datosOriginales);
     }
   }, [searchTerm, datosOriginales]);
+
+  const downloadDataAsExcel = (id) => {
+    // Filter the data based on the provided id
+    const selectedData = datos
+      .map((i) => i.datos?.datos)
+      .flat()
+      .find((data) => data.id === id);
+
+    if (selectedData) {
+      // Create a worksheet with the selected data
+      const ws = XLSX.utils.json_to_sheet([selectedData]);
+
+      // Create a workbook and add the worksheet
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Datos");
+
+      // Save the file
+      XLSX.writeFile(wb, `datos_${id}.xlsx`);
+    }
+  };
 
   return (
     <section className="w-full py-20 px-20  h-full">
@@ -142,8 +164,26 @@ export const DatosGuardados = () => {
                       Fab o Suc.
                     </th>
                     <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
-                      Ver Comprobante
+                      Mes numero 5
                     </th>
+                    <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+                      Mes numero 20
+                    </th>
+                    <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+                      Banco
+                    </th>
+                    <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+                      Otros
+                    </th>
+                    <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+                      Sueldo neto
+                    </th>
+                    <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+                      Descargar
+                    </th>{" "}
+                    {/* <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+                      Ver datos
+                    </th> */}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 text-left">
@@ -166,19 +206,59 @@ export const DatosGuardados = () => {
                           {datos.tipo_fabrica}
                         </td>
                         <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
-                          {datos.total_quincena}
+                          {Number(datos.total_quincena).toLocaleString(
+                            "es-AR",
+                            {
+                              style: "currency",
+                              currency: "ARS",
+                            }
+                          )}
                         </td>
                         <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
-                          {datos.total_quincena_veinte}
+                          {Number(datos.total_quincena_veinte).toLocaleString(
+                            "es-AR",
+                            {
+                              style: "currency",
+                              currency: "ARS",
+                            }
+                          )}
                         </td>
                         <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
-                          {datos.total_final}
+                          {Number(datos.otros).toLocaleString("es-AR", {
+                            style: "currency",
+                            currency: "ARS",
+                          })}
                         </td>
-                        <td className="py-3 px-3 text-sm text-left text-slate-700 flex">
-                          <p className="bg-indigo-500 py-2 px-4 text-white rounded-xl shadow">
-                            Ver comprobante
-                          </p>
+                        <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
+                          {Number(datos.banco).toLocaleString("es-AR", {
+                            style: "currency",
+                            currency: "ARS",
+                          })}
                         </td>
+
+                        <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
+                          {Number(datos.total_final).toLocaleString("es-AR", {
+                            style: "currency",
+                            currency: "ARS",
+                          })}
+                        </td>
+                        <td className="py-3 px-3 text-sm text-left text-slate-700">
+                          <button
+                            type="button"
+                            className="bg-slate-600 text-white py-2 px-4 rounded-xl shadow"
+                            onClick={() => downloadDataAsExcel(datos.id)}
+                          >
+                            Descagar
+                          </button>
+                        </td>
+                        {/* <td className="py-3 px-3 text-sm text-left text-slate-700 flex">
+                          <Link
+                            to={`/view-datos/${datos.id}`}
+                            className="bg-indigo-500 py-2 px-4 text-white rounded-xl shadow"
+                          >
+                            Ver los datos
+                          </Link>
+                        </td> */}
                       </tr>
                     ))
                   )}

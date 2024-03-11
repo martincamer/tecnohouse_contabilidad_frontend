@@ -23,13 +23,13 @@ import { CrearNuevoEmpleado } from "./routes/pages/protected/CrearNuevoEmpleado"
 import { EditarEmpleado } from "./routes/pages/protected/EditarEmpleado";
 import { ViewEmpleado } from "./routes/pages/protected/ViewEmpleado";
 import { ViewPdfTwo } from "./components/pdf/ViewPdfTwo";
+import { ViewPdfPruebas } from "./components/pdf/ViewPdfPruebas";
+import { EmpleadosTwo } from "./routes/pages/protected/EmpleadosTwo";
+import { DatosGuardados } from "./routes/pages/protected/DatosGuardados";
 //import normales
 import RutaProtegida from "./layouts/RutaProtejida";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import { ViewPdfPruebas } from "./components/pdf/ViewPdfPruebas";
-import { EmpleadosTwo } from "./routes/pages/protected/EmpleadosTwo";
-import { DatosGuardados } from "./routes/pages/protected/DatosGuardados";
 
 function App() {
   const { isAuth } = useAuth();
