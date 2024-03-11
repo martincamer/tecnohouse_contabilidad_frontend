@@ -183,7 +183,7 @@ export const Empleados = () => {
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Sheet 1");
-    XLSX.writeFile(wb, "ingresos-egresos_excel");
+    XLSX.writeFile(wb, "empleados.xlsx");
   };
 
   return (
