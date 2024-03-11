@@ -153,6 +153,21 @@ export const Empleados = () => {
         style: "currency",
         currency: "ARS",
       }),
+      "premio asistencia": Number(e.premio_asistencia).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }),
+      "premio prouduccion": Number(e.premio_produccion).toLocaleString(
+        "es-AR",
+        {
+          style: "currency",
+          currency: "ARS",
+        }
+      ),
+      "comida/premio": Number(e.comida_produccion).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }),
       "mes 5": Number(e.total_quincena).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
@@ -187,6 +202,15 @@ export const Empleados = () => {
           currency: "ARS",
         }),
       "Total Final": Number(e.total_final).toLocaleString("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }),
+      "Total Final Mes": Number(
+        Number(e.total_quincena) +
+          Number(e.total_quincena_veinte) +
+          Number(e.otros) +
+          Number(e.banco)
+      ).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
       }),
