@@ -245,7 +245,7 @@ export const Empleados = () => {
         VOLVER
       </Link>
       <div className="px-10">
-        <div className=" bg-white w-full border-[1px] border-slate-300 shadow-sm shadow rounded-xl flex gap-4 items-center justify-center">
+        <div className=" bg-white w-full border-[1px] border-slate-300 shadow rounded-xl flex gap-4 items-center justify-center">
           <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
             <p className="text-indigo-500 text-sm">Total empleados cargados</p>
             <p className="text-slate-700 text-sm font-semibold">
@@ -254,7 +254,7 @@ export const Empleados = () => {
           </div>
 
           <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
-            <p className="text-indigo-500 text-sm">Total quincena 5</p>
+            <p className="text-indigo-500 text-sm">Total quincena 5 a pagar</p>
             <p className="text-slate-700 text-sm font-semibold">
               {Number(totalFinalQuincenaCinco).toLocaleString("es-AR", {
                 style: "currency",
@@ -264,7 +264,7 @@ export const Empleados = () => {
           </div>
 
           <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
-            <p className="text-indigo-500 text-sm">Total quincena 20</p>
+            <p className="text-indigo-500 text-sm">Total quincena 20 a pagar</p>
             <p className="text-slate-700 text-sm font-semibold">
               {Number(totalFinalQuincenaVeinte).toLocaleString("es-AR", {
                 style: "currency",
@@ -273,7 +273,7 @@ export const Empleados = () => {
             </p>
           </div>
 
-          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
+          {/* <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
             <p className="text-indigo-500 text-sm">Total a pagar</p>
             <p className="text-slate-700 text-sm font-semibold">
               {Number(totalFinalSum).toLocaleString("es-AR", {
@@ -281,7 +281,7 @@ export const Empleados = () => {
                 currency: "ARS",
               })}
             </p>
-          </div>
+          </div> */}
 
           <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full">
             <p className="text-indigo-500 text-sm">Total fabricas cargadas</p>
@@ -550,7 +550,7 @@ export const Empleados = () => {
                   Otros
                 </th>
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Total Final
+                  Total con descuentos
                 </th>
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Total Final Mes
@@ -653,7 +653,7 @@ export const Empleados = () => {
                     })}
                   </td>
 
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-green-500">
+                  <td className="py-3 px-3 text-sm font-bold text-left text-green-600">
                     {Number(
                       Number(e.total_quincena) +
                         Number(e.total_quincena_veinte) +
