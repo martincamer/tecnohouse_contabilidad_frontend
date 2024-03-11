@@ -653,7 +653,7 @@ export const Empleados = () => {
                     })}
                   </td>
 
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-indigo-600">
+                  <td className="py-3 px-3 text-xs font-semibold text-left text-green-500">
                     {Number(
                       Number(e.total_quincena) +
                         Number(e.total_quincena_veinte) +
