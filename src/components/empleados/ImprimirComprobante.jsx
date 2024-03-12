@@ -103,7 +103,7 @@ export const ImprimirComprobante = ({ datos }) => {
   let mensaje = "";
 
   if (tipoPago === "quincenal") {
-    if (hoyEsDia >= 1 && hoyEsDia <= 10) {
+    if (hoyEsDia >= 1 && hoyEsDia <= 20) {
       mensaje = Number(datos.total_quincena).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
@@ -128,7 +128,7 @@ export const ImprimirComprobante = ({ datos }) => {
   let quincenaReal = "";
 
   if (tipoPago === "quincenal") {
-    if (hoyEsDia >= 1 && hoyEsDia <= 10) {
+    if (hoyEsDia >= 1 && hoyEsDia <= 20) {
       quincenaReal = Number(datos.quincena_del_cinco).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
@@ -153,7 +153,7 @@ export const ImprimirComprobante = ({ datos }) => {
   let mensajes = [];
 
   if (tipoPago === "quincenal") {
-    if (hoyEsDia >= 1 && hoyEsDia <= 10) {
+    if (hoyEsDia >= 1 && hoyEsDia <= 20) {
       mensajes = [
         `Premio Producción: ${Number(datos.premio_produccion).toLocaleString(
           "es-AR",
@@ -213,7 +213,7 @@ export const ImprimirComprobante = ({ datos }) => {
   let obsReal = [];
 
   if (tipoPago === "quincenal") {
-    if (hoyEsDia >= 1 && hoyEsDia <= 10) {
+    if (hoyEsDia >= 1 && hoyEsDia <= 20) {
       obsReal = [
         `Premio Producción: ${Number(datos.premio_produccion).toLocaleString(
           "es-AR",
