@@ -5,6 +5,7 @@ import { ModalCrearFabrica } from "../../../components/empleados/ModalCrearFabri
 import * as XLSX from "xlsx";
 import client from "../../../api/axios";
 import { guardarDatosEmpleado } from "../../../api/createDatos";
+import { ModalEditarEmpleado } from "../../../components/empleados/ModalEditarEmpleado";
 
 export const Empleados = () => {
   const { empleados, fabricas } = useEmpleadosContext();
@@ -17,6 +18,15 @@ export const Empleados = () => {
 
   const closeModal = () => {
     setIsOpen(false);
+  };
+
+  const [isEdit, setIsEdit] = useState(false);
+  const openModalEdit = () => {
+    setIsEdit(true);
+  };
+
+  const closeModalEdit = () => {
+    setIsEdit(false);
   };
 
   //buscador y filtrador
@@ -221,6 +231,12 @@ export const Empleados = () => {
     XLSX.utils.book_append_sheet(wb, ws, "Sheet 1");
     XLSX.writeFile(wb, "empleados.xlsx");
   };
+
+  const [obtenerId, setObtenerId] = useState(null);
+
+  const handleId = (id) => setObtenerId(id);
+
+  console.log(obtenerId);
 
   return (
     <section className=" py-16 w-full h-full flex flex-col gap-5">
@@ -597,9 +613,12 @@ export const Empleados = () => {
                   </td>
                   <td className="py-3 px-3 text-sm text-left text-slate-700">
                     <Link
-                      target="_blank" // Esto abre el enlace en una nueva pestaña
-                      rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
-                      to={`/editar-empleado/${e.id}`}
+                      onClick={() => {
+                        handleId(e.id), openModalEdit();
+                      }}
+                      // target="_blank" // Esto abre el enlace en una nueva pestaña
+                      // rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
+                      // to={`/editar-empleado/${e.id}`}
                       type="button"
                       className="bg-indigo-500/10 border-[1px] border-indigo-500 py-1 px-3 text-indigo-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold w-20"
                     >
@@ -698,6 +717,11 @@ export const Empleados = () => {
       </div>
 
       <ModalCrearFabrica isOpen={isOpen} closeModal={closeModal} />
+      <ModalEditarEmpleado
+        obtenerId={obtenerId}
+        isOpenEdit={isEdit}
+        closeModalEdit={closeModalEdit}
+      />
     </section>
   );
 };
