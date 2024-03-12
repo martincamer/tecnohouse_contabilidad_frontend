@@ -248,17 +248,9 @@ export const DatosGuardados = () => {
                             className="bg-slate-600 text-white py-2 px-4 rounded-xl shadow"
                             onClick={() => downloadDataAsExcel(datos.id)}
                           >
-                            Descagar
+                            Descagar tipo excel
                           </button>
                         </td>
-                        {/* <td className="py-3 px-3 text-sm text-left text-slate-700 flex">
-                          <Link
-                            to={`/view-datos/${datos.id}`}
-                            className="bg-indigo-500 py-2 px-4 text-white rounded-xl shadow"
-                          >
-                            Ver los datos
-                          </Link>
-                        </td> */}
                       </tr>
                     ))
                   )}
