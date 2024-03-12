@@ -565,20 +565,12 @@ export const Empleados = () => {
                       currency: "ARS",
                     })}
                   </td>
-                  {/* <td className="py-3 px-3 text-xs font-semibold text-left text-indigo-600">
-                    {Number(Number(e.total_final)).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td> */}
-
                   <td className="py-3 px-3 text-sm font-bold text-left text-green-600">
                     {Number(e.total_final).toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     })}
                   </td>
-
                   <td className="py-3 px-3 text-sm text-left text-slate-700 flex items-start">
                     <Link
                       target="_blank" // Esto abre el enlace en una nueva pestaña
@@ -603,7 +595,6 @@ export const Empleados = () => {
                       </svg>
                     </Link>
                   </td>
-
                   <td className="py-3 px-3 text-sm text-left text-slate-700">
                     <Link
                       target="_blank" // Esto abre el enlace en una nueva pestaña

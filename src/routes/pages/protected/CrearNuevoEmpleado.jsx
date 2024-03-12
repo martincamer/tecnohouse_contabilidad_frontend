@@ -47,7 +47,8 @@ export const CrearNuevoEmpleado = () => {
   const total_quincena_veinte =
     Number(quincena_del_veinte) + Number(banco) + Number(comida_produccion);
 
-  const total_final = Number(total_quincena_veinte) + Number(total_quincena);
+  const total_final =
+    Number(total_quincena_veinte) + Number(otros) + Number(total_quincena);
 
   const navigate = useNavigate();
 
