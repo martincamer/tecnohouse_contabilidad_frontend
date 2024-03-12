@@ -103,13 +103,15 @@ export const ImprimirComprobante = ({ datos }) => {
   let mensaje = "";
 
   if (tipoPago === "quincenal") {
-    if (hoyEsDia >= 1 && hoyEsDia <= 20) {
-      mensaje = Number(datos.total_quincena).toLocaleString("es-AR", {
+    if (hoyEsDia >= 1 && hoyEsDia <= 19) {
+      mensaje = Number(
+        Number(datos.total_quincena) + Number(datos.otros)
+      ).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
       });
-    } else if (hoyEsDia >= 11 && hoyEsDia <= 31) {
-      mensaje = Number(datos.total_quicena_veinte).toLocaleString("es-AR", {
+    } else if (hoyEsDia >= 19 && hoyEsDia <= 28) {
+      mensaje = Number(datos.total_quincena_veinte).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
       });
@@ -125,15 +127,48 @@ export const ImprimirComprobante = ({ datos }) => {
     mensaje = "Tipo de pago no reconocido.";
   }
 
+  let mensajeTree = "";
+
+  if (tipoPago === "quincenal") {
+    if (hoyEsDia >= 1 && hoyEsDia <= 19) {
+      mensajeTree = Number(Number(datos.total_quincena)).toLocaleString(
+        "es-AR",
+        {
+          style: "currency",
+          currency: "ARS",
+        }
+      );
+    } else if (hoyEsDia >= 19 && hoyEsDia <= 28) {
+      mensajeTree = Number(datos.total_quincena_veinte).toLocaleString(
+        "es-AR",
+        {
+          style: "currency",
+          currency: "ARS",
+        }
+      );
+    } else {
+      mensajeTree = "No hay quincena disponible para hoy.";
+    }
+  } else if (tipoPago === "mensual") {
+    mensajeTree = Number(
+      datos.otros > 1 ? datos.total_quincena : datos.total_final
+    ).toLocaleString("es-AR", {
+      style: "currency",
+      currency: "ARS",
+    });
+  } else {
+    mensajeTree = "Tipo de pago no reconocido.";
+  }
+
   let quincenaReal = "";
 
   if (tipoPago === "quincenal") {
-    if (hoyEsDia >= 1 && hoyEsDia <= 20) {
+    if (hoyEsDia >= 1 && hoyEsDia <= 18) {
       quincenaReal = Number(datos.quincena_del_cinco).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
       });
-    } else if (hoyEsDia >= 11 && hoyEsDia <= 31) {
+    } else if (hoyEsDia >= 19 && hoyEsDia <= 31) {
       quincenaReal = Number(datos.quincena_del_veinte).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
@@ -153,7 +188,7 @@ export const ImprimirComprobante = ({ datos }) => {
   let mensajes = [];
 
   if (tipoPago === "quincenal") {
-    if (hoyEsDia >= 1 && hoyEsDia <= 20) {
+    if (hoyEsDia >= 1 && hoyEsDia <= 19) {
       mensajes = [
         `Premio Producción: ${Number(datos.premio_produccion).toLocaleString(
           "es-AR",
@@ -213,7 +248,7 @@ export const ImprimirComprobante = ({ datos }) => {
   let obsReal = [];
 
   if (tipoPago === "quincenal") {
-    if (hoyEsDia >= 1 && hoyEsDia <= 20) {
+    if (hoyEsDia >= 1 && hoyEsDia <= 19) {
       obsReal = [
         `Premio Producción: ${Number(datos.premio_produccion).toLocaleString(
           "es-AR",
@@ -252,7 +287,7 @@ export const ImprimirComprobante = ({ datos }) => {
           style: "currency",
           currency: "ARS",
         }
-      )}, Comida: ${Number(datos.comida_produccion).toLocaleString("es-AR", {
+      )} / Comida: ${Number(datos.comida_produccion).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
       })} ${
@@ -269,9 +304,13 @@ export const ImprimirComprobante = ({ datos }) => {
   } else {
     obsReal = ["Tipo de pago no reconocido."];
   }
-  const currentDay = new Date().getDate();
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
 
-  const shouldShowAntiguedadRemunerada = currentDay >= 1 && currentDay <= 11;
+  // Suponiendo que `datos.tipo` contiene el tipo de dato
+  const shouldShowAntiguedadRemunerada =
+    datos.tipo === "mensual" ||
+    (datos.tipo === "quincenal" && currentDay >= 1 && currentDay <= 19);
 
   return (
     <Document>
@@ -559,65 +598,10 @@ export const ImprimirComprobante = ({ datos }) => {
                 </Text>
               </View>
             </View>
-
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                gap: "5px",
-              }}
-            >
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  backgroundColor: "#000",
-                  color: "white",
-                  padding: "5px",
-                }}
-              >
-                <Text
-                  style={{
-                    textTransform: "capitalize",
-                    fontSize: "8px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                    width: "100%",
-                  }}
-                >
-                  Otros / etc
-                </Text>
-              </View>
-
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                }}
-              >
-                <Text
-                  style={{
-                    textTransform: "capitalize",
-                    fontSize: 8,
-                    fontFamily: "Montserrat",
-                    fontWeight: "normal",
-                    width: "100%",
-                  }}
-                >
-                  {hoyEsDia >= 1 && hoyEsDia <= 10
-                    ? Number(datos.banco).toLocaleString("es-AR", {
-                        style: "currency",
-                        currency: "ARS",
-                      })
-                    : null}
-                </Text>
-              </View>
-            </View>
           </View>
 
           <View>
-            {datos.descuento && datos.otros > 0 && (
+            {shouldShowAntiguedadRemunerada && (
               <Text
                 style={{
                   textTransform: "capitalize",
@@ -638,7 +622,7 @@ export const ImprimirComprobante = ({ datos }) => {
               </Text>
             )}
 
-            {datos.descuento && datos.otros > 0 && (
+            {shouldShowAntiguedadRemunerada && (
               <Text
                 style={{
                   fontSize: "8px",
@@ -660,31 +644,6 @@ export const ImprimirComprobante = ({ datos }) => {
                 </Text>
               </Text>
             )}
-
-            <Text>
-              <Text
-                style={{
-                  textTransform: "capitalize",
-                  fontSize: "8px",
-                  fontFamily: "Montserrat",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "5px",
-                }}
-              >
-                Extras:{" "}
-              </Text>
-
-              <Text
-                style={{
-                  fontSize: "8px",
-                  fontFamily: "Montserrat",
-                  fontWeight: "normal",
-                }}
-              >
-                {mensajes}
-              </Text>
-            </Text>
 
             <View
               style={{
@@ -796,26 +755,29 @@ export const ImprimirComprobante = ({ datos }) => {
 
               <View
                 style={{
-                  fontSize: "8px",
+                  fontSize: 8,
                   fontFamily: "Montserrat",
                   fontWeight: "normal",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "1px",
-                  borderBottom: "1px",
+                  gap: 1,
+                  borderBottomWidth: 1,
                 }}
               >
-                <Text>Otros/Bancos/etc</Text>
+                <Text>Otros/etc</Text>
                 <Text
                   style={{
-                    fontSize: "8px",
+                    fontSize: 8,
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                   }}
                 >
-                  +{" "}
-                  {hoyEsDia >= 1 && hoyEsDia <= 10
-                    ? Number(datos.otros).toLocaleString("es-AR", {
+                  {"+"}{" "}
+                  {(datos.tipo === "quincenal" &&
+                    hoyEsDia >= 1 &&
+                    hoyEsDia <= 19) ||
+                  datos.tipo === "mensual"
+                    ? Number(datos.banco).toLocaleString("es-AR", {
                         style: "currency",
                         currency: "ARS",
                       })
@@ -834,44 +796,51 @@ export const ImprimirComprobante = ({ datos }) => {
                   borderBottom: "1px",
                 }}
               >
-                <Text>Descuentos Banco</Text>
-                <Text
-                  style={{
-                    fontSize: "8px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                  }}
-                >
-                  -{" "}
-                  {Number(datos.otros).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
-                </Text>
+                <Text>Banco</Text>
+                {(datos.tipo === "quincenal" &&
+                  hoyEsDia >= 1 &&
+                  hoyEsDia <= 19) ||
+                datos.tipo === "mensual" ? (
+                  <Text
+                    style={{
+                      fontSize: 8,
+                      fontFamily: "Montserrat",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {" "}
+                    {Number(datos.otros).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}
+                  </Text>
+                ) : null}
               </View>
 
-              <View
-                style={{
-                  fontSize: "8px",
-                  fontFamily: "Montserrat",
-                  fontWeight: "normal",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1px",
-                  borderBottom: "1px",
-                }}
-              >
-                <Text>Monto</Text>
-                <Text
+              {datos.otros <= 0 && (
+                <View
                   style={{
-                    fontSize: "8px",
+                    fontSize: 8,
                     fontFamily: "Montserrat",
-                    fontWeight: "bold",
+                    fontWeight: "normal",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 1,
+                    borderBottomWidth: 1,
                   }}
                 >
-                  {quincenaReal}
-                </Text>
-              </View>
+                  <Text>Monto sin atributos</Text>
+                  <Text
+                    style={{
+                      fontSize: 8,
+                      fontFamily: "Montserrat",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {quincenaReal}
+                  </Text>
+                </View>
+              )}
             </View>
 
             <Text
@@ -880,11 +849,48 @@ export const ImprimirComprobante = ({ datos }) => {
                 textTransform: "capitalize",
                 fontSize: "9px",
                 fontFamily: "Montserrat",
-                fontWeight: "bold",
+                fontWeight: "normal",
                 width: "100%",
               }}
             >
-              Remuneracion Final<Text> {mensaje} </Text>
+              Remuneracion Final
+              <Text
+                style={{
+                  marginTop: "10px",
+                  textTransform: "capitalize",
+                  fontSize: "9px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "bold",
+                  width: "100%",
+                }}
+              >
+                {" "}
+                {mensaje}{" "}
+              </Text>
+            </Text>
+            <Text
+              style={{
+                marginTop: "10px",
+                textTransform: "capitalize",
+                fontSize: "9px",
+                fontFamily: "Montserrat",
+                fontWeight: "normal",
+                width: "100%",
+              }}
+            >
+              Pago en mano{" "}
+              <Text
+                style={{
+                  marginTop: "10px",
+                  textTransform: "capitalize",
+                  fontSize: "9px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "bold",
+                  width: "100%",
+                }}
+              >
+                {mensajeTree}
+              </Text>
             </Text>
           </View>
 

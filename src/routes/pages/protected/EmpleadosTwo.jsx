@@ -329,6 +329,7 @@ export const EmpleadosTwo = () => {
                   <PDFDownloadLink
                     document={<ImprimirComprobanteDos datos={resultados} />}
                     download={() => setDataLoadedTwo(false)}
+                    target="_blank"
                   >
                     Hacer click.
                   </PDFDownloadLink>
@@ -410,9 +411,6 @@ export const EmpleadosTwo = () => {
           <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
             <thead>
               <tr className="border-b-[1px]">
-                {/* <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
-                  Numero
-                </th> */}
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Empleado
                 </th>
@@ -437,15 +435,6 @@ export const EmpleadosTwo = () => {
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Antiguedad
                 </th>
-                {/* <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Premio Asist.
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Premio Prod.
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Comida Prod.
-                </th> */}
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Desc.
                 </th>
@@ -453,24 +442,12 @@ export const EmpleadosTwo = () => {
                   Banco
                 </th>
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Otros
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Total Final
                 </th>
-                {/* <th className="py-2 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Ver
-                </th>
-                <th className="py-2 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Editar
-                </th>
-                <th className="py-2 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Descargar
-                </th> */}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 text-left">
-              {currentResults.map((e, index) => (
+              {currentResults.map((e) => (
                 <tr
                   key={e.id}
                   className=" hover:bg-slate-100 transition-all ease-in-out duration-200 cursor-pointer"
@@ -504,113 +481,32 @@ export const EmpleadosTwo = () => {
                       })}
                   </td>
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {/* Mostrar el total de antigüedad para el empleado actual */}
-                    {Number(e.total_antiguedad).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td>
-                  {/* <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {Number(e.premio_asistencia).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {Number(e.premio_produccion).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {Number(e.comida_produccion).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td> */}
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    -{" "}
+                    {" "}
                     {Number(e.descuento).toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     })}
                   </td>
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    -{" "}
-                    {Number(e.otros).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    +{" "}
+                    {" "}
                     {Number(e.banco).toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     })}
                   </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-indigo-600">
+                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
+                    {" "}
+                    {Number(e.otros).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}
+                  </td>
+                  <td className="py-3 px-3 text-sm font-bold text-left text-green-600">
                     {Number(e.total_final).toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     })}
                   </td>
-                  {/* 
-                  <td className="py-3 px-3 text-sm text-left text-slate-700 flex items-start">
-                    <Link
-                      to={`/empleados/${e.id}`}
-                      className=" bg-slate-500/10 border-[1px] border-slate-500 py-1 px-3 rounded-lg text-left text-slate-700 flex gap-2 items-center text-xs font-semibold"
-                    >
-                      Ver
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-4 h-4"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-                        />
-                      </svg>
-                    </Link>
-                  </td>
-
-                  <td className="py-3 px-3 text-sm text-left text-slate-700">
-                    <Link
-                      to={`/editar-empleado/${e.id}`}
-                      type="button"
-                      className="bg-indigo-500/10 border-[1px] border-indigo-500 py-1 px-3 text-indigo-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold w-20"
-                    >
-                      Editar
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-4 h-4"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                        />
-                      </svg>
-                    </Link>
-                  </td>
-
-                  <td className="py-3 px-3 flex text-sm text-left text-slate-700">
-                    <Link
-                      to={`/view-pdf/${e.id}`}
-                      className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
-                    >
-                      Imprimir pdf
-                    </Link>
-                  </td> */}
                 </tr>
               ))}
             </tbody>

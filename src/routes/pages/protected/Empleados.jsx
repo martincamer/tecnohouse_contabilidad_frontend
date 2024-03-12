@@ -273,16 +273,6 @@ export const Empleados = () => {
             </p>
           </div>
 
-          {/* <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
-            <p className="text-indigo-500 text-sm">Total a pagar</p>
-            <p className="text-slate-700 text-sm font-semibold">
-              {Number(totalFinalSum).toLocaleString("es-AR", {
-                style: "currency",
-                currency: "ARS",
-              })}
-            </p>
-          </div> */}
-
           <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full">
             <p className="text-indigo-500 text-sm">Total fabricas cargadas</p>
             <p className="text-slate-700 text-sm font-semibold">
@@ -411,33 +401,6 @@ export const Empleados = () => {
               </svg>
             </button>
           </div>
-          {/* 
-          <div>
-            <button
-              className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
-              type="button"
-            >
-              <PDFDownloadLink
-                document={<ImprimirComprobanteDos datos={resultados} />}
-              >
-                Descargar comprobantes
-              </PDFDownloadLink>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-4 h-4"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
-                />
-              </svg>
-            </button>
-          </div> */}
         </div>
       </div>
       <div className="flex gap-16 items-center px-10">
@@ -451,11 +414,7 @@ export const Empleados = () => {
             className="outline-none px-2 w-full"
           />
           <span className="absolute inset-y-0 right-0 grid w-10 place-content-center">
-            <button
-              type="button"
-              className="text-gray-600 hover:text-gray-700"
-              // onClick={handleSearch}
-            >
+            <button type="button" className="text-gray-600 hover:text-gray-700">
               <span className="sr-only">Search</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -504,9 +463,6 @@ export const Empleados = () => {
           <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
             <thead>
               <tr className="border-b-[1px]">
-                {/* <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
-                  Numero
-                </th> */}
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Empleado
                 </th>
@@ -528,18 +484,7 @@ export const Empleados = () => {
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   mes 20
                 </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Antiguedad
-                </th>
-                {/* <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Premio Asist.
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Premio Prod.
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Comida Prod.
-                </th> */}
+
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Desc.
                 </th>
@@ -549,9 +494,7 @@ export const Empleados = () => {
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Otros
                 </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Total con descuentos
-                </th>
+
                 <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
                   Total Final Mes
                 </th>
@@ -567,7 +510,7 @@ export const Empleados = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 text-left">
-              {currentResults.map((e, index) => (
+              {currentResults.map((e) => (
                 <tr
                   key={e.id}
                   className=" hover:bg-slate-100 transition-all ease-in-out duration-200 cursor-pointer"
@@ -600,66 +543,37 @@ export const Empleados = () => {
                         currency: "ARS",
                       })}
                   </td>
+
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {/* Mostrar el total de antigüedad para el empleado actual */}
-                    {Number(e.total_antiguedad).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td>
-                  {/* <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {Number(e.premio_asistencia).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {Number(e.premio_produccion).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {Number(e.comida_produccion).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td> */}
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    -{" "}
+                    {" "}
                     {Number(e.descuento).toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     })}
                   </td>
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    -{" "}
+                    {" "}
                     {Number(e.otros).toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     })}
                   </td>
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    +{" "}
+                    {" "}
                     {Number(e.banco).toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     })}
                   </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-indigo-600">
+                  {/* <td className="py-3 px-3 text-xs font-semibold text-left text-indigo-600">
                     {Number(Number(e.total_final)).toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     })}
-                  </td>
+                  </td> */}
 
                   <td className="py-3 px-3 text-sm font-bold text-left text-green-600">
-                    {Number(
-                      Number(e.total_quincena) +
-                        Number(e.total_quincena_veinte) +
-                        Number(e.otros) +
-                        Number(e.banco)
-                    ).toLocaleString("es-AR", {
+                    {Number(e.total_final).toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     })}
@@ -667,6 +581,8 @@ export const Empleados = () => {
 
                   <td className="py-3 px-3 text-sm text-left text-slate-700 flex items-start">
                     <Link
+                      target="_blank" // Esto abre el enlace en una nueva pestaña
+                      rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
                       to={`/empleados/${e.id}`}
                       className=" bg-slate-500/10 border-[1px] border-slate-500 py-1 px-3 rounded-lg text-left text-slate-700 flex gap-2 items-center text-xs font-semibold"
                     >
@@ -690,6 +606,8 @@ export const Empleados = () => {
 
                   <td className="py-3 px-3 text-sm text-left text-slate-700">
                     <Link
+                      target="_blank" // Esto abre el enlace en una nueva pestaña
+                      rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
                       to={`/editar-empleado/${e.id}`}
                       type="button"
                       className="bg-indigo-500/10 border-[1px] border-indigo-500 py-1 px-3 text-indigo-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold w-20"
@@ -715,6 +633,8 @@ export const Empleados = () => {
                   <td className="py-3 px-3 flex text-sm text-left text-slate-700">
                     <Link
                       to={`/view-pdf/${e.id}`}
+                      target="_blank" // Esto abre el enlace en una nueva pestaña
+                      rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
                       className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
                     >
                       Imprimir pdf
