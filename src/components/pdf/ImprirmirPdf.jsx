@@ -77,7 +77,7 @@ const meses = [
 // Formatear la fecha
 const fechaFormateada = `${diasSemana[diaDeLaSemana]} ${meses[mes]} / ${diaDelMes} / ${ano}`;
 
-export const ImprimirPdf = ({ ingresoMensual, presupuestoMensual }) => {
+export const ImprimirPdf = ({ ingresoMensual }) => {
   // Mostrar la fecha formateada
   console.log("Fecha actual:", fechaFormateada);
 
@@ -133,7 +133,7 @@ export const ImprimirPdf = ({ ingresoMensual, presupuestoMensual }) => {
             {fechaFormateada}
           </Text>
         </View>
-        <View
+        {/* <View
           style={{
             border: "1px solid #000",
             borderRadius: "3px",
@@ -166,7 +166,7 @@ export const ImprimirPdf = ({ ingresoMensual, presupuestoMensual }) => {
               currency: "ARS",
             })}`}</Text>
           ))}
-        </View>
+        </View> */}
         <View
           style={{
             border: "1px solid #000",
@@ -184,7 +184,7 @@ export const ImprimirPdf = ({ ingresoMensual, presupuestoMensual }) => {
               fontFamily: "Montserrat",
             }}
           >
-            Ingresos de la aplicación
+            Egresos de la aplicación
           </Text>
           <View
             style={{
@@ -264,7 +264,7 @@ export const ImprimirPdf = ({ ingresoMensual, presupuestoMensual }) => {
               fontFamily: "Montserrat",
             }}
           >
-            Resumen final en ingresos
+            Resumen final en egresos
           </Text>
           <Text
             style={{

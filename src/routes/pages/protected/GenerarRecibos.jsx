@@ -9,7 +9,6 @@ import { eliminarIngreso } from "../../../api/ingresos";
 import { ToastContainer } from "react-toastify";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { ImprimirPdf } from "../../../components/pdf/ImprirmirPdf";
-import { css } from "@emotion/react";
 import { SyncLoader } from "react-spinners";
 import * as XLSX from "xlsx";
 
@@ -193,7 +192,7 @@ export const GenerarRecibos = () => {
       </Link>
       <div className="flex">
         <p className="text-slate-700 text-base border-b-[3px] border-indigo-500">
-          Buscar ingresos de mes a mes.
+          Buscar egresos de mes a mes.
         </p>
       </div>
       <div className="mt-10">
@@ -221,11 +220,11 @@ export const GenerarRecibos = () => {
             onClick={buscarIngresosPorFecha}
             className="bg-indigo-500/10 text-sm border-[1px] border-indigo-500 text-indigo-700 px-2 py-1 rounded-md shadow"
           >
-            Buscar Ingresos
+            Buscar egresos
           </button>
         </div>
       </div>
-      <div className="flex gap-2 items-center">
+      {/* <div className="flex gap-2 items-center">
         <label className="text-sm text-indigo-500">Mes</label>
         <input
           className="text-sm bg-slate-100 py-1 px-2 rounded-lg shadow border-slate-300 border-[1px] cursor-pointer text-slate-700 outline-none w-1/5"
@@ -241,7 +240,7 @@ export const GenerarRecibos = () => {
         >
           Buscar Presupuesto
         </button>
-      </div>
+      </div> */}
 
       <div className="mb-10 flex gap-5 items-center">
         <Buscador
@@ -283,7 +282,7 @@ export const GenerarRecibos = () => {
       </div>
 
       <div className="flex gap-5">
-        <div className="text-sm text-slate-700 font-normal flex gap-3 items-center">
+        {/* <div className="text-sm text-slate-700 font-normal flex gap-3 items-center">
           Total del presupuesto{" "}
           <span className="text-indigo-500 text-sm font-semibold">
             {presupuesto.map((p) =>
@@ -294,9 +293,9 @@ export const GenerarRecibos = () => {
             )}
           </span>
         </div>
-        -
+        - */}
         <div className="text-sm text-slate-700 font-normal flex gap-3 items-center">
-          Total de los ingresos{" "}
+          Total de los egresos{" "}
           <span className="text-indigo-500 text-sm font-semibold">
             {totalFormatted}
           </span>
@@ -337,7 +336,7 @@ export const GenerarRecibos = () => {
                     Detalle
                   </th>
                   <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
-                    Ingreso
+                    Egreso
                   </th>
                   <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
                     Total

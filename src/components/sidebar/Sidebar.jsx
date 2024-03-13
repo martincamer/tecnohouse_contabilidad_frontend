@@ -104,8 +104,8 @@ export const SideBar = () => {
                       />
                     </svg>
 
-                    <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
-                      Generar datos
+                    <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-4 py-1.5 text-xs font-medium text-white group-hover:visible w-[160px]">
+                      Generar Datos/egresos
                     </span>
                   </a>
                 </Link>
@@ -164,7 +164,7 @@ export const SideBar = () => {
                       />
                     </svg>
 
-                    <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
+                    <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible w-[150px]">
                       Ver Recibos Mensuales
                     </span>
                   </a>
@@ -193,7 +193,7 @@ export const SideBar = () => {
                       />
                     </svg>
 
-                    <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
+                    <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible w-[120px]">
                       Ver estadisticas mensuales
                     </span>
                   </a>

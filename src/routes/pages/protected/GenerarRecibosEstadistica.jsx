@@ -13,28 +13,6 @@ import * as XLSX from "xlsx";
 import { ImprimirEstadisticaPdf } from "../../../components/pdf/ImprirmirEstadisticaPdf";
 
 export const GenerarRecibosEstadistica = () => {
-  //   const { ingresos } = useIngresosContext();
-
-  const { openModalEditarTwo } = useIngresosContext();
-
-  const [isOpenEliminar, setIsOpenEliminar] = useState(false);
-
-  const [obtenerId, setObtenerId] = useState("");
-
-  const [obtenerIdTwo, setObtenerIdTwo] = useState([]);
-
-  const openModalEliminar = () => {
-    setIsOpenEliminar(true);
-  };
-
-  const closeModalEliminar = () => {
-    setIsOpenEliminar(false);
-  };
-
-  const handleId = (id) => {
-    setObtenerId(id);
-  };
-
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
   const [datos, setDatos] = useState([]);
@@ -43,7 +21,6 @@ export const GenerarRecibosEstadistica = () => {
 
   const obtenerIngresoRangoFechas = async (fechaInicio, fechaFin) => {
     try {
-      // Setea el estado de loading a true para mostrar el spinner
       setLoading(true);
 
       // Validación de fechas
@@ -102,99 +79,112 @@ export const GenerarRecibosEstadistica = () => {
     obtenerPresupuestoPorMes(mes);
   };
 
-  const total = datos.reduce(
-    (accumulator, p) => accumulator + parseFloat(p.total),
+  const totalSum = presupuesto.reduce((accumulator, currentValue) => {
+    return accumulator + parseFloat(currentValue.total);
+  }, 0);
+
+  const totalSumDos = datos.reduce((accumulator, currentValue) => {
+    return accumulator + parseFloat(currentValue.total);
+  }, 0);
+
+  // Calcular el total usado por cada arreglo
+  const totalPresupuestoMensual = presupuesto.reduce(
+    (acc, item) => acc + parseFloat(item.total),
+    0
+  );
+  const totalIngresoMensual = datos.reduce(
+    (acc, item) => acc + parseFloat(item.total),
     0
   );
 
-  const totalFormatted = Number(total).toLocaleString("es-AR", {
-    style: "currency",
-    currency: "ARS",
+  // Calcular el porcentaje del total usado por cada tipo en ingresoMensual
+  const porcentajePorTipoIngreso = {};
+  datos.forEach((item) => {
+    const tipo = item.tipo;
+    const total = parseFloat(item.total);
+    if (!porcentajePorTipoIngreso[tipo]) {
+      porcentajePorTipoIngreso[tipo] = (total / totalIngresoMensual) * 100;
+    } else {
+      porcentajePorTipoIngreso[tipo] += (total / totalIngresoMensual) * 100;
+    }
   });
 
-  // Consolidar ingresos por tipo y sumar los totales
-  const ingresosConsolidados = datos.reduce((consolidado, ingreso) => {
-    if (!consolidado[ingreso.tipo]) {
-      consolidado[ingreso.tipo] = {
-        tipo: ingreso.tipo,
-        total: 0,
-      };
+  // Calcular el porcentaje del total usado por cada tipo en presupuestoMensual
+  const porcentajePorTipoPresupuesto = {};
+  presupuesto.forEach((item) => {
+    const tipo = item.tipo;
+    const total = parseFloat(item.total);
+    if (!porcentajePorTipoPresupuesto[tipo]) {
+      porcentajePorTipoPresupuesto[tipo] =
+        (total / totalPresupuestoMensual) * 100;
+    } else {
+      porcentajePorTipoPresupuesto[tipo] +=
+        (total / totalPresupuestoMensual) * 100;
     }
-    consolidado[ingreso.tipo].total += parseInt(ingreso.total, 10);
-    return consolidado;
+  });
+
+  // Agregar las propiedades de porcentaje al arreglo original ingresoMensual
+  const ingresoMensualConPorcentaje = datos.map((item) => ({
+    ...item,
+    porcentajeUsado: porcentajePorTipoIngreso[item.tipo],
+  }));
+
+  // Agregar las propiedades de porcentaje al arreglo original presupuestoMensual
+  const presupuestoMensualConPorcentaje = presupuesto.map((item) => ({
+    ...item,
+    porcentajeUsado: porcentajePorTipoPresupuesto[item.tipo],
+  }));
+
+  console.log("ingresoMensual con porcentaje:", ingresoMensualConPorcentaje);
+  console.log(
+    "presupuestoMensual con porcentaje:",
+    presupuestoMensualConPorcentaje
+  );
+
+  // Obtener el total de presupuesto para cada tipo en presupuestoMensual
+  const presupuestoMensualTotales = presupuesto.reduce((acc, item) => {
+    acc[item.tipo] = parseFloat(item.total);
+    return acc;
   }, {});
 
-  const totalGlobal = Object.values(ingresosConsolidados).reduce(
-    (total, ingreso) => total + ingreso.total,
-    0
-  );
+  // Calcular la diferencia entre el presupuesto y el ingreso para cada tipo
+  const diferenciaPorTipo = datos.map((item) => ({
+    tipo: item.tipo,
+    diferencia: presupuestoMensualTotales[item.tipo]
+      ? presupuestoMensualTotales[item.tipo] - parseFloat(item.total)
+      : 0,
+  }));
 
-  // Distribuir el total global en porcentajes
-  // const porcentajeDistribucion = 0.4; // 40%
-  const ingresosDistribuidos = Object.values(ingresosConsolidados).map(
-    (ingreso) => ({
-      ...ingreso,
-      porcentaje: ingreso.total / totalGlobal /** porcentajeDistribucion*/,
-    })
-  );
-
-  // Calculamos los ingresos por tipo
-  const ingresosPorTipo = datos.reduce((acumulador, ingreso) => {
-    const tipo = ingreso.tipo;
-    const total = parseInt(ingreso.total, 10);
-
-    if (!acumulador[tipo]) {
-      acumulador[tipo] = 0;
-    }
-
-    acumulador[tipo] += total;
-
-    return acumulador;
-  }, {});
-
-  // Calculamos el total de ingresos mensuales
-  const ingresoMensualTotal = Object.values(ingresosPorTipo).reduce(
-    (total, tipoTotal) => {
-      return total + tipoTotal;
-    },
-    0
-  );
-
-  const presupuestoMensualTotal = presupuesto.reduce(
-    (total, presupuesto) => total + parseInt(presupuesto.total, 10),
-    0
-  );
-
-  // Calculamos la diferencia por tipo
-  const diferenciaPorTipo = Object.entries(ingresosPorTipo).map(
-    ([tipo, totalIngresoTipo]) => {
-      const totalPresupuestoTipo =
-        (totalIngresoTipo / ingresoMensualTotal) * presupuestoMensualTotal;
-      const diferencia = totalPresupuestoTipo - totalIngresoTipo;
-
-      return { tipo, diferencia };
-    }
-  );
-
-  const downloadExcel = () => {
-    const data = ingresosDistribuidos.map((item, index) => ({
+  const downloadDataAsExcel = () => {
+    // Prepare data for Excel
+    const data = ingresoMensualConPorcentaje.map((item, index) => ({
       TIPO: item.tipo.toUpperCase(),
-      TOTAL: new Intl.NumberFormat("es-AR", {
+      "Total egresos": new Intl.NumberFormat("es-AR", {
         style: "currency",
         currency: "ARS",
       }).format(item.total),
-      "PORCENTAJE USADO": `${(item.porcentaje * 100).toFixed(2)}%`,
-      "DIFERENCIA PRESUPUESTO ESTIMADO": new Intl.NumberFormat("es-AR", {
+      "% egresos": `${(item.porcentajeUsado || 0).toFixed(2)}%`,
+      "Total Presupuesto Estimado": new Intl.NumberFormat("es-AR", {
         style: "currency",
         currency: "ARS",
-      }).format(diferenciaPorTipo[index].diferencia),
+      }).format(presupuestoMensualConPorcentaje[index]?.total || 0),
+      "% Presupuesto":
+        (presupuestoMensualConPorcentaje[index]?.porcentajeUsado || 0).toFixed(
+          2
+        ) + "%",
+      "Diferencia Presupuesto/Egresos": new Intl.NumberFormat("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }).format(diferenciaPorTipo[index]?.diferencia || 0),
     }));
 
+    // Create worksheet and workbook
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Ingresos");
+    XLSX.utils.book_append_sheet(wb, ws, "Datos");
 
-    XLSX.writeFile(wb, `estadistica_${fechaInicio}_${fechaFin}.xlsx`);
+    // Save the file
+    XLSX.writeFile(wb, "datos.xlsx");
   };
 
   return (
@@ -278,16 +268,28 @@ export const GenerarRecibosEstadistica = () => {
             type="button"
           >
             <PDFDownloadLink
-              fileName={`planilla_completa_${fechaInicio}_${fechaFin}`}
+              fileName={`estadistica`}
               document={
                 <ImprimirEstadisticaPdf
-                  presupuestoMensual={presupuesto}
-                  ingresoMensual={ingresosDistribuidos}
+                  totalSum={totalSum}
+                  totalSumDos={totalSumDos}
+                  ingresoMensualConPorcentaje={ingresoMensualConPorcentaje}
+                  presupuestoMensualConPorcentaje={
+                    presupuestoMensualConPorcentaje
+                  }
                   diferenciaPorTipo={diferenciaPorTipo}
                 />
               }
             >
-              Descargar o imprimir
+              {({ blob, url, loading, error }) =>
+                loading ? (
+                  <span>Loading...</span>
+                ) : (
+                  <button className="text-sm">
+                    Descargar estadistica mensual formato PDF
+                  </button>
+                )
+              }
             </PDFDownloadLink>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -308,28 +310,28 @@ export const GenerarRecibosEstadistica = () => {
       </div>
       <div className="flex gap-5">
         <div className="text-sm text-slate-700 font-normal flex gap-3 items-center">
-          Total del presupuesto{" "}
+          Total del presupuesto estimado{" "}
           <span className="text-indigo-500 text-sm font-semibold">
-            {presupuesto.map((p) =>
+            {/* {presupuesto.map((p) =>
               Number(p.total).toLocaleString("es-AR", {
                 style: "currency",
                 currency: "ARS",
               })
-            )}
+            )} */}
           </span>
         </div>
         -
         <div className="text-sm text-slate-700 font-normal flex gap-3 items-center">
-          Total de los ingresos{" "}
+          Total de los egresos generados{" "}
           <span className="text-indigo-500 text-sm font-semibold">
-            {totalFormatted}
+            {/* {totalFormatted} */}
           </span>
         </div>
       </div>
 
       <div>
         <button
-          onClick={downloadExcel}
+          onClick={downloadDataAsExcel}
           className="bg-green-500 text-white py-2 px-5 rounded-xl text-sm flex gap-2 items-center"
           type="button"
         >
@@ -348,24 +350,31 @@ export const GenerarRecibosEstadistica = () => {
         ) : (
           <div className="overflow-x-auto rounded-lg border border-gray-200 mt-5">
             <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-              <thead>
-                <tr className="border-b-[1px]">
-                  <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+              <thead className="text-left">
+                <tr>
+                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
                     Tipo
                   </th>
-                  <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
-                    Total
+                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                    Total egresos
                   </th>
-                  <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
-                    Porcentaje usado
+                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                    % egresos
                   </th>
-                  <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
-                    Diferencia presupuesto estimado
+                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                    Total Presupuesto Estimado
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                    % Presupuesto
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                    Diferencia Presupuesto/Egresos
                   </th>
                 </tr>
               </thead>
+
               <tbody className="divide-y divide-gray-200 text-left">
-                {ingresosDistribuidos.map((item, index) => (
+                {ingresoMensualConPorcentaje.map((item, index) => (
                   <tr
                     className="hover:bg-slate-200 cursor-pointer transition-all ease-in-out duration-100"
                     key={item.tipo}
@@ -373,19 +382,32 @@ export const GenerarRecibosEstadistica = () => {
                     <td className="whitespace-nowrap px-4 py-3 font-medium text-gray-900 capitalize">
                       {item.tipo}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-gray-700">
+                    <td className="whitespace-nowrap px-4 py-3 text-green-600 font-bold">
                       {new Intl.NumberFormat("es-AR", {
                         style: "currency",
                         currency: "ARS",
                       }).format(item.total)}
                     </td>
                     <td className="whitespace-nowrap px-4 py-3 text-gray-700">
-                      {`${(item.porcentaje * 100).toFixed(2)}%`}
+                      {`${(item.porcentajeUsado || 0).toFixed(2)}%`}
                     </td>
-
+                    <td className="whitespace-nowrap px-4 py-3 text-gray-700 font-bold">
+                      {new Intl.NumberFormat("es-AR", {
+                        style: "currency",
+                        currency: "ARS",
+                      }).format(
+                        presupuestoMensualConPorcentaje[index]?.total || 0
+                      )}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3 text-gray-700">
+                      {presupuestoMensualConPorcentaje[
+                        index
+                      ]?.porcentajeUsado.toFixed(2) || 0}
+                      %
+                    </td>
                     <td
-                      className={`whitespace-nowrap px-4 py-3 text-gray-700 ${
-                        diferenciaPorTipo[index].diferencia < 0
+                      className={`whitespace-nowrap px-4 py-3 text-gray-700 font-bold ${
+                        diferenciaPorTipo[index]?.diferencia < 0
                           ? "text-red-600"
                           : ""
                       }`}
@@ -393,7 +415,7 @@ export const GenerarRecibosEstadistica = () => {
                       {new Intl.NumberFormat("es-AR", {
                         style: "currency",
                         currency: "ARS",
-                      }).format(diferenciaPorTipo[index].diferencia)}
+                      }).format(diferenciaPorTipo[index]?.diferencia || 0)}
                     </td>
                   </tr>
                 ))}
@@ -402,20 +424,6 @@ export const GenerarRecibosEstadistica = () => {
           </div>
         )}
       </div>
-
-      <ModalEliminar
-        datoUno={datos}
-        datoDos={setDatos}
-        isOpenEliminar={isOpenEliminar}
-        closeModalEliminar={closeModalEliminar}
-        obtenerId={obtenerId}
-        eliminar={eliminarIngreso}
-      />
-      <ModalEditarIngreso
-        setDatos={setDatos}
-        datos={datos}
-        obtenerId={obtenerIdTwo}
-      />
 
       <ToastContainer />
     </section>

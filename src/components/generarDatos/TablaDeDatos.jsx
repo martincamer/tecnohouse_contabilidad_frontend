@@ -53,7 +53,7 @@ export const TablaDeDatos = ({
   };
 
   return (
-    <div>
+    <div className="h-screen">
       <div>
         <button
           onClick={downloadDataAsExcel}

@@ -15,74 +15,8 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import * as XLSX from "xlsx";
 
 export const Estadistica = () => {
-  const { setIngresoMensual, ingresoMensual } = useIngresosContext();
+  const { ingresoMensual } = useIngresosContext();
   const { presupuestoMensual } = usePresupuestosContext();
-
-  // Consolidar ingresos por tipo y sumar los totales
-  const ingresosConsolidados = ingresoMensual.reduce((consolidado, ingreso) => {
-    if (!consolidado[ingreso.tipo]) {
-      consolidado[ingreso.tipo] = {
-        tipo: ingreso.tipo,
-        total: 0,
-      };
-    }
-    consolidado[ingreso.tipo].total += parseInt(ingreso.total, 10);
-    return consolidado;
-  }, {});
-
-  const totalGlobal = Object.values(ingresosConsolidados).reduce(
-    (total, ingreso) => total + ingreso.total,
-    0
-  );
-
-  // Distribuir el total global en porcentajes
-  // const porcentajeDistribucion = 0.4; // 40%
-  const ingresosDistribuidos = Object.values(ingresosConsolidados).map(
-    (ingreso) => ({
-      ...ingreso,
-      porcentaje: ingreso.total / totalGlobal /** porcentajeDistribucion*/,
-    })
-  );
-
-  // Calculamos los ingresos por tipo
-  const ingresosPorTipo = ingresoMensual.reduce((acumulador, ingreso) => {
-    const tipo = ingreso.tipo;
-    const total = parseInt(ingreso.total, 10);
-
-    if (!acumulador[tipo]) {
-      acumulador[tipo] = 0;
-    }
-
-    acumulador[tipo] += total;
-
-    return acumulador;
-  }, {});
-
-  // Calculamos el total de ingresos mensuales
-  const ingresoMensualTotal = Object.values(ingresosPorTipo).reduce(
-    (total, tipoTotal) => {
-      return total + tipoTotal;
-    },
-    0
-  );
-
-  const presupuestoMensualTotal = presupuestoMensual.reduce(
-    (total, presupuesto) => total + parseInt(presupuesto.total, 10),
-    0
-  );
-
-  // Calculamos la diferencia por tipo
-  const diferenciaPorTipo = Object.entries(ingresosPorTipo).map(
-    ([tipo, totalIngresoTipo]) => {
-      const totalPresupuestoTipo =
-        (totalIngresoTipo / ingresoMensualTotal) * presupuestoMensualTotal;
-      const diferencia = totalPresupuestoTipo - totalIngresoTipo;
-
-      return { tipo, diferencia };
-    }
-  );
-
-  console.log("Diferencia por tipo:", diferenciaPorTipo);
 
   const formatoMoneda = new Intl.NumberFormat("es-AR", {
     style: "currency",
@@ -92,13 +26,6 @@ export const Estadistica = () => {
   const capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
-
-  const datosFormateados = ingresosDistribuidos.map((item, index) => ({
-    tipo: capitalize(item.tipo),
-    total: item.total,
-    porcentaje: item.porcentaje * 100, // Mantenlo como número
-    diferencia: diferenciaPorTipo[index].diferencia,
-  }));
 
   // Obtener la fecha actual
   const fechaActual = new Date();
@@ -144,19 +71,103 @@ export const Estadistica = () => {
   // Formatear la fecha
   const fechaFormateada = `${diasSemana[diaDeLaSemana]}_${meses[mes]}_${diaDelMes}_${ano}`;
 
+  const totalSum = presupuestoMensual.reduce((accumulator, currentValue) => {
+    return accumulator + parseFloat(currentValue.total);
+  }, 0);
+
+  const totalSumDos = ingresoMensual.reduce((accumulator, currentValue) => {
+    return accumulator + parseFloat(currentValue.total);
+  }, 0);
+
+  // Calcular el total usado por cada arreglo
+  const totalPresupuestoMensual = presupuestoMensual.reduce(
+    (acc, item) => acc + parseFloat(item.total),
+    0
+  );
+  const totalIngresoMensual = ingresoMensual.reduce(
+    (acc, item) => acc + parseFloat(item.total),
+    0
+  );
+
+  // Calcular el porcentaje del total usado por cada tipo en ingresoMensual
+  const porcentajePorTipoIngreso = {};
+  ingresoMensual.forEach((item) => {
+    const tipo = item.tipo;
+    const total = parseFloat(item.total);
+    if (!porcentajePorTipoIngreso[tipo]) {
+      porcentajePorTipoIngreso[tipo] = (total / totalIngresoMensual) * 100;
+    } else {
+      porcentajePorTipoIngreso[tipo] += (total / totalIngresoMensual) * 100;
+    }
+  });
+
+  // Calcular el porcentaje del total usado por cada tipo en presupuestoMensual
+  const porcentajePorTipoPresupuesto = {};
+  presupuestoMensual.forEach((item) => {
+    const tipo = item.tipo;
+    const total = parseFloat(item.total);
+    if (!porcentajePorTipoPresupuesto[tipo]) {
+      porcentajePorTipoPresupuesto[tipo] =
+        (total / totalPresupuestoMensual) * 100;
+    } else {
+      porcentajePorTipoPresupuesto[tipo] +=
+        (total / totalPresupuestoMensual) * 100;
+    }
+  });
+
+  // Agregar las propiedades de porcentaje al arreglo original ingresoMensual
+  const ingresoMensualConPorcentaje = ingresoMensual.map((item) => ({
+    ...item,
+    porcentajeUsado: porcentajePorTipoIngreso[item.tipo],
+  }));
+
+  // Agregar las propiedades de porcentaje al arreglo original presupuestoMensual
+  const presupuestoMensualConPorcentaje = presupuestoMensual.map((item) => ({
+    ...item,
+    porcentajeUsado: porcentajePorTipoPresupuesto[item.tipo],
+  }));
+
+  console.log("ingresoMensual con porcentaje:", ingresoMensualConPorcentaje);
+  console.log(
+    "presupuestoMensual con porcentaje:",
+    presupuestoMensualConPorcentaje
+  );
+
+  // Obtener el total de presupuesto para cada tipo en presupuestoMensual
+  const presupuestoMensualTotales = presupuestoMensual.reduce((acc, item) => {
+    acc[item.tipo] = parseFloat(item.total);
+    return acc;
+  }, {});
+
+  // Calcular la diferencia entre el presupuesto y el ingreso para cada tipo
+  const diferenciaPorTipo = ingresoMensual.map((item) => ({
+    tipo: item.tipo,
+    diferencia: presupuestoMensualTotales[item.tipo]
+      ? presupuestoMensualTotales[item.tipo] - parseFloat(item.total)
+      : 0,
+  }));
+
   const downloadDataAsExcel = () => {
     // Prepare data for Excel
-    const data = ingresosDistribuidos.map((item, index) => ({
+    const data = ingresoMensualConPorcentaje.map((item, index) => ({
       TIPO: item.tipo.toUpperCase(),
-      Total: new Intl.NumberFormat("es-AR", {
+      "Total egresos": new Intl.NumberFormat("es-AR", {
         style: "currency",
         currency: "ARS",
       }).format(item.total),
-      "PORCENTAJE USADO": `${(item.porcentaje * 100).toFixed(2)}%`,
-      "DIFERENCIA PRESUPUESTO ESTIMADO": new Intl.NumberFormat("es-AR", {
+      "% egresos": `${(item.porcentajeUsado || 0).toFixed(2)}%`,
+      "Total Presupuesto Estimado": new Intl.NumberFormat("es-AR", {
         style: "currency",
         currency: "ARS",
-      }).format(diferenciaPorTipo[index].diferencia),
+      }).format(presupuestoMensualConPorcentaje[index]?.total || 0),
+      "% Presupuesto":
+        (presupuestoMensualConPorcentaje[index]?.porcentajeUsado || 0).toFixed(
+          2
+        ) + "%",
+      "Diferencia Presupuesto/Egresos": new Intl.NumberFormat("es-AR", {
+        style: "currency",
+        currency: "ARS",
+      }).format(diferenciaPorTipo[index]?.diferencia || 0),
     }));
 
     // Create worksheet and workbook
@@ -193,9 +204,9 @@ export const Estadistica = () => {
 
       <div className=" bg-white border-slate-300 border-[1px] shadow rounded-xl grid grid-cols-3">
         <div className="border-r-[1px] border-slate-300 py-5 px-5 flex flex-col gap-1 items-center justify-center">
-          <p className="text-slate-600 text-sm">Total generado</p>
+          <p className="text-slate-600 text-sm">Total en egresos generados</p>
           <p className="text-indigo-600">
-            {totalGlobal.toLocaleString("es-AR", {
+            {Number(totalSumDos).toLocaleString("es-AR", {
               style: "currency",
               currency: "ARS",
             })}
@@ -203,19 +214,21 @@ export const Estadistica = () => {
         </div>
 
         <div className="border-r-[1px] border-slate-300 py-5 px-5 flex flex-col gap-1 items-center justify-center">
-          <p className="text-slate-600 text-sm">Total ingresos distribuidos</p>
-          <p className="text-indigo-600">{ingresosDistribuidos.length}</p>
+          <p className="text-slate-600 text-sm">
+            Total en egresos distribuidos
+          </p>
+          <p className="text-indigo-600">{ingresoMensual.length}</p>
         </div>
 
         <div className=" py-5 px-5 flex flex-col gap-1 items-center justify-center">
-          <p className="text-slate-600 text-sm">Presupuesto estimado</p>
+          <p className="text-slate-600 text-sm">
+            Presupuesto de egresos estimado
+          </p>
           <p className="text-indigo-600">
-            {presupuestoMensual.map((p) =>
-              Number(p.total).toLocaleString("es-AR", {
-                style: "currency",
-                currency: "ARS",
-              })
-            )}
+            {Number(totalSum).toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })}
           </p>
         </div>
       </div>
@@ -223,7 +236,7 @@ export const Estadistica = () => {
       <div className="mt-5">
         <div className="flex gap-5 items-center">
           <p className="text-lg uppercase border-b-[2|px] border-indigo-500 text-indigo-600">
-            Ingresos distrubuidos porcentaje
+            Egresos distribuidos porcentajes/etc
           </p>
 
           <div>
@@ -231,15 +244,25 @@ export const Estadistica = () => {
               fileName={`estadistica_${fechaFormateada}`}
               document={
                 <ImprimirEstadisticaPdf
-                  presupuestoMensual={presupuestoMensual}
-                  ingresoMensual={ingresosDistribuidos}
+                  totalSum={totalSum}
+                  totalSumDos={totalSumDos}
+                  ingresoMensualConPorcentaje={ingresoMensualConPorcentaje}
+                  presupuestoMensualConPorcentaje={
+                    presupuestoMensualConPorcentaje
+                  }
                   diferenciaPorTipo={diferenciaPorTipo}
                 />
               }
             >
-              <button className="text-sm bg-indigo-500/10 border-indigo-500 border-[1px] text-indigo-600 py-2 px-4 shadow rounded-lg">
-                Descargar estadistica mensual
-              </button>
+              {({ blob, url, loading, error }) =>
+                loading ? (
+                  <span>Loading...</span>
+                ) : (
+                  <button className="text-sm bg-indigo-500/10 border-indigo-500 border-[1px] text-indigo-600 py-2 px-4 shadow rounded-lg">
+                    Descargar estadistica mensual
+                  </button>
+                )
+              }
             </PDFDownloadLink>
           </div>
         </div>
@@ -256,23 +279,29 @@ export const Estadistica = () => {
           <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
             <thead className="text-left">
               <tr>
-                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold capitalize">
+                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
                   Tipo
                 </th>
-                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold capitalize">
-                  Total
+                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                  Total egresos
                 </th>
-                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold capitalize">
-                  Porcentaje usado
+                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                  % egresos
                 </th>
-                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold capitalize">
-                  Diferencia presupuesto estimado
+                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                  Total Presupuesto Estimado
+                </th>
+                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                  % Presupuesto
+                </th>
+                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                  Diferencia Presupuesto/Egresos
                 </th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-gray-200 text-left">
-              {ingresosDistribuidos.map((item, index) => (
+              {ingresoMensualConPorcentaje.map((item, index) => (
                 <tr
                   className="hover:bg-slate-200 cursor-pointer transition-all ease-in-out duration-100"
                   key={item.tipo}
@@ -280,19 +309,32 @@ export const Estadistica = () => {
                   <td className="whitespace-nowrap px-4 py-3 font-medium text-gray-900 capitalize">
                     {item.tipo}
                   </td>
-                  <td className="whitespace-nowrap px-4 py-3 text-gray-700">
+                  <td className="whitespace-nowrap px-4 py-3 text-green-600 font-bold">
                     {new Intl.NumberFormat("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     }).format(item.total)}
                   </td>
                   <td className="whitespace-nowrap px-4 py-3 text-gray-700">
-                    {`${(item.porcentaje * 100).toFixed(2)}%`}
+                    {`${(item.porcentajeUsado || 0).toFixed(2)}%`}
                   </td>
-
+                  <td className="whitespace-nowrap px-4 py-3 text-gray-700 font-bold">
+                    {new Intl.NumberFormat("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    }).format(
+                      presupuestoMensualConPorcentaje[index]?.total || 0
+                    )}
+                  </td>
+                  <td className="whitespace-nowrap px-4 py-3 text-gray-700">
+                    {presupuestoMensualConPorcentaje[
+                      index
+                    ]?.porcentajeUsado.toFixed(2) || 0}
+                    %
+                  </td>
                   <td
-                    className={`whitespace-nowrap px-4 py-3 text-gray-700 ${
-                      diferenciaPorTipo[index].diferencia < 0
+                    className={`whitespace-nowrap px-4 py-3 text-gray-700 font-bold ${
+                      diferenciaPorTipo[index]?.diferencia < 0
                         ? "text-red-600"
                         : ""
                     }`}
@@ -300,7 +342,7 @@ export const Estadistica = () => {
                     {new Intl.NumberFormat("es-AR", {
                       style: "currency",
                       currency: "ARS",
-                    }).format(diferenciaPorTipo[index].diferencia)}
+                    }).format(diferenciaPorTipo[index]?.diferencia || 0)}
                   </td>
                 </tr>
               ))}
@@ -314,7 +356,7 @@ export const Estadistica = () => {
           width={1220}
           height={500}
           className="w-full mx-auto"
-          data={datosFormateados}
+          data={ingresoMensualConPorcentaje}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />

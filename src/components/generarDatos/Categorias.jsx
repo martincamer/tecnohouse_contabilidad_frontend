@@ -63,7 +63,7 @@ export const Categorias = () => {
           type="button"
           onClick={() => openModalIngresos()}
         >
-          Ingreso nuevo
+          Egreso nuevo
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -87,7 +87,7 @@ export const Categorias = () => {
           className="bg-indigo-500 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
           type="button"
         >
-          Crear tipo de gasto
+          Crear tipo de egreso
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -110,7 +110,7 @@ export const Categorias = () => {
           className="bg-indigo-500 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
           type="button"
         >
-          Editar tipo de gasto
+          Editar tipo de egreso
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -141,7 +141,7 @@ export const Categorias = () => {
               />
             }
           >
-            Descargar o imprimir
+            Descargar o imprimir egresos
           </PDFDownloadLink>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +165,7 @@ export const Categorias = () => {
           className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center"
           type="button"
         >
-          Total del presupuesto
+          Generar presupuesto estimado
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

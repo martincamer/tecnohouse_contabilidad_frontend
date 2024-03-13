@@ -72,7 +72,9 @@ export const IntroActual = () => {
   );
   const porcentaje = totalPresupuestos / 100; // Si el totalPresupuestos es 105000, esto imprimirá 1050.
 
-  console.log(porcentaje);
+  const totalSum = presupuestoMensual.reduce((accumulator, currentValue) => {
+    return accumulator + parseFloat(currentValue.total);
+  }, 0);
 
   return (
     <div className="bg-white w-full border-[1px] border-slate-300 shadow rounded-xl flex gap-4 items-center justify-center py-5 px-10">
@@ -91,26 +93,23 @@ export const IntroActual = () => {
               stroke-width="2"
               d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
             />
-          </svg>A
-
-          <span class="text-xs font-medium"> {porcentaje}%</span>
+          </svg>
+          A<span class="text-xs font-medium"> {porcentaje}%</span>
         </div>
         <p className="text-indigo-500 text-sm">
           Total del presupuesto estimado
         </p>
-        {presupuestoMensual.map((p) => (
-          <p className="text-slate-700 text-sm font-semibold">
-            {Number(p?.total).toLocaleString("es-AR", {
-              style: "currency",
-              currency: "ARS",
-            })}
-          </p>
-        ))}
+        <p className="text-green-600 font-bold text-base">
+          {Number(totalSum).toLocaleString("es-AR", {
+            style: "currency",
+            currency: "ARS",
+          })}
+        </p>
       </div>
 
       <div className="py-5 px-6 flex flex-col justify-center items-center gap-1 w-full h-full bg-white border-slate-300 border-[1px] rounded-xl shadow">
         <p className="text-indigo-500 text-sm">
-          Gastos del mes{" "}
+          Egresos generados del mes{" "}
           <span className="text-slate-700 capitalize">{fechaFormateada}</span>
         </p>
         <p className="text-slate-700 text-sm font-semibold">
@@ -149,7 +148,7 @@ export const IntroActual = () => {
 
           <span class="text-xs font-medium"> {totalIngreso / 100} %</span>
         </div>
-        <p className="text-indigo-500 text-sm">Ingreso final</p>
+        <p className="text-indigo-500 text-sm">Egreso final</p>
         <p className="text-slate-700 text-sm font-semibold">
           {Number(totalIngreso).toLocaleString("es-AR", {
             style: "currency",

@@ -1,8 +1,10 @@
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { crearPresupuestoNuevo } from "../../api/presupuestos";
 import { useForm } from "react-hook-form";
+import { useTipoContext } from "../../context/TiposProvider";
+import { usePresupuestosContext } from "../../context/PresupuestosProvider";
+import { crearPresupuestoNuevo } from "../../api/presupuestos";
 
 export const ModalCrearTotal = ({
   isOpenCrear,
@@ -12,10 +14,13 @@ export const ModalCrearTotal = ({
   const {
     register,
     handleSubmit,
-    getValues,
-    setValue,
     formState: { errors },
   } = useForm();
+
+  const { presupuestoMensual, setPresupuestoMensual } =
+    usePresupuestosContext();
+
+  const { tipos } = useTipoContext();
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -29,11 +34,17 @@ export const ModalCrearTotal = ({
 
       const res = await crearPresupuestoNuevo(data);
 
-      setTimeout(() => {
-        location.reload();
-      }, 1500);
+      // Verificar si el tipo ya existe antes de agregarlo al estado
+      const tipoExistente = presupuestoMensual.find(
+        (tipo) => tipo.id === res.data.id
+      );
 
-      toast.success("Valor creado correctamente!", {
+      if (!tipoExistente) {
+        // Actualizar el estado de tipos agregando el nuevo tipo al final
+        setPresupuestoMensual((prevTipos) => [...prevTipos, res.data]);
+      }
+
+      toast.success("Creado correctamente!", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: false,
@@ -43,8 +54,12 @@ export const ModalCrearTotal = ({
         progress: undefined,
         theme: "light",
       });
+
+      setTimeout(() => {
+        closeModalIngresos();
+      }, 1000);
     } catch (error) {
-      console.log(error.response.data);
+      // console.log(error.response.data);
     }
   });
 
@@ -98,22 +113,53 @@ export const ModalCrearTotal = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-[300px] p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <div className="inline-block w-[400px] p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <div className="text-lg text-indigo-500 mb-3 border-b-[1px] uppercase">
-                  Crear nuevo valor
+                  Crear nuevo tipo
                 </div>
-                <form onSubmit={onSubmit} action="">
+                <form
+                  onSubmit={onSubmit}
+                  action=""
+                  className="flex flex-col gap-3"
+                >
                   <div className="flex flex-col gap-1">
-                    <label htmlFor="" className="text-slate-500s">
+                    <label htmlFor="" className="text-slate-600">
+                      Ingresa el detalle
+                    </label>
+                    <input
+                      {...register("detalle", { required: true })}
+                      type="text"
+                      placeholder="Ingresa el detalle"
+                      className="py-2 px-4 border-[1px] border-black/10 rounded-lg shadow shadow-black/10 outline-none"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <label htmlFor="" className="text-slate-600">
+                      Seleccionar el tipo
+                    </label>
+                    <select
+                      {...register("tipo", { required: true })}
+                      type="text"
+                      className="py-2 px-4 border-[1px] border-black/10 rounded-lg shadow shadow-black/10 outline-none"
+                    >
+                      <option value="">Seleccionar</option>
+                      {tipos.map((t) => (
+                        <option key={t.id}>{t?.tipo}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label htmlFor="" className="text-slate-600">
                       Ingresar valor
                     </label>
                     <input
                       type="text"
-                      placeholder="TOTAL GASTO"
+                      placeholder="Ingresa el valor"
                       {...register("total", {
                         validate: (value) => {
                           const numeroLimpiado = value.replace(/[^0-9]/g, "");
-                          return !!numeroLimpiado || "El gasto es requerido";
+                          return !!numeroLimpiado || "El valor es requerido";
                         },
                       })}
                       onChange={(e) => {
@@ -146,7 +192,7 @@ export const ModalCrearTotal = ({
                       type="submit"
                       className="bg-indigo-500 py-1 px-4 rounded-lg shadow text-white mt-2"
                     >
-                      Crear valor
+                      Crear nuevo ingreso
                     </button>
                   </div>
                 </form>
