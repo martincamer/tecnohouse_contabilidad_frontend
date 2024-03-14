@@ -303,51 +303,57 @@ export const Estadistica = () => {
             </thead>
 
             <tbody className="divide-y divide-gray-200 text-left">
-              {ingresoMensualOrdenado.map((item, index) => (
-                <tr
-                  className="hover:bg-slate-200 cursor-pointer transition-all ease-in-out duration-100"
-                  key={item.tipo}
-                >
-                  <td className="whitespace-nowrap px-4 py-3 font-medium text-gray-900 capitalize">
-                    {item.tipo}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3 text-green-600 font-bold">
-                    {new Intl.NumberFormat("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    }).format(item.total)}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3 text-gray-700">
-                    {`${(item.porcentajeUsado || 0).toFixed(2)}%`}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3 text-gray-700 font-bold">
-                    {new Intl.NumberFormat("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    }).format(
-                      presupuestoMensualConPorcentaje[index]?.total || 0
-                    )}
-                  </td>
-                  <td className="whitespace-nowrap px-4 py-3 text-gray-700">
-                    {presupuestoMensualConPorcentaje[
-                      index
-                    ]?.porcentajeUsado.toFixed(2) || 0}
-                    %
-                  </td>
-                  <td
-                    className={`whitespace-nowrap px-4 py-3 text-gray-700 font-bold ${
-                      diferenciaPorTipo[index]?.diferencia < 0
-                        ? "text-red-600"
-                        : ""
-                    }`}
+              {ingresoMensualOrdenado.map((item) => {
+                // Buscar el objeto correspondiente en presupuestoMensualConPorcentaje y diferenciaPorTipo
+                const presupuestoItem = presupuestoMensualConPorcentaje.find(
+                  (presupuesto) => presupuesto.tipo === item.tipo
+                );
+
+                const diferenciaItem = diferenciaPorTipo.find(
+                  (diferencia) => diferencia.tipo === item.tipo
+                );
+
+                return (
+                  <tr
+                    className="hover:bg-slate-200 cursor-pointer transition-all ease-in-out duration-100"
+                    key={item.tipo}
                   >
-                    {new Intl.NumberFormat("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    }).format(diferenciaPorTipo[index]?.diferencia || 0)}
-                  </td>
-                </tr>
-              ))}
+                    <td className="whitespace-nowrap px-4 py-3 font-medium text-gray-900 capitalize">
+                      {item.tipo}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3 text-green-600 font-bold">
+                      {new Intl.NumberFormat("es-AR", {
+                        style: "currency",
+                        currency: "ARS",
+                      }).format(item.total)}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3 text-gray-700">
+                      {`${(item.porcentajeUsado || 0).toFixed(2)}%`}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3 text-gray-700 font-bold">
+                      {new Intl.NumberFormat("es-AR", {
+                        style: "currency",
+                        currency: "ARS",
+                      }).format(presupuestoItem?.total || 0)}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3 text-gray-700">
+                      {(presupuestoItem?.porcentajeUsado || 0).toFixed(2)}%
+                    </td>
+                    <td
+                      className={`whitespace-nowrap px-4 py-3 text-gray-700 font-bold ${
+                        (diferenciaItem?.diferencia || 0) < 0
+                          ? "text-red-600"
+                          : ""
+                      }`}
+                    >
+                      {new Intl.NumberFormat("es-AR", {
+                        style: "currency",
+                        currency: "ARS",
+                      }).format(diferenciaItem?.diferencia || 0)}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
