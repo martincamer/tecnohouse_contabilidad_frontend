@@ -127,12 +127,6 @@ export const Estadistica = () => {
     porcentajeUsado: porcentajePorTipoPresupuesto[item.tipo],
   }));
 
-  console.log("ingresoMensual con porcentaje:", ingresoMensualConPorcentaje);
-  console.log(
-    "presupuestoMensual con porcentaje:",
-    presupuestoMensualConPorcentaje
-  );
-
   // Obtener el total de presupuesto para cada tipo en presupuestoMensual
   const presupuestoMensualTotales = presupuestoMensual.reduce((acc, item) => {
     acc[item.tipo] = parseFloat(item.total);
@@ -178,6 +172,14 @@ export const Estadistica = () => {
     // Save the file
     XLSX.writeFile(wb, "datos.xlsx");
   };
+
+  const ingresoMensualOrdenado = [...ingresoMensualConPorcentaje].sort(
+    (a, b) => {
+      if (a.tipo < b.tipo) return -1;
+      if (a.tipo > b.tipo) return 1;
+      return 0;
+    }
+  );
 
   return (
     <section className="px-10 py-16 w-full h-full flex flex-col gap-5">
@@ -301,7 +303,7 @@ export const Estadistica = () => {
             </thead>
 
             <tbody className="divide-y divide-gray-200 text-left">
-              {ingresoMensualConPorcentaje.map((item, index) => (
+              {ingresoMensualOrdenado.map((item, index) => (
                 <tr
                   className="hover:bg-slate-200 cursor-pointer transition-all ease-in-out duration-100"
                   key={item.tipo}
