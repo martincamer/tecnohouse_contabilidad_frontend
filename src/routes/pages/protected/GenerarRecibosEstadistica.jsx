@@ -312,19 +312,20 @@ export const GenerarRecibosEstadistica = () => {
         <div className="text-sm text-slate-700 font-normal flex gap-3 items-center">
           Total del presupuesto estimado{" "}
           <span className="text-indigo-500 text-sm font-semibold">
-            {/* {presupuesto.map((p) =>
-              Number(p.total).toLocaleString("es-AR", {
-                style: "currency",
-                currency: "ARS",
-              })
-            )} */}
+            {new Intl.NumberFormat("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            }).format(totalSumDos)}
           </span>
         </div>
         -
         <div className="text-sm text-slate-700 font-normal flex gap-3 items-center">
           Total de los egresos generados{" "}
           <span className="text-indigo-500 text-sm font-semibold">
-            {/* {totalFormatted} */}
+            {new Intl.NumberFormat("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            }).format(totalSum)}
           </span>
         </div>
       </div>

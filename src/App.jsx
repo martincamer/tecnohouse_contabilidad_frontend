@@ -30,6 +30,7 @@ import { DatosGuardados } from "./routes/pages/protected/DatosGuardados";
 import RutaProtegida from "./layouts/RutaProtejida";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import { ViewPdfPruebasDos } from "./components/pdf/ViewPdfPruebasDos";
 
 function App() {
   const { isAuth } = useAuth();
@@ -75,6 +76,7 @@ function App() {
               <Route path="/cuenta" element={<Cuenta />} />
               <Route path="/view-pdf/:id" element={<ViewPdf />} />
               <Route path="/view-pdf-completo" element={<ViewPdfPruebas />} />
+              <Route path="/view-pdf-dos" element={<ViewPdfPruebasDos />} />
               <Route path="/view-pdf/app" element={<ViewPdfTwo />} />
               <Route path="/view-ingreso/:id" element={<ViewIngreso />} />
 

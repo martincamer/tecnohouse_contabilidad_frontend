@@ -404,9 +404,10 @@ export const GenerarRecibos = () => {
                         </svg>
                       </button>
                     </td>
-                    <td className="py-3 px-3 text-sm text-left text-slate-700">
-                      <button
-                        type="button"
+                    <td className="py-3 px-3 text-sm text-left text-slate-700 flex">
+                      <Link
+                        target="_blank"
+                        to={`/view-ingreso/${i.id}`}
                         className="bg-slate-500/10 border-[1px] border-slate-500 py-1 px-3 rounded-lg text-left text-slate-700 flex gap-2 items-center"
                       >
                         Ver ingreso
@@ -424,7 +425,7 @@ export const GenerarRecibos = () => {
                             d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
                           />
                         </svg>
-                      </button>
+                      </Link>
                     </td>
 
                     <td className="py-3 px-3 text-sm text-left text-slate-700">

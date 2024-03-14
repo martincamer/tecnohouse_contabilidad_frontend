@@ -135,7 +135,7 @@ export const Home = () => {
 
   return (
     <section className="w-full h-full py-12 px-12 max-md:px-4 flex flex-col gap-20">
-      <div className="grid grid-cols-5 gap-4 border-[1px] shadow-md rounded py-5 px-10">
+      <div className="grid grid-cols-5 gap-4 border-[1px] border-slate-300 rounded-xl py-5 px-10">
         <DatosComponent
           icono={
             <svg
@@ -153,7 +153,8 @@ export const Home = () => {
               />
             </svg>
           }
-          title="Total cargados"
+          title="Total egresos cargados"
+          totalDos={ingresoMensual.length / 10000}
           total={ingresoMensual.length}
         />
         <DatosComponent
@@ -173,7 +174,8 @@ export const Home = () => {
               />
             </svg>
           }
-          title="Total final"
+          title="Total final en egresos"
+          totalDos={Number(totalIngreso / 100000)}
           total={Number(totalIngreso).toLocaleString("es-AR", {
             style: "currency",
             currency: "ARS",
@@ -198,7 +200,8 @@ export const Home = () => {
           }
         />
         <DatosComponent
-          title="Total del presupuesto"
+          title="Total del presupuesto estimado"
+          totalDos={Number(totalPresupuesto / 100000)}
           total={Number(totalPresupuesto).toLocaleString("es-AR", {
             style: "currency",
             currency: "ARS",
@@ -237,7 +240,8 @@ export const Home = () => {
               />
             </svg>
           }
-          title="Total Gastos"
+          title="Total de egresos final"
+          totalDos={Number(totalIngreso / 100000)}
           total={Number(totalIngreso).toLocaleString("es-AR", {
             style: "currency",
             currency: "ARS",

@@ -11,8 +11,6 @@ export const ViewIngreso = () => {
   //   params obtener
   const params = useParams();
 
-  console.log(params);
-
   useEffect(() => {
     async function loadData() {
       const response = await obtenerUnicoIngreso(params.id);
@@ -25,13 +23,10 @@ export const ViewIngreso = () => {
   console.log("datos", datos);
 
   const valor = datos.total; // Este es tu valor numérico
-  const valorTotal = 100; // Este es tu valor total, ajusta según tus necesidades
+  const valorTotal = 10000; // Este es tu valor total, ajusta según tus necesidades
 
   // Calcula el porcentaje
-  const porcentaje = (valor / valorTotal) * 100;
-
-  // Ahora, 'porcentaje' contiene el resultado que puedes utilizar
-  console.log(`El porcentaje es: ${porcentaje}%`);
+  const porcentaje = valor / valorTotal;
 
   return (
     <section className="px-10 py-16 w-full flex flex-col gap-5 h-screen">

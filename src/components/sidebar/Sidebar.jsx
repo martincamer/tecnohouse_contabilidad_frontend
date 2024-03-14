@@ -16,9 +16,9 @@ export const SideBar = () => {
     <div
       className={`flex ${
         click ? "w-1/5" : "w-auto"
-      } transition-all ease-in-out duration-300`}
+      } transition-all ease-in-out duration-300  max-h-full min-h-full`}
     >
-      <div className="flex h-full w-16 flex-col justify-between border-e bg-white">
+      <div className="flex w-16 flex-col justify-between border-e bg-white">
         <div>
           <div className="border-t border-slate-300">
             <div className="px-2">

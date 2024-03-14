@@ -78,8 +78,8 @@ export const IntroActual = () => {
 
   return (
     <div className="bg-white w-full border-[1px] border-slate-300 shadow rounded-xl flex gap-4 items-center justify-center py-5 px-10">
-      <div className="py-5 px-6 flex flex-col justify-center items-center gap-1 w-full h-full bg-white border-slate-300 border-[1px] rounded-xl shadow">
-        <div class="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
+      <div className="py-6 px-6 flex flex-col justify-center items-center gap-1 w-full h-full bg-white border-slate-300 border-[1px] rounded-xl shadow">
+        {/* <div class="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-4 w-4"
@@ -94,10 +94,10 @@ export const IntroActual = () => {
               d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
             />
           </svg>
-          A<span class="text-xs font-medium"> {porcentaje}%</span>
-        </div>
-        <p className="text-indigo-500 text-sm">
-          Total del presupuesto estimado
+          A<span class="text-xs font-medium"> {totalSum / 100000}%</span>
+        </div> */}
+        <p className="text-slate-800 text-base">
+          Total del presupuesto generado estimado
         </p>
         <p className="text-green-600 font-bold text-base">
           {Number(totalSum).toLocaleString("es-AR", {
@@ -113,7 +113,7 @@ export const IntroActual = () => {
           <span className="text-slate-700 capitalize">{fechaFormateada}</span>
         </p>
         <p className="text-slate-700 text-sm font-semibold">
-          Total:{" "}
+          Total en egresos:{" "}
           <span className="font-normal text-indigo-500">
             {Number(totalIngreso).toLocaleString("es-AR", {
               style: "currency",
@@ -122,15 +122,15 @@ export const IntroActual = () => {
           </span>
         </p>
         <p className="text-slate-700 text-sm font-semibold">
-          Cant:{" "}
+          Cantidad generada:{" "}
           <span className="font-normal text-indigo-500">
             {ingresoMensual.length}
           </span>
         </p>
       </div>
 
-      <div className="py-5 px-6 flex flex-col justify-center items-center gap-1 w-full h-full bg-white border-slate-300 border-[1px] rounded-xl shadow">
-        <div class="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
+      <div className="py-6 px-6 flex flex-col justify-center items-center gap-1 w-full h-full bg-white border-slate-300 border-[1px] rounded-xl shadow">
+        {/* <div class="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-4 w-4"
@@ -147,9 +147,9 @@ export const IntroActual = () => {
           </svg>
 
           <span class="text-xs font-medium"> {totalIngreso / 100} %</span>
-        </div>
-        <p className="text-indigo-500 text-sm">Egreso final</p>
-        <p className="text-slate-700 text-sm font-semibold">
+        </div> */}
+        <p className="text-slate-800 text-base">Egreso final</p>
+        <p className="text-green-600 font-bold text-base">
           {Number(totalIngreso).toLocaleString("es-AR", {
             style: "currency",
             currency: "ARS",

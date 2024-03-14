@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   table: {
     display: "table",
-    width: "auto",
+    // width: "auto",
   },
   tableRow: { margin: "auto", flexDirection: "row" },
   tableCell: {
@@ -135,7 +135,7 @@ export const ImprimirEstadisticaPdf = ({
                 styles.tableHeader,
                 {
                   width: "20%",
-                  fontSize: "8px",
+                  fontSize: "7px",
                   fontFamily: "Montserrat",
                   fontWeight: "bold",
                 },
@@ -148,7 +148,7 @@ export const ImprimirEstadisticaPdf = ({
                 styles.tableHeader,
                 {
                   width: "15%",
-                  fontSize: "8px",
+                  fontSize: "7px",
                   fontFamily: "Montserrat",
                   fontWeight: "bold",
                 },
@@ -161,7 +161,7 @@ export const ImprimirEstadisticaPdf = ({
                 styles.tableHeader,
                 {
                   width: "15%",
-                  fontSize: "8px",
+                  fontSize: "7px",
                   fontFamily: "Montserrat",
                   fontWeight: "bold",
                 },
@@ -174,7 +174,7 @@ export const ImprimirEstadisticaPdf = ({
                 styles.tableHeader,
                 {
                   width: "20%",
-                  fontSize: "8px",
+                  fontSize: "7px",
                   fontFamily: "Montserrat",
                   fontWeight: "bold",
                 },
@@ -187,7 +187,7 @@ export const ImprimirEstadisticaPdf = ({
                 styles.tableHeader,
                 {
                   width: "15%",
-                  fontSize: "8px",
+                  fontSize: "7px",
                   fontFamily: "Montserrat",
                   fontWeight: "bold",
                 },
@@ -200,7 +200,7 @@ export const ImprimirEstadisticaPdf = ({
                 styles.tableHeader,
                 {
                   width: "15%",
-                  fontSize: "8px",
+                  fontSize: "7px",
                   fontFamily: "Montserrat",
                   fontWeight: "bold",
                 },
@@ -209,102 +209,232 @@ export const ImprimirEstadisticaPdf = ({
               Diferencia Presupuesto/Egresos
             </Text>
           </View>
-          {ingresoMensualConPorcentaje.map((item, index) => (
-            <View key={item.tipo} style={styles.tableRow}>
-              <Text
-                style={[
-                  styles.tableCell,
-                  {
-                    width: "20%",
-                    fontSize: "8px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "normal",
-                    textTransform: "capitalize",
-                  },
-                ]}
-              >
-                {item.tipo}
-              </Text>
-              <Text
-                style={[
-                  styles.tableCell,
-                  {
-                    width: "15%",
-                    fontSize: "8px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                  },
-                ]}
-              >
-                {new Intl.NumberFormat("es-AR", {
-                  style: "currency",
-                  currency: "ARS",
-                }).format(item.total)}
-              </Text>
-              <Text
-                style={[
-                  styles.tableCell,
-                  {
-                    width: "15%",
-                    fontSize: "8px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "normal",
-                  },
-                ]}
-              >{`${(item.porcentajeUsado || 0).toFixed(2)}%`}</Text>
-              <Text
-                style={[
-                  styles.tableCell,
-                  {
-                    width: "20%",
-                    fontSize: "8px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                  },
-                ]}
-              >
-                {new Intl.NumberFormat("es-AR", {
-                  style: "currency",
-                  currency: "ARS",
-                }).format(presupuestoMensualConPorcentaje[index]?.total || 0)}
-              </Text>
-              <Text
-                style={[
-                  styles.tableCell,
-                  {
-                    width: "15%",
-                    fontSize: "8px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "normal",
-                  },
-                ]}
-              >
-                {presupuestoMensualConPorcentaje[
-                  index
-                ]?.porcentajeUsado.toFixed(2) || 0}
-                %
-              </Text>
-              <Text
-                style={[
-                  styles.tableCell,
-                  {
-                    width: "15%",
-                    fontSize: "8px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                  },
-                  diferenciaPorTipo[index]?.diferencia < 0
-                    ? { color: "red" }
-                    : {},
-                ]}
-              >
-                {new Intl.NumberFormat("es-AR", {
-                  style: "currency",
-                  currency: "ARS",
-                }).format(diferenciaPorTipo[index]?.diferencia || 0)}
-              </Text>
-            </View>
-          ))}
+          {ingresoMensualConPorcentaje.map((item) => {
+            if (item.tipo.startsWith("canjes")) {
+              // Si el tipo comienza con "canjes", no mostrar la fila
+              return null;
+            }
+
+            // Buscar el objeto correspondiente en presupuestoMensualConPorcentaje y diferenciaPorTipo
+            const presupuestoItem = presupuestoMensualConPorcentaje.find(
+              (presupuesto) => presupuesto.tipo === item.tipo
+            );
+
+            const diferenciaItem = diferenciaPorTipo.find(
+              (diferencia) => diferencia.tipo === item.tipo
+            );
+
+            return (
+              <View key={item.tipo} style={styles.tableRow}>
+                <Text
+                  style={[
+                    styles.tableCell,
+                    {
+                      width: "20%",
+                      fontSize: "7px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "normal",
+                      textTransform: "capitalize",
+                    },
+                  ]}
+                >
+                  {item.tipo}
+                </Text>
+                <Text
+                  style={[
+                    styles.tableCell,
+                    {
+                      width: "15%",
+                      fontSize: "7px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "bold",
+                    },
+                  ]}
+                >
+                  {new Intl.NumberFormat("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  }).format(item.total)}
+                </Text>
+                <Text
+                  style={[
+                    styles.tableCell,
+                    {
+                      width: "15%",
+                      fontSize: "7px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "normal",
+                    },
+                  ]}
+                >{`${(item.porcentajeUsado || 0).toFixed(2)}%`}</Text>
+                <Text
+                  style={[
+                    styles.tableCell,
+                    {
+                      width: "20%",
+                      fontSize: "7px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "bold",
+                    },
+                  ]}
+                >
+                  {new Intl.NumberFormat("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  }).format(presupuestoItem?.total || 0)}
+                </Text>
+                <Text
+                  style={[
+                    styles.tableCell,
+                    {
+                      width: "15%",
+                      fontSize: "7px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "normal",
+                    },
+                  ]}
+                >
+                  {(presupuestoItem?.porcentajeUsado || 0).toFixed(2)}%
+                </Text>
+                <Text
+                  style={[
+                    styles.tableCell,
+                    {
+                      width: "15%",
+                      fontSize: "7px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "bold",
+                    },
+                    diferenciaItem?.diferencia < 0 ? { color: "red" } : {},
+                  ]}
+                >
+                  {new Intl.NumberFormat("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  }).format(diferenciaItem?.diferencia || 0)}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
+      </View>
+
+      <View
+        style={{
+          marginTop: "10px",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "start",
+        }}
+      >
+        <Text
+          style={{
+            width: "",
+            fontSize: "10px",
+            fontFamily: "Montserrat",
+            fontWeight: "bold",
+            borderBottom: "3px",
+            borderBottomWidth: "1px",
+          }}
+        >
+          Egresos por canjes
+        </Text>
+      </View>
+      <View style={styles.container}>
+        <View style={styles.table}>
+          <View style={styles.tableRow}>
+            <Text
+              style={[
+                styles.tableHeader,
+                {
+                  width: "40%",
+                  fontSize: "8px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "bold",
+                },
+              ]}
+            >
+              Tipo
+            </Text>
+            <Text
+              style={[
+                styles.tableHeader,
+                {
+                  width: "40%",
+                  fontSize: "8px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "bold",
+                },
+              ]}
+            >
+              Total del egreso
+            </Text>
+            <Text
+              style={[
+                styles.tableHeader,
+                {
+                  width: "40%",
+                  fontSize: "8px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "bold",
+                },
+              ]}
+            >
+              % egresos
+            </Text>
+          </View>
+          {ingresoMensualConPorcentaje.map((item) => {
+            if (!item.tipo.startsWith("canjes")) {
+              // Si el tipo no comienza con "canjes", no mostrar la fila
+              return null;
+            }
+
+            return (
+              <View key={item.tipo} style={styles.tableRow}>
+                <Text
+                  style={[
+                    styles.tableCell,
+                    {
+                      width: "40%",
+                      fontSize: "8px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "normal",
+                      textTransform: "capitalize",
+                    },
+                  ]}
+                >
+                  {item.tipo}
+                </Text>
+                <Text
+                  style={[
+                    styles.tableCell,
+                    {
+                      width: "40%",
+                      fontSize: "8px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "bold",
+                    },
+                  ]}
+                >
+                  {new Intl.NumberFormat("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  }).format(item.total)}
+                </Text>
+                <Text
+                  style={[
+                    styles.tableCell,
+                    {
+                      width: "40%",
+                      fontSize: "8px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "normal",
+                    },
+                  ]}
+                >{`${(item.porcentajeUsado || 0).toFixed(2)}%`}</Text>
+              </View>
+            );
+          })}
         </View>
       </View>
     </Page>

@@ -157,7 +157,7 @@ export const ImprimirIngresoUnico = ({ datos }) => {
               fontFamily: "Montserrat",
             }}
           >
-            Ingreso Unico
+            Egreso Unico
           </Text>
         </View>
         <View
@@ -177,7 +177,7 @@ export const ImprimirIngresoUnico = ({ datos }) => {
               fontFamily: "Montserrat",
             }}
           >
-            Datos del ingreso
+            Datos del egreso
           </Text>
         </View>
         <View
@@ -271,7 +271,7 @@ export const ImprimirIngresoUnico = ({ datos }) => {
               gap: "4px",
             }}
           >
-            Usuario{" "}
+            Creador - Usuario{" "}
             <Text
               style={{
                 textTransform: "capitalize",
@@ -295,7 +295,7 @@ export const ImprimirIngresoUnico = ({ datos }) => {
               gap: "4px",
             }}
           >
-            Total del ingreso{" "}
+            Total del egreso{" "}
             <Text
               style={{
                 textTransform: "capitalize",

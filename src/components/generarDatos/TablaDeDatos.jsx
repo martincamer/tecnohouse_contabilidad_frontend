@@ -64,7 +64,7 @@ export const TablaDeDatos = ({
         </button>
       </div>
       <div className="overflow-x-auto rounded-lg border border-gray-200 mt-5">
-        <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+        <table className="min-w-full divide-y-1 divide-gray-200 bg-white text-sm">
           <thead>
             <tr className="border-b-[1px]">
               <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">

@@ -1,15 +1,7 @@
 import { useIngresosContext } from "../../../context/IngresosProvider";
 import { Link } from "react-router-dom";
 import { usePresupuestosContext } from "../../../context/PresupuestosProvider";
-import {
-  BarChart,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  Bar,
-} from "recharts";
+import { BarChart, CartesianGrid, XAxis, Tooltip, Legend, Bar } from "recharts";
 import { ImprimirEstadisticaPdf } from "../../../components/pdf/ImprirmirEstadisticaPdf";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import * as XLSX from "xlsx";
@@ -182,7 +174,7 @@ export const Estadistica = () => {
   );
 
   return (
-    <section className="px-10 py-16 w-full h-full flex flex-col gap-5">
+    <section className="px-10 py-16 w-full flex flex-col gap-5 h-screen">
       <Link
         to={"/"}
         className="absolute flex top-4 text-sm font-bold text-indigo-500 gap-2 items-center"
@@ -237,7 +229,7 @@ export const Estadistica = () => {
 
       <div className="mt-5">
         <div className="flex gap-5 items-center">
-          <p className="text-lg uppercase border-b-[2|px] border-indigo-500 text-indigo-600">
+          <p className="text-lg  border-b-[2|px] border-indigo-500 text-indigo-600">
             Egresos distribuidos porcentajes/etc
           </p>
 
@@ -260,8 +252,8 @@ export const Estadistica = () => {
                 loading ? (
                   <span>Loading...</span>
                 ) : (
-                  <button className="text-sm bg-indigo-500/10 border-indigo-500 border-[1px] text-indigo-600 py-2 px-4 shadow rounded-lg">
-                    Descargar estadistica mensual
+                  <button className="text-sm bg-indigo-500 text-white py-2 px-4 shadow rounded-xl">
+                    Descargar en formato pdf la estadistica
                   </button>
                 )
               }
@@ -272,7 +264,7 @@ export const Estadistica = () => {
         <button
           onClick={downloadDataAsExcel}
           type="button"
-          className="bg-green-500 text-white py-2 px-4 mt-4 rounded-xl shadow"
+          className="bg-green-500 text-white text-sm py-2 px-4 mt-4 rounded-xl shadow"
         >
           Descargar estadistica en formato excel
         </button>
@@ -304,6 +296,11 @@ export const Estadistica = () => {
 
             <tbody className="divide-y divide-gray-200 text-left">
               {ingresoMensualOrdenado.map((item) => {
+                if (item.tipo.toLowerCase().startsWith("canje")) {
+                  // Si el tipo comienza con "canje", no mostrar la fila
+                  return null;
+                }
+
                 // Buscar el objeto correspondiente en presupuestoMensualConPorcentaje y diferenciaPorTipo
                 const presupuestoItem = presupuestoMensualConPorcentaje.find(
                   (presupuesto) => presupuesto.tipo === item.tipo
@@ -357,9 +354,69 @@ export const Estadistica = () => {
             </tbody>
           </table>
         </div>
+
+        <div className="mt-5 mx-5 text-base font-bold text-indigo-500">
+          Total egresos en canjes
+        </div>
+
+        <div className="overflow-x-auto rounded-lg border border-gray-200 mt-5">
+          <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+            <thead className="text-left">
+              <tr>
+                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                  Tipo
+                </th>
+                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                  Total del egreso
+                </th>
+                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                  % porcentaje
+                </th>
+              </tr>
+            </thead>
+
+            <tbody className="divide-y divide-gray-200 text-left">
+              {ingresoMensualOrdenado.map((item) => {
+                if (item.tipo.toLowerCase().startsWith("canje")) {
+                  // Si el tipo comienza con "canje", mostrar la fila
+                  // Buscar el objeto correspondiente en presupuestoMensualConPorcentaje y diferenciaPorTipo
+                  const presupuestoItem = presupuestoMensualConPorcentaje.find(
+                    (presupuesto) => presupuesto.tipo === item.tipo
+                  );
+
+                  const diferenciaItem = diferenciaPorTipo.find(
+                    (diferencia) => diferencia.tipo === item.tipo
+                  );
+
+                  return (
+                    <tr
+                      className="hover:bg-slate-200 cursor-pointer transition-all ease-in-out duration-100"
+                      key={item.tipo}
+                    >
+                      <td className="whitespace-nowrap px-4 py-3 font-medium text-gray-900 capitalize">
+                        {item.tipo}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-green-600 font-bold">
+                        {new Intl.NumberFormat("es-AR", {
+                          style: "currency",
+                          currency: "ARS",
+                        }).format(item.total)}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-gray-700">
+                        {`${(item.porcentajeUsado || 0).toFixed(2)}%`}
+                      </td>
+                    </tr>
+                  );
+                }
+                // Si el tipo no comienza con "canje", no mostrar la fila
+                return null;
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <div className="bg-white rounded-xl border-[1px] border-slate-300 shadow py-10 px-10 mt-10">
+      {/* <div className="bg-white rounded-xl border-[1px] border-slate-300 shadow py-10 px-10 mt-10">
         <BarChart
           width={1220}
           height={500}
@@ -370,7 +427,7 @@ export const Estadistica = () => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="tipo" />
           <Tooltip
-            formatter={(value, name) =>
+            // // formatter={(value, name) =>
               name === "Porcentaje usado"
                 ? `${Number(value).toFixed(2)}%`
                 : formatoMoneda.format(Number(value))
@@ -394,7 +451,7 @@ export const Estadistica = () => {
             fill="#f87171"
           />
         </BarChart>
-      </div>
+      </div> */}
     </section>
   );
 };

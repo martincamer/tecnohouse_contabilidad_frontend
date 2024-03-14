@@ -28,7 +28,12 @@ export const ChartComponentTree = () => {
   const { ingresoMensual } = useIngresosContext();
   const { presupuestoMensual } = usePresupuestosContext();
 
-  const presupuestoTotal = parseFloat(presupuestoMensual[0]?.total || 0);
+  const presupuestoTotal = presupuestoMensual.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + parseFloat(currentValue.total);
+    },
+    0
+  );
   const ingresosTotales = ingresoMensual?.reduce(
     (total, ingreso) => total + parseFloat(ingreso.total || 0),
     0
@@ -37,8 +42,8 @@ export const ChartComponentTree = () => {
   const colorBarra = ingresosTotales > presupuestoTotal ? "#ef4444" : "#d946ef";
 
   const datosFormateados = [
-    { tipo: "Presupuesto", total: presupuestoTotal },
-    { tipo: "Ingresos Mensuales", total: ingresosTotales },
+    { tipo: "Presupuesto estimado mensual", total: presupuestoTotal },
+    { tipo: "Egresos Mensuales", total: ingresosTotales },
   ];
 
   return (
@@ -60,7 +65,7 @@ export const ChartComponentTree = () => {
       <Legend />
       <Bar
         dataKey="total"
-        name="Ingreso mensuales y Presupuesto"
+        name="Egresos mensuales/Presupuesto estimado"
         fill={colorBarra}
       >
         <LabelList

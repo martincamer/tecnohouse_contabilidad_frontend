@@ -1,7 +1,4 @@
 import { PDFViewer } from "@react-pdf/renderer";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { obtenerUnicoEmpleado } from "../../api/empleados.api";
 import { ImprimirPdfEmpleados } from "../empleados/ImprimirPdfEmpleados";
 import { useEmpleadosContext } from "../../context/EmpleadosProvider";
 

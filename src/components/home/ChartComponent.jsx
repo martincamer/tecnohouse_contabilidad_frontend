@@ -61,8 +61,8 @@ export const ChartComponent = () => {
 
   return (
     <div className="flex items-center justify-center relative">
-      <div className="bg-white border-[1px] border-slate-300 py-2 px-4 shadow space-y-2 absolute top-[-85px] right-0">
-        <p className="text-indigo-600 text-xl">Total en ingresos</p>
+      <div className="bg-white border-[1px] border-slate-300 py-3 px-4 shadow-md space-y-2 rounded-xl absolute top-[-85px] right-0">
+        <p className="text-indigo-600 text-xl">Total en egresos generados</p>
         <p className="flex gap-2">
           <span className="text-slate-700 text-lg font-semibold">
             {Number(totalSuma).toLocaleString("es-AR", {
