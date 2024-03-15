@@ -344,7 +344,7 @@ export const GenerarRecibosEstadistica = () => {
       </div>
 
       <div className="h-screen">
-       {loading ? (
+{loading ? (
   <div className="flex gap-3 mt-20 justify-center h-full">
     <SyncLoader color="#4A90E2" size={6} margin={6} />{" "}
     <p className="animate-blink text-slate-700 text-sm">
@@ -437,12 +437,12 @@ export const GenerarRecibosEstadistica = () => {
               }).format(diferenciaPorTipo[index]?.diferencia || 0)}
             </td>
           </tr>
-        ))}
+        )}
       </tbody>
     </table>
   </div>
-)}
-      </div>
+ )}
+</div>
 
       <ToastContainer />
     </section>
