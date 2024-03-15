@@ -187,6 +187,14 @@ export const GenerarRecibosEstadistica = () => {
     XLSX.writeFile(wb, "datos.xlsx");
   };
 
+  const ingresoMensualOrdenado = [...ingresoMensualConPorcentaje].sort(
+    (a, b) => {
+      if (a.tipo < b.tipo) return -1;
+      if (a.tipo > b.tipo) return 1;
+      return 0;
+    }
+  );
+
   return (
     <section className="px-10 py-16 w-full h-full flex flex-col gap-5">
       <Link
