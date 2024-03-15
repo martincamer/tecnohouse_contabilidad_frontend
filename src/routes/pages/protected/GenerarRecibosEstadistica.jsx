@@ -357,16 +357,16 @@ export const GenerarRecibosEstadistica = () => {
                     Tipo
                   </th>
                   <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
-                    Total egresos
-                  </th>
-                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
-                    % egresos
-                  </th>
-                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
                     Total Presupuesto Estimado
                   </th>
                   <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
                     % Presupuesto
+                  </th>
+                   <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                    Total egresos
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                    % egresos
                   </th>
                   <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
                     Diferencia Presupuesto/Egresos
@@ -383,15 +383,6 @@ export const GenerarRecibosEstadistica = () => {
                     <td className="whitespace-nowrap px-4 py-3 font-medium text-gray-900 capitalize">
                       {item.tipo}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-green-600 font-bold">
-                      {new Intl.NumberFormat("es-AR", {
-                        style: "currency",
-                        currency: "ARS",
-                      }).format(item.total)}
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-gray-700">
-                      {`${(item.porcentajeUsado || 0).toFixed(2)}%`}
-                    </td>
                     <td className="whitespace-nowrap px-4 py-3 text-gray-700 font-bold">
                       {new Intl.NumberFormat("es-AR", {
                         style: "currency",
@@ -405,6 +396,15 @@ export const GenerarRecibosEstadistica = () => {
                         index
                       ]?.porcentajeUsado.toFixed(2) || 0}
                       %
+                    </td>
+                     <td className="whitespace-nowrap px-4 py-3 text-green-600 font-bold">
+                      {new Intl.NumberFormat("es-AR", {
+                        style: "currency",
+                        currency: "ARS",
+                      }).format(item.total)}
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3 text-gray-700">
+                      {`${(item.porcentajeUsado || 0).toFixed(2)}%`}
                     </td>
                     <td
                       className={`whitespace-nowrap px-4 py-3 text-gray-700 font-bold ${
