@@ -441,7 +441,7 @@ export const GenerarRecibosEstadistica = () => {
               </tbody>
             </table>
           </div>
-        )}
+        ))}
       </div>
 
       <ToastContainer />
