@@ -89,11 +89,11 @@ export const ModalVerTipos = () => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-[1220px] p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <div className="inline-block w-full p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <div className="text-lg text-indigo-500 mb-3 border-b-[1px] uppercase">
                   Tipos creados
                 </div>
-                <div className="grid grid-cols-2 gap-5">
+                <div className="grid grid-cols-4 gap-5">
                   {tipos?.map((t) => (
                     <div
                       className="flex gap-1 items-start justify-center"

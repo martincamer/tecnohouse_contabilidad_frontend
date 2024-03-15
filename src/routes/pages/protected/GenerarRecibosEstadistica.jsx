@@ -1,12 +1,7 @@
 import client from "../../../api/axios";
-import { css } from "@emotion/react";
 import { SyncLoader } from "react-spinners";
 import { Link } from "react-router-dom";
-import { useIngresosContext } from "../../../context/IngresosProvider";
 import { useState } from "react";
-import { ModalEliminar } from "../../../components/ui/ModalEliminar";
-import { ModalEditarIngreso } from "../../../components/generarRecibos/ModalEditarIngreso";
-import { eliminarIngreso } from "../../../api/ingresos";
 import { ToastContainer } from "react-toastify";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import * as XLSX from "xlsx";
