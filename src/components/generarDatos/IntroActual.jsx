@@ -97,7 +97,7 @@ export const IntroActual = () => {
           A<span class="text-xs font-medium"> {totalSum / 100000}%</span>
         </div> */}
         <p className="text-slate-800 text-base">
-          Total del presupuesto generado estimado
+          Total del presupuesto asignado
         </p>
         <p className="text-green-600 font-bold text-base">
           {Number(totalSum).toLocaleString("es-AR", {
