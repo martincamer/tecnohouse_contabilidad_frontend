@@ -149,7 +149,6 @@ export const GenerarRecibosEstadistica = () => {
       : 0,
   }));
 
-
   const downloadDataAsExcel = () => {
     // Prepare data for Excel
     const data = ingresoMensualConPorcentaje.map((item, index) => ({
@@ -344,106 +343,99 @@ export const GenerarRecibosEstadistica = () => {
       </div>
 
       <div className="h-screen">
-{loading ? (
-  <div className="flex gap-3 mt-20 justify-center h-full">
-    <SyncLoader color="#4A90E2" size={6} margin={6} />{" "}
-    <p className="animate-blink text-slate-700 text-sm">
-      Buscando los datos...
-    </p>
-  </div>
-) : (
-  <div className="overflow-x-auto rounded-lg border border-gray-200 mt-5">
-    <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-      <thead className="text-left">
-        <tr>
-          <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
-            Tipo
-          </th>
-          <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
-            Total Presupuesto Estimado
-          </th>
-          <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
-            % Presupuesto
-          </th>
-           <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
-            Total egresos
-          </th>
-          <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
-            % egresos
-          </th>
-          <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
-            Diferencia Presupuesto/Egresos
-          </th>
-        </tr>
-      </thead>
+        {loading ? (
+          <div className="flex gap-3 mt-20 justify-center h-full">
+            <SyncLoader color="#4A90E2" size={6} margin={6} />{" "}
+            <p className="animate-blink text-slate-700 text-sm">
+              Buscando los datos...
+            </p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto rounded-lg border border-gray-200 mt-5">
+            <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+              <thead className="text-left">
+                <tr>
+                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                    Tipo
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                    Total Presupuesto Estimado
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                    % Presupuesto
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                    Total egresos
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                    % egresos
+                  </th>
+                  <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                    Diferencia Presupuesto/Egresos
+                  </th>
+                </tr>
+              </thead>
 
-      <tbody className="divide-y divide-gray-200 text-left">
-        {ingresoMensualOrdenado.map((item) => {
-        if (item.tipo.toLowerCase().startsWith("canje")) {
-          // Si el tipo comienza con "canje", no mostrar la fila
-          return null;
-        }
+              <tbody className="divide-y divide-gray-200 text-left">
+                {ingresoMensualOrdenado.map((item, index) => {
+                  if (item.tipo.toLowerCase().startsWith("canje")) {
+                    // Si el tipo comienza con "canje", no mostrar la fila
+                    return null;
+                  }
 
-        // Buscar el objeto correspondiente en presupuestoMensualConPorcentaje y diferenciaPorTipo
-        const presupuestoItem = presupuestoMensualConPorcentaje.find(
-          (presupuesto) => presupuesto.tipo === item.tipo
-        );
+                  // Buscar el objeto correspondiente en presupuestoMensualConPorcentaje y diferenciaPorTipo
+                  const presupuestoItem = presupuestoMensualConPorcentaje.find(
+                    (presupuesto) => presupuesto.tipo === item.tipo
+                  );
 
-        const diferenciaItem = diferenciaPorTipo.find(
-          (diferencia) => diferencia.tipo === item.tipo
-        );
+                  const diferenciaItem = diferenciaPorTipo.find(
+                    (diferencia) => diferencia.tipo === item.tipo
+                  );
 
-        return (
-          <tr
-            className="hover:bg-slate-200 cursor-pointer transition-all ease-in-out duration-100"
-            key={item.tipo}
-          >
-            <td className="whitespace-nowrap px-4 py-3 font-medium text-gray-900 capitalize">
-              {item.tipo}
-            </td>
-            <td className="whitespace-nowrap px-4 py-3 text-gray-700 font-bold">
-              {new Intl.NumberFormat("es-AR", {
-                style: "currency",
-                currency: "ARS",
-              }).format(
-                presupuestoMensualConPorcentaje[index]?.total || 0
-              )}
-            </td>
-            <td className="whitespace-nowrap px-4 py-3 text-gray-700">
-              {presupuestoMensualConPorcentaje[
-                index
-              ]?.porcentajeUsado.toFixed(2) || 0}
-              %
-            </td>
-             <td className="whitespace-nowrap px-4 py-3 text-green-600 font-bold">
-              {new Intl.NumberFormat("es-AR", {
-                style: "currency",
-                currency: "ARS",
-              }).format(item.total)}
-            </td>
-            <td className="whitespace-nowrap px-4 py-3 text-gray-700">
-              {`${(item.porcentajeUsado || 0).toFixed(2)}%`}
-            </td>
-            <td
-              className={`whitespace-nowrap px-4 py-3 text-gray-700 font-bold ${
-                diferenciaPorTipo[index]?.diferencia < 0
-                  ? "text-red-600"
-                  : ""
-              }`}
-            >
-              {new Intl.NumberFormat("es-AR", {
-                style: "currency",
-                currency: "ARS",
-              }).format(diferenciaPorTipo[index]?.diferencia || 0)}
-            </td>
-          </tr>
+                  return (
+                    <tr
+                      className="hover:bg-slate-200 cursor-pointer transition-all ease-in-out duration-100"
+                      key={item.tipo}
+                    >
+                      <td className="whitespace-nowrap px-4 py-3 font-medium text-gray-900 capitalize">
+                        {item.tipo}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-gray-700 font-bold">
+                        {new Intl.NumberFormat("es-AR", {
+                          style: "currency",
+                          currency: "ARS",
+                        }).format(presupuestoItem?.total || 0)}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-gray-700">
+                        {presupuestoItem?.porcentajeUsado.toFixed(2) || 0}%
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-green-600 font-bold">
+                        {new Intl.NumberFormat("es-AR", {
+                          style: "currency",
+                          currency: "ARS",
+                        }).format(item.total)}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-gray-700">
+                        {(item.porcentajeUsado || 0).toFixed(2)}%
+                      </td>
+                      <td
+                        className={`whitespace-nowrap px-4 py-3 text-gray-700 font-bold ${
+                          diferenciaItem?.diferencia < 0 ? "text-red-600" : ""
+                        }`}
+                      >
+                        {new Intl.NumberFormat("es-AR", {
+                          style: "currency",
+                          currency: "ARS",
+                        }).format(diferenciaItem?.diferencia || 0)}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         )}
-      </tbody>
-    </table>
-  </div>
- )}
-</div>
-
+      </div>
       <ToastContainer />
     </section>
   );

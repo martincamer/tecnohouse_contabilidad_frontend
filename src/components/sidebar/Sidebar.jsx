@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 export const SideBar = () => {
   const [click, setClick] = useState(false);
-  const { isAuth, signout, user, clickProvider, setClickProvider } = useAuth();
+  const { signout } = useAuth();
 
   const toggleSidebar = () => {
     setClick(!click);
