@@ -94,7 +94,7 @@ export const GenerarRecibosEstadistica = () => {
 
   // Calcular el porcentaje del total usado por cada tipo en ingresoMensual
   const porcentajePorTipoIngreso = {};
-  ingresoMensual.forEach((item) => {
+  presupuesto.forEach((item) => {
     const tipo = item.tipo;
     const total = parseFloat(item.total);
     if (!porcentajePorTipoIngreso[tipo]) {
@@ -106,7 +106,7 @@ export const GenerarRecibosEstadistica = () => {
 
   // Calcular el porcentaje del total usado por cada tipo en presupuestoMensual
   const porcentajePorTipoPresupuesto = {};
-  presupuestoMensual.forEach((item) => {
+  presupuesto.forEach((item) => {
     const tipo = item.tipo;
     const total = parseFloat(item.total);
     if (!porcentajePorTipoPresupuesto[tipo]) {
@@ -119,25 +119,25 @@ export const GenerarRecibosEstadistica = () => {
   });
 
   // Agregar las propiedades de porcentaje al arreglo original ingresoMensual
-  const ingresoMensualConPorcentaje = ingresoMensual.map((item) => ({
+  const ingresoMensualConPorcentaje = datos.map((item) => ({
     ...item,
     porcentajeUsado: porcentajePorTipoIngreso[item.tipo],
   }));
 
   // Agregar las propiedades de porcentaje al arreglo original presupuestoMensual
-  const presupuestoMensualConPorcentaje = presupuestoMensual.map((item) => ({
+  const presupuestoMensualConPorcentaje = presupuesto.map((item) => ({
     ...item,
     porcentajeUsado: porcentajePorTipoPresupuesto[item.tipo],
   }));
 
   // Obtener el total de presupuesto para cada tipo en presupuestoMensual
-  const presupuestoMensualTotales = presupuestoMensual.reduce((acc, item) => {
+  const presupuestoMensualTotales = presupuesto.reduce((acc, item) => {
     acc[item.tipo] = parseFloat(item.total);
     return acc;
   }, {});
 
   // Calcular la diferencia entre el presupuesto y el ingreso para cada tipo
-  const diferenciaPorTipo = ingresoMensual.map((item) => ({
+  const diferenciaPorTipo = datos.map((item) => ({
     tipo: item.tipo,
     diferencia: presupuestoMensualTotales[item.tipo]
       ? presupuestoMensualTotales[item.tipo] - parseFloat(item.total)
