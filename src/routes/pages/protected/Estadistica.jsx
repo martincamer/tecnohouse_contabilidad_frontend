@@ -174,7 +174,7 @@ export const Estadistica = () => {
   );
 
   return (
-    <section className="px-10 py-16 w-full flex flex-col gap-5 h-screen">
+    <section className="px-10 py-16 w-full flex flex-col gap-5 h-full">
       <Link
         to={"/"}
         className="absolute flex top-4 text-sm font-bold text-indigo-500 gap-2 items-center"
@@ -359,7 +359,7 @@ export const Estadistica = () => {
           Total egresos en canjes
         </div>
 
-        <div className="overflow-x-auto rounded-lg border border-gray-200 mt-5">
+        <div className="overflow-x-auto rounded-lg border border-gray-200 mt-5 mb-20">
           <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
             <thead className="text-left">
               <tr>
@@ -415,43 +415,6 @@ export const Estadistica = () => {
           </table>
         </div>
       </div>
-
-      {/* <div className="bg-white rounded-xl border-[1px] border-slate-300 shadow py-10 px-10 mt-10">
-        <BarChart
-          width={1220}
-          height={500}
-          className="w-full mx-auto"
-          data={ingresoMensualConPorcentaje}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="tipo" />
-          <Tooltip
-            // // formatter={(value, name) =>
-              name === "Porcentaje usado"
-                ? `${Number(value).toFixed(2)}%`
-                : formatoMoneda.format(Number(value))
-            }
-          />
-          <Legend />
-
-          <Bar dataKey="total" name="Total" fill="#6366f1" />
-          <Bar
-            dataKey="porcentaje"
-            name="Porcentaje usado"
-            fill="#82ca9d"
-            label={{
-              formatter: (valor) => `${Number(valor).toFixed(2)}%`,
-              position: "top",
-            }}
-          />
-          <Bar
-            dataKey="diferencia"
-            name="Diferencia presupuesto estimado"
-            fill="#f87171"
-          />
-        </BarChart>
-      </div> */}
     </section>
   );
 };
