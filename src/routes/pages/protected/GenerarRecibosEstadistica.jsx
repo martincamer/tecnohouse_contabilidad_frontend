@@ -99,7 +99,7 @@ export const GenerarRecibosEstadistica = () => {
 
   // Calcular el porcentaje del total usado por cada tipo en ingresoMensual
   const porcentajePorTipoIngreso = {};
-  datos.forEach((item) => {
+  ingresoMensual.forEach((item) => {
     const tipo = item.tipo;
     const total = parseFloat(item.total);
     if (!porcentajePorTipoIngreso[tipo]) {
@@ -111,7 +111,7 @@ export const GenerarRecibosEstadistica = () => {
 
   // Calcular el porcentaje del total usado por cada tipo en presupuestoMensual
   const porcentajePorTipoPresupuesto = {};
-  presupuesto.forEach((item) => {
+  presupuestoMensual.forEach((item) => {
     const tipo = item.tipo;
     const total = parseFloat(item.total);
     if (!porcentajePorTipoPresupuesto[tipo]) {
@@ -124,36 +124,31 @@ export const GenerarRecibosEstadistica = () => {
   });
 
   // Agregar las propiedades de porcentaje al arreglo original ingresoMensual
-  const ingresoMensualConPorcentaje = datos.map((item) => ({
+  const ingresoMensualConPorcentaje = ingresoMensual.map((item) => ({
     ...item,
     porcentajeUsado: porcentajePorTipoIngreso[item.tipo],
   }));
 
   // Agregar las propiedades de porcentaje al arreglo original presupuestoMensual
-  const presupuestoMensualConPorcentaje = presupuesto.map((item) => ({
+  const presupuestoMensualConPorcentaje = presupuestoMensual.map((item) => ({
     ...item,
     porcentajeUsado: porcentajePorTipoPresupuesto[item.tipo],
   }));
 
-  console.log("ingresoMensual con porcentaje:", ingresoMensualConPorcentaje);
-  console.log(
-    "presupuestoMensual con porcentaje:",
-    presupuestoMensualConPorcentaje
-  );
-
   // Obtener el total de presupuesto para cada tipo en presupuestoMensual
-  const presupuestoMensualTotales = presupuesto.reduce((acc, item) => {
+  const presupuestoMensualTotales = presupuestoMensual.reduce((acc, item) => {
     acc[item.tipo] = parseFloat(item.total);
     return acc;
   }, {});
 
   // Calcular la diferencia entre el presupuesto y el ingreso para cada tipo
-  const diferenciaPorTipo = datos.map((item) => ({
+  const diferenciaPorTipo = ingresoMensual.map((item) => ({
     tipo: item.tipo,
     diferencia: presupuestoMensualTotales[item.tipo]
       ? presupuestoMensualTotales[item.tipo] - parseFloat(item.total)
       : 0,
   }));
+
 
   const downloadDataAsExcel = () => {
     // Prepare data for Excel
