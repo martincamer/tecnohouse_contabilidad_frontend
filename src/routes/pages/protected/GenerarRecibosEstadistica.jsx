@@ -375,7 +375,22 @@ export const GenerarRecibosEstadistica = () => {
               </thead>
 
               <tbody className="divide-y divide-gray-200 text-left">
-                {ingresoMensualConPorcentaje.map((item, index) => (
+                {ingresoMensualOrdenado.map((item) => {
+                if (item.tipo.toLowerCase().startsWith("canje")) {
+                  // Si el tipo comienza con "canje", no mostrar la fila
+                  return null;
+                }
+
+                // Buscar el objeto correspondiente en presupuestoMensualConPorcentaje y diferenciaPorTipo
+                const presupuestoItem = presupuestoMensualConPorcentaje.find(
+                  (presupuesto) => presupuesto.tipo === item.tipo
+                );
+
+                const diferenciaItem = diferenciaPorTipo.find(
+                  (diferencia) => diferencia.tipo === item.tipo
+                );
+
+                return (
                   <tr
                     className="hover:bg-slate-200 cursor-pointer transition-all ease-in-out duration-100"
                     key={item.tipo}
