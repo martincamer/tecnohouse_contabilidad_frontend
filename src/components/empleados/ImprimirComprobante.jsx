@@ -103,14 +103,14 @@ export const ImprimirComprobante = ({ datos }) => {
   let mensaje = "";
 
   if (tipoPago === "quincenal") {
-    if (hoyEsDia >= 1 && hoyEsDia <= 19) {
+    if (hoyEsDia >= 1 && hoyEsDia <= 14) {
       mensaje = Number(
         Number(datos.total_quincena) + Number(datos.otros)
       ).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
       });
-    } else if (hoyEsDia >= 19 && hoyEsDia <= 28) {
+    } else if (hoyEsDia >= 15 && hoyEsDia <= 28) {
       mensaje = Number(datos.total_quincena_veinte).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
@@ -130,7 +130,7 @@ export const ImprimirComprobante = ({ datos }) => {
   let mensajeTree = "";
 
   if (tipoPago === "quincenal") {
-    if (hoyEsDia >= 1 && hoyEsDia <= 19) {
+    if (hoyEsDia >= 1 && hoyEsDia <= 14) {
       mensajeTree = Number(Number(datos.total_quincena)).toLocaleString(
         "es-AR",
         {
@@ -138,7 +138,7 @@ export const ImprimirComprobante = ({ datos }) => {
           currency: "ARS",
         }
       );
-    } else if (hoyEsDia >= 19 && hoyEsDia <= 28) {
+    } else if (hoyEsDia >= 15 && hoyEsDia <= 28) {
       mensajeTree = Number(datos.total_quincena_veinte).toLocaleString(
         "es-AR",
         {
@@ -163,12 +163,12 @@ export const ImprimirComprobante = ({ datos }) => {
   let quincenaReal = "";
 
   if (tipoPago === "quincenal") {
-    if (hoyEsDia >= 1 && hoyEsDia <= 18) {
+    if (hoyEsDia >= 1 && hoyEsDia <= 14) {
       quincenaReal = Number(datos.quincena_del_cinco).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
       });
-    } else if (hoyEsDia >= 19 && hoyEsDia <= 31) {
+    } else if (hoyEsDia >= 15 && hoyEsDia <= 28) {
       quincenaReal = Number(datos.quincena_del_veinte).toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
@@ -188,7 +188,7 @@ export const ImprimirComprobante = ({ datos }) => {
   let mensajes = [];
 
   if (tipoPago === "quincenal") {
-    if (hoyEsDia >= 1 && hoyEsDia <= 19) {
+    if (hoyEsDia >= 1 && hoyEsDia <= 14) {
       mensajes = [
         `Premio Producción: ${Number(datos.premio_produccion).toLocaleString(
           "es-AR",
@@ -248,7 +248,7 @@ export const ImprimirComprobante = ({ datos }) => {
   let obsReal = [];
 
   if (tipoPago === "quincenal") {
-    if (hoyEsDia >= 1 && hoyEsDia <= 19) {
+    if (hoyEsDia >= 1 && hoyEsDia <= 14) {
       obsReal = [
         `Premio Producción: ${Number(datos.premio_produccion).toLocaleString(
           "es-AR",
@@ -310,7 +310,7 @@ export const ImprimirComprobante = ({ datos }) => {
   // Suponiendo que `datos.tipo` contiene el tipo de dato
   const shouldShowAntiguedadRemunerada =
     datos.tipo === "mensual" ||
-    (datos.tipo === "quincenal" && currentDay >= 1 && currentDay <= 19);
+    (datos.tipo === "quincenal" && currentDay >= 1 && currentDay <= 14);
 
   return (
     <Document>
