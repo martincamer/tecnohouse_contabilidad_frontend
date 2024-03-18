@@ -215,9 +215,7 @@ export const Estadistica = () => {
         </div>
 
         <div className=" py-5 px-5 flex flex-col gap-1 items-center justify-center">
-          <p className="text-slate-600 text-sm">
-            Presupuesto de egresos estimado
-          </p>
+          <p className="text-slate-600 text-sm">Presupuesto asignado</p>
           <p className="text-indigo-600">
             {Number(totalSum).toLocaleString("es-AR", {
               style: "currency",
@@ -248,7 +246,7 @@ export const Estadistica = () => {
                 />
               }
             >
-              {({ blob, url, loading, error }) =>
+              {({ loading }) =>
                 loading ? (
                   <span>Loading...</span>
                 ) : (
@@ -277,12 +275,12 @@ export const Estadistica = () => {
                   Tipo
                 </th>
                 <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
-                  Total Presupuesto Estimado
+                  Total Presupuesto asignado/por area
                 </th>
                 <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
                   % Presupuesto
                 </th>
-                 <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
+                <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
                   Total egresos
                 </th>
                 <th className="whitespace-nowrap px-4 py-3 text-sm text-gray-900 font-semibold uppercase">
@@ -297,11 +295,9 @@ export const Estadistica = () => {
             <tbody className="divide-y divide-gray-200 text-left">
               {ingresoMensualOrdenado.map((item) => {
                 if (item.tipo.toLowerCase().startsWith("canje")) {
-                  // Si el tipo comienza con "canje", no mostrar la fila
                   return null;
                 }
 
-                // Buscar el objeto correspondiente en presupuestoMensualConPorcentaje y diferenciaPorTipo
                 const presupuestoItem = presupuestoMensualConPorcentaje.find(
                   (presupuesto) => presupuesto.tipo === item.tipo
                 );
@@ -327,7 +323,7 @@ export const Estadistica = () => {
                     <td className="whitespace-nowrap px-4 py-3 text-gray-700">
                       {(presupuestoItem?.porcentajeUsado || 0).toFixed(2)}%
                     </td>
-                     <td className="whitespace-nowrap px-4 py-3 text-green-600 font-bold">
+                    <td className="whitespace-nowrap px-4 py-3 text-green-600 font-bold">
                       {new Intl.NumberFormat("es-AR", {
                         style: "currency",
                         currency: "ARS",
@@ -408,7 +404,6 @@ export const Estadistica = () => {
                     </tr>
                   );
                 }
-                // Si el tipo no comienza con "canje", no mostrar la fila
                 return null;
               })}
             </tbody>

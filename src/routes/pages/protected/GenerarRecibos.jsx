@@ -410,7 +410,7 @@ export const GenerarRecibos = () => {
                         to={`/view-ingreso/${i.id}`}
                         className="bg-slate-500/10 border-[1px] border-slate-500 py-1 px-3 rounded-lg text-left text-slate-700 flex gap-2 items-center"
                       >
-                        Ver ingreso
+                        Ver egresos
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

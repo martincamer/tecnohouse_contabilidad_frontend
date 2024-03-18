@@ -98,7 +98,7 @@ export const ChartComponent = () => {
         <Line
           type="monotone"
           dataKey="total"
-          name="Gastos mensuales (Moneda)"
+          name="Egresos mensuales (Moneda) $"
           stroke="#6366f1"
         />
         <Line

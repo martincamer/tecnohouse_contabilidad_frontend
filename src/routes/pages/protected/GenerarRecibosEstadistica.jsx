@@ -307,7 +307,7 @@ export const GenerarRecibosEstadistica = () => {
       </div>
       <div className="flex gap-5">
         <div className="text-sm text-slate-700 font-normal flex gap-3 items-center">
-          Total del presupuesto estimado{" "}
+          Total del presupuesto Asignado{" "}
           <span className="text-indigo-500 text-sm font-semibold">
             {new Intl.NumberFormat("es-AR", {
               style: "currency",

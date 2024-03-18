@@ -133,6 +133,78 @@ export const Home = () => {
     diferencia: diferenciaPorTipo[index].diferencia,
   }));
 
+  const totalSum = presupuestoMensual.reduce((accumulator, currentValue) => {
+    return accumulator + parseFloat(currentValue.total);
+  }, 0);
+
+  const totalSumDos = ingresoMensual.reduce((accumulator, currentValue) => {
+    return accumulator + parseFloat(currentValue.total);
+  }, 0);
+
+  // Calcular el total usado por cada arreglo
+  const totalPresupuestoMensual = presupuestoMensual.reduce(
+    (acc, item) => acc + parseFloat(item.total),
+    0
+  );
+  const totalIngresoMensual = ingresoMensual.reduce(
+    (acc, item) => acc + parseFloat(item.total),
+    0
+  );
+
+  // Calcular el porcentaje del total usado por cada tipo en ingresoMensual
+  const porcentajePorTipoIngreso = {};
+  ingresoMensual.forEach((item) => {
+    const tipo = item.tipo;
+    const total = parseFloat(item.total);
+    if (!porcentajePorTipoIngreso[tipo]) {
+      porcentajePorTipoIngreso[tipo] = (total / totalIngresoMensual) * 100;
+    } else {
+      porcentajePorTipoIngreso[tipo] += (total / totalIngresoMensual) * 100;
+    }
+  });
+
+  // Calcular el porcentaje del total usado por cada tipo en presupuestoMensual
+  const porcentajePorTipoPresupuesto = {};
+  presupuestoMensual.forEach((item) => {
+    const tipo = item.tipo;
+    const total = parseFloat(item.total);
+    if (!porcentajePorTipoPresupuesto[tipo]) {
+      porcentajePorTipoPresupuesto[tipo] =
+        (total / totalPresupuestoMensual) * 100;
+    } else {
+      porcentajePorTipoPresupuesto[tipo] +=
+        (total / totalPresupuestoMensual) * 100;
+    }
+  });
+
+  // Agregar las propiedades de porcentaje al arreglo original ingresoMensual
+  const ingresoMensualConPorcentaje = ingresoMensual.map((item) => ({
+    ...item,
+    porcentajeUsado: porcentajePorTipoIngreso[item.tipo],
+  }));
+
+  // Agregar las propiedades de porcentaje al arreglo original presupuestoMensual
+  const presupuestoMensualConPorcentaje = presupuestoMensual.map((item) => ({
+    ...item,
+    porcentajeUsado: porcentajePorTipoPresupuesto[item.tipo],
+  }));
+
+  // Obtener el total de presupuesto para cada tipo en presupuestoMensual
+  const presupuestoMensualTotales = presupuestoMensual.reduce((acc, item) => {
+    acc[item.tipo] = parseFloat(item.total);
+    return acc;
+  }, {});
+
+  // Calcular la diferencia entre el presupuesto y el ingreso para cada tipo
+  const diferenciaPorTipoDos = ingresoMensual.map((item) => ({
+    tipo: item.tipo,
+    diferencia: presupuestoMensualTotales[item.tipo]
+      ? presupuestoMensualTotales[item.tipo] - parseFloat(item.total)
+      : 0,
+  }));
+
+  console.log("asdas1", presupuestoMensualConPorcentaje);
+
   return (
     <section className="w-full h-full py-12 px-12 max-md:px-4 flex flex-col gap-20">
       <div className="grid grid-cols-5 gap-4 border-[1px] border-slate-300 rounded-xl py-5 px-10">
@@ -154,7 +226,7 @@ export const Home = () => {
             </svg>
           }
           title="Total egresos cargados"
-          totalDos={ingresoMensual.length / 10000}
+          totalDos={Number(ingresoMensual.length / 100000).toFixed(2)}
           total={ingresoMensual.length}
         />
         <DatosComponent
@@ -175,7 +247,7 @@ export const Home = () => {
             </svg>
           }
           title="Total final en egresos"
-          totalDos={Number(totalIngreso / 100000)}
+          totalDos={Number(totalIngreso / 100000).toFixed(2)}
           total={Number(totalIngreso).toLocaleString("es-AR", {
             style: "currency",
             currency: "ARS",
@@ -200,8 +272,8 @@ export const Home = () => {
           }
         />
         <DatosComponent
-          title="Total del presupuesto estimado"
-          totalDos={Number(totalPresupuesto / 100000)}
+          title="Total del presupuesto asignado"
+          totalDos={Number(totalPresupuesto / 100000).toFixed(2)}
           total={Number(totalPresupuesto).toLocaleString("es-AR", {
             style: "currency",
             currency: "ARS",
@@ -241,7 +313,7 @@ export const Home = () => {
             </svg>
           }
           title="Total de egresos final"
-          totalDos={Number(totalIngreso / 100000)}
+          totalDos={Number(totalIngreso / 100000).toFixed(2)}
           total={Number(totalIngreso).toLocaleString("es-AR", {
             style: "currency",
             currency: "ARS",
@@ -256,7 +328,12 @@ export const Home = () => {
         <ChartComponentTree />
       </div>
       <div className="bg-white rounded-xl py-10 px-3 border-slate-300 border-[1px]">
-        <ChartComponentColumnTwo datosFormateados={datosFormateados} />
+        <ChartComponentColumnTwo
+          datosFormateados={datosFormateados}
+          ingresoMensualConPorcentaje={ingresoMensualConPorcentaje}
+          presupuestoMensualConPorcentaje={presupuestoMensualConPorcentaje}
+          diferenciaPorTipoDos={diferenciaPorTipoDos}
+        />
       </div>
     </section>
   );

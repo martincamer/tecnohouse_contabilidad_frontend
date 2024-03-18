@@ -1,29 +1,28 @@
 import React from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
-import moment from "moment";
-import { useIngresosContext } from "../../context/IngresosProvider";
-import { usePresupuestosContext } from "../../context/PresupuestosProvider";
-
-const convertirFecha = (fecha) => {
-  return moment(fecha).format("YYYY-MM-DD HH:mm:ss");
-};
+import { BarChart, Bar, XAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
 const formatoMoneda = new Intl.NumberFormat("es-AR", {
   style: "currency",
   currency: "ARS",
 });
 
-const formatoNumero = new Intl.NumberFormat("es-AR");
+export const ChartComponentColumnTwo = ({
+  // datosFormateados,
+  ingresoMensualConPorcentaje,
+  presupuestoMensualConPorcentaje,
+  diferenciaPorTipoDos,
+}) => {
+  const datosFormateados = ingresoMensualConPorcentaje.map((item) => {
+    const diferenciaItem = diferenciaPorTipoDos.find(
+      (diferencia) => diferencia.tipo === item.tipo
+    );
+    return {
+      tipo: item.tipo,
+      total: item.total,
+      diferencia: diferenciaItem ? diferenciaItem.diferencia : 0,
+    };
+  });
 
-export const ChartComponentColumnTwo = ({ datosFormateados }) => {
   return (
     <BarChart
       width={1220}
@@ -43,19 +42,19 @@ export const ChartComponentColumnTwo = ({ datosFormateados }) => {
       />
       <Legend />
 
-      <Bar dataKey="total" name="Total" fill="#6366f1" />
-      <Bar
+      <Bar dataKey="total" name="Total egresos" fill="#6366f1" />
+      {/* <Bar
         dataKey="porcentaje"
-        name="Porcentaje usado"
+        name="Porcentaje"
         fill="#82ca9d"
         label={{
           formatter: (valor) => `${Number(valor).toFixed(2)}%`,
           position: "top",
         }}
-      />
+      /> */}
       <Bar
         dataKey="diferencia"
-        name="Diferencia presupuesto estimado"
+        name="Diferencia presupuesto asignado"
         fill="#f87171"
       />
     </BarChart>

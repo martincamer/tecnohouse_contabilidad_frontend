@@ -40,9 +40,10 @@ export const ChartComponentTree = () => {
   );
 
   const colorBarra = ingresosTotales > presupuestoTotal ? "#ef4444" : "#d946ef";
+  const colorTexto = colorBarra === "#ef4444" ? "#000000" : "#ffffff";
 
   const datosFormateados = [
-    { tipo: "Presupuesto estimado mensual", total: presupuestoTotal },
+    { tipo: "Presupuesto asignado mensual", total: presupuestoTotal },
     { tipo: "Egresos Mensuales", total: ingresosTotales },
   ];
 
@@ -72,6 +73,7 @@ export const ChartComponentTree = () => {
           dataKey="total"
           position="top"
           formatter={(value) => formatoMoneda.format(Number(value))}
+          style={{ fill: colorTexto }} // Establece el color del texto de la etiqueta
         />
       </Bar>
     </BarChart>
