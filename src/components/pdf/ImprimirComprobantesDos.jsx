@@ -310,7 +310,7 @@ export const ImprimirComprobantes = ({ datos }) => {
   // Suponiendo que `datos.tipo` contiene el tipo de dato
   const shouldShowAntiguedadRemunerada =
     tipo === "mensual" ||
-    (tipo === "quincenal" && currentDay >= 1 && currentDay <= 19);
+    (tipo === "quincenal" && currentDay >= 1 && currentDay <= 14);
 
   return (
     <View
