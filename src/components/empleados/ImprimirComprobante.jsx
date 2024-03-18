@@ -799,7 +799,7 @@ export const ImprimirComprobante = ({ datos }) => {
                 <Text>Banco</Text>
                 {(datos.tipo === "quincenal" &&
                   hoyEsDia >= 1 &&
-                  hoyEsDia <= 19) ||
+                  hoyEsDia <= 14) ||
                 datos.tipo === "mensual" ? (
                   <Text
                     style={{
