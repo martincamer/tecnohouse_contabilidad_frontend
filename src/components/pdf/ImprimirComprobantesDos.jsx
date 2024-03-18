@@ -764,7 +764,7 @@ export const ImprimirComprobantes = ({ datos }) => {
               }}
             >
               {"+"}{" "}
-              {(tipo === "quincenal" && hoyEsDia >= 1 && hoyEsDia <= 19) ||
+              {(tipo === "quincenal" && hoyEsDia >= 1 && hoyEsDia <= 14) ||
               tipo === "mensual"
                 ? Number(banco).toLocaleString("es-AR", {
                     style: "currency",
@@ -786,7 +786,7 @@ export const ImprimirComprobantes = ({ datos }) => {
             }}
           >
             <Text>Banco</Text>
-            {(tipo === "quincenal" && hoyEsDia >= 1 && hoyEsDia <= 19) ||
+            {(tipo === "quincenal" && hoyEsDia >= 1 && hoyEsDia <= 14) ||
             tipo === "mensual" ? (
               <Text
                 style={{
