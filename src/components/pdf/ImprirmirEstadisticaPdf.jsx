@@ -161,7 +161,7 @@ export const ImprimirEstadisticaPdf = ({
                   styles.tableHeader,
                   {
                     width: "15%",
-                    fontSize: "7px",
+                    fontSize: "8px",
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                   },
@@ -174,7 +174,7 @@ export const ImprimirEstadisticaPdf = ({
                   styles.tableHeader,
                   {
                     width: "20%",
-                    fontSize: "7px",
+                    fontSize: "8px",
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                   },
@@ -187,7 +187,7 @@ export const ImprimirEstadisticaPdf = ({
                   styles.tableHeader,
                   {
                     width: "20%",
-                    fontSize: "7px",
+                    fontSize: "8px",
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                   },
@@ -200,7 +200,7 @@ export const ImprimirEstadisticaPdf = ({
                   styles.tableHeader,
                   {
                     width: "15%",
-                    fontSize: "7px",
+                    fontSize: "8px",
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                   },
@@ -226,7 +226,7 @@ export const ImprimirEstadisticaPdf = ({
                   styles.tableHeader,
                   {
                     width: "20%",
-                    fontSize: "7px",
+                    fontSize: "8px",
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                   },
@@ -257,9 +257,9 @@ export const ImprimirEstadisticaPdf = ({
                       styles.tableCell,
                       {
                         width: "15%",
-                        fontSize: "7px",
+                        fontSize: "8px",
                         fontFamily: "Montserrat",
-                        fontWeight: "normal",
+                        fontWeight: "bold",
                         textTransform: "capitalize",
                       },
                     ]}
@@ -271,7 +271,7 @@ export const ImprimirEstadisticaPdf = ({
                       styles.tableCell,
                       {
                         width: "20%",
-                        fontSize: "7px",
+                        fontSize: "8px",
                         fontFamily: "Montserrat",
                         fontWeight: "bold",
                       },
@@ -287,7 +287,7 @@ export const ImprimirEstadisticaPdf = ({
                       styles.tableCell,
                       {
                         width: "15%",
-                        fontSize: "7px",
+                        fontSize: "8px",
                         fontFamily: "Montserrat",
                         fontWeight: "normal",
                       },
@@ -300,7 +300,7 @@ export const ImprimirEstadisticaPdf = ({
                       styles.tableCell,
                       {
                         width: "20%",
-                        fontSize: "7px",
+                        fontSize: "8px",
                         fontFamily: "Montserrat",
                         fontWeight: "bold",
                       },
@@ -316,7 +316,7 @@ export const ImprimirEstadisticaPdf = ({
                       styles.tableCell,
                       {
                         width: "15%",
-                        fontSize: "7px",
+                        fontSize: "8px",
                         fontFamily: "Montserrat",
                         fontWeight: "normal",
                       },
@@ -327,7 +327,7 @@ export const ImprimirEstadisticaPdf = ({
                       styles.tableCell,
                       {
                         width: "20%",
-                        fontSize: "7px",
+                        fontSize: "8px",
                         fontFamily: "Montserrat",
                         fontWeight: "bold",
                       },
