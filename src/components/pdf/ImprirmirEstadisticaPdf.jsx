@@ -82,50 +82,29 @@ export const ImprimirEstadisticaPdf = ({
   totalSum,
   totalSumDos,
 }) => {
-  // Obtener la fecha actual
-  const fechaActual = new Date();
+  const obtenerNombreMes = (mesIndex) => {
+    const meses = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre",
+    ];
+    return meses[mesIndex];
+  };
 
-  // Obtener el día de la semana (0 para domingo, 1 para lunes, ..., 6 para sábado)
-  const diaDeLaSemana = fechaActual.getDay();
+  // Obtener el mes de creación del primer elemento de ingresoMensualConPorcentaje
+  const primerElemento = ingresoMensualConPorcentaje[0];
+  const fechaCreacion = new Date(primerElemento.created_at);
+  const mesCreacion = fechaCreacion.getMonth();
 
-  // Obtener el día del mes
-  const diaDelMes = fechaActual.getDate();
-
-  // Obtener el mes (0 para enero, 1 para febrero, ..., 11 para diciembre)
-  const mes = fechaActual.getMonth();
-
-  // Obtener el año
-  const ano = fechaActual.getFullYear();
-
-  // Días de la semana en español
-  const diasSemana = [
-    "domingo",
-    "lunes",
-    "martes",
-    "miércoles",
-    "jueves",
-    "viernes",
-    "sábado",
-  ];
-
-  // Meses en español
-  const meses = [
-    "enero",
-    "febrero",
-    "marzo",
-    "abril",
-    "mayo",
-    "junio",
-    "julio",
-    "agosto",
-    "septiembre",
-    "octubre",
-    "noviembre",
-    "diciembre",
-  ];
-
-  // Formatear la fecha
-  const fechaFormateada = `${diasSemana[diaDeLaSemana]} ${meses[mes]} / ${diaDelMes} / ${ano}`;
   return (
     <Document>
       <Page
@@ -157,7 +136,8 @@ export const ImprimirEstadisticaPdf = ({
               fontSize: "12px",
             }}
           >
-            {fechaFormateada}
+            {/* Aquí se mostrará la fecha de creación */}
+            {obtenerNombreMes(mesCreacion)}
           </Text>
         </View>
         <View
@@ -576,4 +556,3 @@ export const ImprimirEstadisticaPdf = ({
     </Document>
   );
 };
-
