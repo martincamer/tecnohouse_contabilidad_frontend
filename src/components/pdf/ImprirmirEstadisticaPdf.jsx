@@ -82,7 +82,50 @@ export const ImprimirEstadisticaPdf = ({
   totalSum,
   totalSumDos,
 }) => {
-  console.log("datos", ingresoMensualConPorcentaje);
+  // Obtener la fecha actual
+  const fechaActual = new Date();
+
+  // Obtener el día de la semana (0 para domingo, 1 para lunes, ..., 6 para sábado)
+  const diaDeLaSemana = fechaActual.getDay();
+
+  // Obtener el día del mes
+  const diaDelMes = fechaActual.getDate();
+
+  // Obtener el mes (0 para enero, 1 para febrero, ..., 11 para diciembre)
+  const mes = fechaActual.getMonth();
+
+  // Obtener el año
+  const ano = fechaActual.getFullYear();
+
+  // Días de la semana en español
+  const diasSemana = [
+    "domingo",
+    "lunes",
+    "martes",
+    "miércoles",
+    "jueves",
+    "viernes",
+    "sábado",
+  ];
+
+  // Meses en español
+  const meses = [
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
+  ];
+
+  // Formatear la fecha
+  const fechaFormateada = `${diasSemana[diaDeLaSemana]} ${meses[mes]} / ${diaDelMes} / ${ano}`;
   return (
     <Document>
       <Page
@@ -97,7 +140,8 @@ export const ImprimirEstadisticaPdf = ({
             flexDirection: "row",
             gap: "20px",
             alignItems: "center",
-            alignContent: "center",
+            justifyContent: "space-between",
+            marginBottom: "12px",
           }}
         >
           <Image
@@ -106,7 +150,25 @@ export const ImprimirEstadisticaPdf = ({
             }}
             src={logo}
           />
-
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontFamily: "Montserrat",
+              fontSize: "12px",
+            }}
+          >
+            {fechaFormateada}
+          </Text>
+        </View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "20px",
+            alignItems: "center",
+            alignContent: "center",
+          }}
+        >
           <Text
             style={{
               fontWeight: "bold",
@@ -174,7 +236,7 @@ export const ImprimirEstadisticaPdf = ({
                   styles.tableHeader,
                   {
                     width: "20%",
-                    fontSize: "7px",
+                    fontSize: "8px",
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                   },
@@ -187,7 +249,7 @@ export const ImprimirEstadisticaPdf = ({
                   styles.tableHeader,
                   {
                     width: "20%",
-                    fontSize: "7px",
+                    fontSize: "8px",
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                   },
@@ -200,7 +262,7 @@ export const ImprimirEstadisticaPdf = ({
                   styles.tableHeader,
                   {
                     width: "15%",
-                    fontSize: "7px",
+                    fontSize: "8px",
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                   },
@@ -213,7 +275,7 @@ export const ImprimirEstadisticaPdf = ({
                   styles.tableHeader,
                   {
                     width: "15%",
-                    fontSize: "7px",
+                    fontSize: "8px",
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                   },
@@ -226,7 +288,7 @@ export const ImprimirEstadisticaPdf = ({
                   styles.tableHeader,
                   {
                     width: "20%",
-                    fontSize: "7px",
+                    fontSize: "8px",
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                   },
@@ -257,9 +319,9 @@ export const ImprimirEstadisticaPdf = ({
                       styles.tableCell,
                       {
                         width: "15%",
-                        fontSize: "7px",
+                        fontSize: "8px",
                         fontFamily: "Montserrat",
-                        fontWeight: "normal",
+                        fontWeight: "bold",
                         textTransform: "capitalize",
                       },
                     ]}
@@ -271,7 +333,7 @@ export const ImprimirEstadisticaPdf = ({
                       styles.tableCell,
                       {
                         width: "20%",
-                        fontSize: "7px",
+                        fontSize: "8px",
                         fontFamily: "Montserrat",
                         fontWeight: "bold",
                       },
@@ -287,9 +349,9 @@ export const ImprimirEstadisticaPdf = ({
                       styles.tableCell,
                       {
                         width: "15%",
-                        fontSize: "7px",
+                        fontSize: "8px",
                         fontFamily: "Montserrat",
-                        fontWeight: "normal",
+                        fontWeight: "bold",
                       },
                     ]}
                   >
@@ -300,7 +362,7 @@ export const ImprimirEstadisticaPdf = ({
                       styles.tableCell,
                       {
                         width: "20%",
-                        fontSize: "7px",
+                        fontSize: "8px",
                         fontFamily: "Montserrat",
                         fontWeight: "bold",
                       },
@@ -316,9 +378,9 @@ export const ImprimirEstadisticaPdf = ({
                       styles.tableCell,
                       {
                         width: "15%",
-                        fontSize: "7px",
+                        fontSize: "8px",
                         fontFamily: "Montserrat",
-                        fontWeight: "normal",
+                        fontWeight: "bold",
                       },
                     ]}
                   >{`${(item.porcentajeUsado || 0).toFixed(2)}%`}</Text>
@@ -327,7 +389,7 @@ export const ImprimirEstadisticaPdf = ({
                       styles.tableCell,
                       {
                         width: "20%",
-                        fontSize: "7px",
+                        fontSize: "8px",
                         fontFamily: "Montserrat",
                         fontWeight: "bold",
                       },
@@ -424,7 +486,7 @@ export const ImprimirEstadisticaPdf = ({
                         width: "40%",
                         fontSize: "8px",
                         fontFamily: "Montserrat",
-                        fontWeight: "normal",
+                        fontWeight: "bold",
                         textTransform: "capitalize",
                       },
                     ]}
@@ -454,7 +516,7 @@ export const ImprimirEstadisticaPdf = ({
                         width: "40%",
                         fontSize: "8px",
                         fontFamily: "Montserrat",
-                        fontWeight: "normal",
+                        fontWeight: "bold",
                       },
                     ]}
                   >{`${(item.porcentajeUsado || 0).toFixed(2)}%`}</Text>
@@ -514,3 +576,4 @@ export const ImprimirEstadisticaPdf = ({
     </Document>
   );
 };
+
