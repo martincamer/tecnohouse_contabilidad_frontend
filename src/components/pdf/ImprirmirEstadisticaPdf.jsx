@@ -133,6 +133,7 @@ export const ImprimirEstadisticaPdf = ({
             style={{
               fontWeight: "bold",
               fontFamily: "Montserrat",
+              textTransform: "uppercase",
               fontSize: "12px",
             }}
           >
