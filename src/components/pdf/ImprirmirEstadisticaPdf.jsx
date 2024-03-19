@@ -30,11 +30,61 @@ Font.register({
   ],
 });
 
+const styles = StyleSheet.create({});
+
+// Obtener la fecha actual
+const fechaActual = new Date();
+
+// Obtener el día de la semana (0 para domingo, 1 para lunes, ..., 6 para sábado)
+const diaDeLaSemana = fechaActual.getDay();
+
+// Obtener el día del mes
+const diaDelMes = fechaActual.getDate();
+
+// Obtener el mes (0 para enero, 1 para febrero, ..., 11 para diciembre)
+const mes = fechaActual.getMonth();
+
+// Obtener el año
+const ano = fechaActual.getFullYear();
+
+// Días de la semana en español
+const diasSemana = [
+  "domingo",
+  "lunes",
+  "martes",
+  "miércoles",
+  "jueves",
+  "viernes",
+  "sábado",
+];
+
+// Meses en español
+const meses = [
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
+];
+
+// Formatear la fecha
+const fechaFormateada = `${diasSemana[diaDeLaSemana]} ${meses[mes]} / ${diaDelMes} / ${ano}`;
+
 export const ImprimirEstadisticaPdf = ({
   ingresoMensual,
   presupuestoMensual,
   diferenciaPorTipo,
 }) => {
+  // Mostrar la fecha formateada
+  console.log("Fecha actual:", fechaFormateada);
+
   // Convertir la propiedad 'total' de string a número usando map
   const ingresosNumericos = ingresoMensual.map((item) => ({
     ...item,
@@ -47,55 +97,15 @@ export const ImprimirEstadisticaPdf = ({
     0
   );
 
-  // Obtener la fecha actual
-  const fechaActual = new Date();
-
-  const diaDeLaSemana = fechaActual.getDay();
-
-  // Obtener el día del mes
-  const diaDelMes = fechaActual.getDate();
-
-  // Obtener el mes (0 para enero, 1 para febrero, ..., 11 para diciembre)
-  const mes = fechaActual.getMonth();
-
-  // Obtener el año
-  const ano = fechaActual.getFullYear();
-
-  // Días de la semana en español
-  const diasSemana = [
-    "domingo",
-    "lunes",
-    "martes",
-    "miércoles",
-    "jueves",
-    "viernes",
-    "sábado",
-  ];
-
-  // Meses en español
-  const meses = [
-    "enero",
-    "febrero",
-    "marzo",
-    "abril",
-    "mayo",
-    "junio",
-    "julio",
-    "agosto",
-    "septiembre",
-    "octubre",
-    "noviembre",
-    "diciembre",
-  ];
-
-  // Formatear la fecha
-  const fechaFormateada = `${diasSemana[diaDeLaSemana]}_${meses[mes]}_${diaDelMes}_${ano}`;
+  const convertirFecha = (fecha) => {
+    return moment(fecha).format("YYYY-MM-DD ");
+  };
 
   return (
     <Document>
       <Page
         style={{
-          padding: "30x 10px",
+          padding: "30x 50px",
           display: "flex",
           flexDirection: "column",
           gap: "20px",
@@ -121,10 +131,10 @@ export const ImprimirEstadisticaPdf = ({
               textTransform: "capitalize",
               fontSize: "11px",
               fontFamily: "Montserrat",
-              fontWeight: "normal",
+              fontWeight: "light",
             }}
           >
-           FECHA
+            {fechaFormateada}
           </Text>
         </View>
         <View
@@ -152,7 +162,6 @@ export const ImprimirEstadisticaPdf = ({
             <Text
               style={{
                 fontSize: "12px",
-                fontFamily: "Montserrat",
                 fontWeight: "normal",
               }}
               key={presupuesto?.id}
@@ -239,8 +248,8 @@ export const ImprimirEstadisticaPdf = ({
                     <Text
                       style={{
                         fontFamily: "Montserrat",
-                        fontWeight: "bold",
-                        fontSize: "9px",
+                        fontWeight: "normal",
+                        fontSize: "8px",
                         textTransform: "capitalize",
                       }}
                     >
@@ -276,7 +285,7 @@ export const ImprimirEstadisticaPdf = ({
                 <Text
                   style={{
                     fontSize: "9px",
-                    fontWeight: "bold",
+                    fontWeight: "normal",
                     fontFamily: "Montserrat",
                   }}
                   key={presupuesto?.id}
@@ -320,6 +329,7 @@ export const ImprimirEstadisticaPdf = ({
           <Text
             style={{
               fontSize: "10px",
+              fontWeight: "normal",
               fontFamily: "Montserrat",
               color: "#000",
               fontWeight: "semibold",
