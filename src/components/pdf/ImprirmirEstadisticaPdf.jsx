@@ -124,7 +124,7 @@ export const ImprimirEstadisticaPdf = ({
               fontWeight: "normal",
             }}
           >
-            {fechaFormateada}
+           FECHA
           </Text>
         </View>
         <View
@@ -152,6 +152,7 @@ export const ImprimirEstadisticaPdf = ({
             <Text
               style={{
                 fontSize: "12px",
+                fontFamily: "Montserrat",
                 fontWeight: "normal",
               }}
               key={presupuesto?.id}
