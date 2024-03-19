@@ -102,7 +102,7 @@ export const ImprimirEstadisticaPdf = ({
 
   // Obtener el mes de creación del primer elemento de ingresoMensualConPorcentaje
   const primerElemento = ingresoMensualConPorcentaje[0];
-  const fechaCreacion = new Date(primerElemento.created_at);
+  const fechaCreacion = new Date(primerElemento?.created_at);
   const mesCreacion = fechaCreacion.getMonth();
 
   return (
