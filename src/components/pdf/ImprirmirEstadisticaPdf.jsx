@@ -1,12 +1,4 @@
-import {
-  Document,
-  Text,
-  View,
-  StyleSheet,
-  Page,
-  Image,
-  Font,
-} from "@react-pdf/renderer";
+import { Document, Text, View, Page, Image, Font } from "@react-pdf/renderer";
 import logo from "../../../public/logo.png";
 import normal from "../../fonts/Montserrat-Light.ttf";
 import semibold from "../../fonts/Montserrat-SemiBold.ttf";
@@ -334,4 +326,3 @@ export const ImprimirEstadisticaPdf = ({
     </Document>
   );
 };
-
