@@ -1,8 +1,17 @@
-import { Document, Text, View, Page, Image, Font } from "@react-pdf/renderer";
+import {
+  Document,
+  Text,
+  View,
+  StyleSheet,
+  Page,
+  Image,
+  Font,
+} from "@react-pdf/renderer";
 import logo from "../../../public/logo.png";
 import normal from "../../fonts/Montserrat-Light.ttf";
 import semibold from "../../fonts/Montserrat-SemiBold.ttf";
 import bold from "../../fonts/Montserrat-Bold.ttf";
+import moment from "moment";
 
 Font.register({
   family: "Montserrat",
@@ -21,50 +30,6 @@ Font.register({
   ],
 });
 
-// Obtener la fecha actual
-const fechaActual = new Date();
-
-const diaDeLaSemana = fechaActual.getDay();
-
-// Obtener el día del mes
-const diaDelMes = fechaActual.getDate();
-
-// Obtener el mes (0 para enero, 1 para febrero, ..., 11 para diciembre)
-const mes = fechaActual.getMonth();
-
-// Obtener el año
-const ano = fechaActual.getFullYear();
-
-// Días de la semana en español
-const diasSemana = [
-  "domingo",
-  "lunes",
-  "martes",
-  "miércoles",
-  "jueves",
-  "viernes",
-  "sábado",
-];
-
-// Meses en español
-const meses = [
-  "enero",
-  "febrero",
-  "marzo",
-  "abril",
-  "mayo",
-  "junio",
-  "julio",
-  "agosto",
-  "septiembre",
-  "octubre",
-  "noviembre",
-  "diciembre",
-];
-
-// Formatear la fecha
-const fechaFormateada = `${diasSemana[diaDeLaSemana]}_${meses[mes]}_${diaDelMes}_${ano}`;
-
 export const ImprimirEstadisticaPdf = ({
   ingresoMensual,
   presupuestoMensual,
@@ -81,6 +46,50 @@ export const ImprimirEstadisticaPdf = ({
     (acumulador, ingreso) => acumulador + ingreso.total,
     0
   );
+
+  // Obtener la fecha actual
+  const fechaActual = new Date();
+
+  const diaDeLaSemana = fechaActual.getDay();
+
+  // Obtener el día del mes
+  const diaDelMes = fechaActual.getDate();
+
+  // Obtener el mes (0 para enero, 1 para febrero, ..., 11 para diciembre)
+  const mes = fechaActual.getMonth();
+
+  // Obtener el año
+  const ano = fechaActual.getFullYear();
+
+  // Días de la semana en español
+  const diasSemana = [
+    "domingo",
+    "lunes",
+    "martes",
+    "miércoles",
+    "jueves",
+    "viernes",
+    "sábado",
+  ];
+
+  // Meses en español
+  const meses = [
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
+  ];
+
+  // Formatear la fecha
+  const fechaFormateada = `${diasSemana[diaDeLaSemana]}_${meses[mes]}_${diaDelMes}_${ano}`;
 
   return (
     <Document>
@@ -112,7 +121,7 @@ export const ImprimirEstadisticaPdf = ({
               textTransform: "capitalize",
               fontSize: "11px",
               fontFamily: "Montserrat",
-              fontWeight: "light",
+              fontWeight: "normal",
             }}
           >
             {fechaFormateada}
