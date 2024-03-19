@@ -280,7 +280,6 @@ export const ImprimirEstadisticaPdf = ({
             </View>
             {ingresoMensualConPorcentaje
               .filter((item) => !item.tipo.startsWith("canjes")) // Filtrar elementos que no comienzan con "canjes"
-              .sort((a, b) => b.total - a.total) // Ordenar los elementos por el total de forma descendente
               .map((item) => {
                 // Buscar el objeto correspondiente en presupuestoMensualConPorcentaje y diferenciaPorTipo
                 const presupuestoItem = presupuestoMensualConPorcentaje.find(
