@@ -95,7 +95,7 @@ export const ImprimirEstadisticaPdf = ({
     <Document>
       <Page
         style={{
-          padding: "30x 10px",
+          padding: "30x 50px",
           display: "flex",
           flexDirection: "column",
           gap: "20px",
@@ -319,7 +319,6 @@ export const ImprimirEstadisticaPdf = ({
           <Text
             style={{
               fontSize: "10px",
-              fontWeight: "normal",
               fontFamily: "Montserrat",
               color: "#000",
               fontWeight: "semibold",
