@@ -21,7 +21,6 @@ export const AuthProvider = ({ children }) => {
   );
   const [error, setError] = useState(null);
   const [spinner, setSpinner] = useState(false);
-
   const [clickProvider, setClickProvider] = useState(false);
 
   useEffect(() => {
@@ -39,36 +38,33 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
 
-  //login
   const signin = async (data) => {
     try {
       const res = await axios.post("/signin", data);
-
       setUser(res.data);
       setIsAuth(true);
-
       return res.data;
     } catch (error) {
       if (Array.isArray(error.response.data)) {
-        return setError(error.response.data);
+        setError(error.response.data);
+      } else {
+        setError([error.response.data.message]);
       }
-      setError([error.response.data.message]);
     }
   };
 
-  //registro
   const signup = async (data) => {
     try {
       const res = await axios.post("/signup", data);
       setUser(res.data);
-      setUser(res.data);
       setIsAuth(true);
       return res.data;
     } catch (error) {
       if (Array.isArray(error.response.data)) {
-        return setError(error.response.data);
+        setError(error.response.data);
+      } else {
+        setError([error.response.data.message]);
       }
-      setError([error.response.data.message]);
     }
   };
 
