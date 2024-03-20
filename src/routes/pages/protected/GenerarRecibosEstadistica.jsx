@@ -94,7 +94,7 @@ export const GenerarRecibosEstadistica = () => {
 
   // Calcular el porcentaje del total usado por cada tipo en ingresoMensual
   const porcentajePorTipoIngreso = {};
-  presupuesto.forEach((item) => {
+  datos.forEach((item) => {
     const tipo = item.tipo;
     const total = parseFloat(item.total);
     if (!porcentajePorTipoIngreso[tipo]) {
@@ -117,7 +117,6 @@ export const GenerarRecibosEstadistica = () => {
         (total / totalPresupuestoMensual) * 100;
     }
   });
-
   // Agregar las propiedades de porcentaje al arreglo original ingresoMensual
   const ingresoMensualConPorcentaje = datos.map((item) => ({
     ...item,
@@ -144,37 +143,37 @@ export const GenerarRecibosEstadistica = () => {
       : 0,
   }));
 
-  const downloadDataAsExcel = () => {
-    // Prepare data for Excel
-    const data = ingresoMensualConPorcentaje.map((item, index) => ({
-      TIPO: item.tipo.toUpperCase(),
-      "Total egresos": new Intl.NumberFormat("es-AR", {
-        style: "currency",
-        currency: "ARS",
-      }).format(item.total),
-      "% egresos": `${(item.porcentajeUsado || 0).toFixed(2)}%`,
-      "Total Presupuesto Estimado": new Intl.NumberFormat("es-AR", {
-        style: "currency",
-        currency: "ARS",
-      }).format(presupuestoMensualConPorcentaje[index]?.total || 0),
-      "% Presupuesto":
-        (presupuestoMensualConPorcentaje[index]?.porcentajeUsado || 0).toFixed(
-          2
-        ) + "%",
-      "Diferencia Presupuesto/Egresos": new Intl.NumberFormat("es-AR", {
-        style: "currency",
-        currency: "ARS",
-      }).format(diferenciaPorTipo[index]?.diferencia || 0),
-    }));
+  // const downloadDataAsExcel = () => {
+  //   // Prepare data for Excel
+  //   const data = ingresoMensualConPorcentaje.map((item, index) => ({
+  //     TIPO: item.tipo.toUpperCase(),
+  //     "Total egresos": new Intl.NumberFormat("es-AR", {
+  //       style: "currency",
+  //       currency: "ARS",
+  //     }).format(item.total),
+  //     "% egresos": `${(item.porcentajeUsado || 0).toFixed(2)}%`,
+  //     "Total Presupuesto Estimado": new Intl.NumberFormat("es-AR", {
+  //       style: "currency",
+  //       currency: "ARS",
+  //     }).format(presupuestoMensualConPorcentaje[index]?.total || 0),
+  //     "% Presupuesto":
+  //       (presupuestoMensualConPorcentaje[index]?.porcentajeUsado || 0).toFixed(
+  //         2
+  //       ) + "%",
+  //     "Diferencia Presupuesto/Egresos": new Intl.NumberFormat("es-AR", {
+  //       style: "currency",
+  //       currency: "ARS",
+  //     }).format(diferenciaPorTipo[index]?.diferencia || 0),
+  //   }));
 
-    // Create worksheet and workbook
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Datos");
+  //   // Create worksheet and workbook
+  //   const ws = XLSX.utils.json_to_sheet(data);
+  //   const wb = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(wb, ws, "Datos");
 
-    // Save the file
-    XLSX.writeFile(wb, "datos.xlsx");
-  };
+  //   // Save the file
+  //   XLSX.writeFile(wb, "datos.xlsx");
+  // };
 
   const ingresoMensualOrdenado = [...ingresoMensualConPorcentaje].sort(
     (a, b) => {
@@ -183,6 +182,8 @@ export const GenerarRecibosEstadistica = () => {
       return 0;
     }
   );
+
+  console.log(ingresoMensualOrdenado);
 
   return (
     <section className="px-10 py-16 w-full h-full flex flex-col gap-5">
@@ -266,6 +267,7 @@ export const GenerarRecibosEstadistica = () => {
           >
             <PDFDownloadLink
               fileName={`estadistica`}
+              target="_blank"
               document={
                 <ImprimirEstadisticaPdf
                   totalSum={totalSum}
@@ -327,7 +329,7 @@ export const GenerarRecibosEstadistica = () => {
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <button
           onClick={downloadDataAsExcel}
           className="bg-green-500 text-white py-2 px-5 rounded-xl text-sm flex gap-2 items-center"
@@ -335,7 +337,7 @@ export const GenerarRecibosEstadistica = () => {
         >
           Descargar en formato excel
         </button>
-      </div>
+      </div> */}
 
       <div className="h-screen">
         {loading ? (
@@ -372,11 +374,11 @@ export const GenerarRecibosEstadistica = () => {
               </thead>
 
               <tbody className="divide-y divide-gray-200 text-left">
-                {ingresoMensualOrdenado.map((item, index) => {
-                  if (item.tipo.toLowerCase().startsWith("canje")) {
-                    // Si el tipo comienza con "canje", no mostrar la fila
-                    return null;
-                  }
+                {ingresoMensualConPorcentaje.map((item) => {
+                  // if (item.tipo.toLowerCase().startsWith("canje")) {
+                  //   // Si el tipo comienza con "canje", no mostrar la fila
+                  //   return null;
+                  // }
 
                   // Buscar el objeto correspondiente en presupuestoMensualConPorcentaje y diferenciaPorTipo
                   const presupuestoItem = presupuestoMensualConPorcentaje.find(

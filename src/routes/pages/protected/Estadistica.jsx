@@ -293,7 +293,7 @@ export const Estadistica = () => {
             </thead>
 
             <tbody className="divide-y divide-gray-200 text-left">
-              {ingresoMensualOrdenado.map((item) => {
+              {ingresoMensualConPorcentaje.map((item) => {
                 if (item.tipo.toLowerCase().startsWith("canje")) {
                   return null;
                 }
@@ -372,7 +372,7 @@ export const Estadistica = () => {
             </thead>
 
             <tbody className="divide-y divide-gray-200 text-left">
-              {ingresoMensualOrdenado.map((item) => {
+              {ingresoMensualConPorcentaje.map((item) => {
                 if (item.tipo.toLowerCase().startsWith("canje")) {
                   // Si el tipo comienza con "canje", mostrar la fila
                   // Buscar el objeto correspondiente en presupuestoMensualConPorcentaje y diferenciaPorTipo

@@ -164,13 +164,6 @@ export const ViewPdfPruebasDos = () => {
     XLSX.writeFile(wb, "datos.xlsx");
   };
 
-  const ingresoMensualOrdenado = [...ingresoMensualConPorcentaje].sort(
-    (a, b) => {
-      if (a.tipo < b.tipo) return -1;
-      if (a.tipo > b.tipo) return 1;
-      return 0;
-    }
-  );
   return (
     <PDFViewer style={{ width: "100%", height: "100vh" }}>
       <ImprimirEstadisticaPdf

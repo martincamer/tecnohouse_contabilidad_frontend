@@ -41,7 +41,10 @@ const styles = StyleSheet.create({
     display: "table",
     // width: "auto",
   },
-  tableRow: { margin: "auto", flexDirection: "row" },
+  tableRow: {
+    margin: "auto",
+    flexDirection: "row",
+  },
   tableCell: {
     margin: "auto",
     marginTop: 5,
@@ -50,28 +53,6 @@ const styles = StyleSheet.create({
   tableHeader: {
     margin: "auto",
     marginTop: 5,
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
-  },
-  chartContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: "20px",
-    height: 200, // Reducimos la altura del contenedor del gráfico
-    marginTop: 20,
-  },
-  bar: {
-    width: 20, // Reducimos el ancho de las barras
-    backgroundColor: "#8884d8",
-    margin: 2,
-  },
-  label: {
-    fontSize: 8,
-    textAlign: "center",
-    marginTop: 2,
   },
 });
 
@@ -109,9 +90,12 @@ export const ImprimirEstadisticaPdf = ({
     <Document>
       <Page
         style={{
-          padding: "20x 20px",
+          padding: "40px 20px",
+          margin: "0 auto",
+          orientation: "landscape", // Cambia la orientación a horizontal
         }}
         size="A4"
+        // orientation="landscape"
       >
         <View
           style={{
@@ -121,6 +105,7 @@ export const ImprimirEstadisticaPdf = ({
             alignItems: "center",
             justifyContent: "space-between",
             marginBottom: "12px",
+            padding: "0px 30px",
           }}
         >
           <Image
@@ -134,11 +119,12 @@ export const ImprimirEstadisticaPdf = ({
               fontWeight: "bold",
               fontFamily: "Montserrat",
               textTransform: "uppercase",
-              fontSize: "12px",
+              fontSize: "10px",
+              textDecoration: "underline",
             }}
           >
             {/* Aquí se mostrará la fecha de creación */}
-            {obtenerNombreMes(mesCreacion)}
+            Mes {obtenerNombreMes(mesCreacion)}
           </Text>
         </View>
         <View
@@ -148,6 +134,9 @@ export const ImprimirEstadisticaPdf = ({
             gap: "20px",
             alignItems: "center",
             alignContent: "center",
+            padding: "20px 30px",
+            margin: "10px 0px",
+            border: "1px solid #000",
           }}
         >
           <Text
@@ -155,7 +144,7 @@ export const ImprimirEstadisticaPdf = ({
               fontWeight: "bold",
               textTransform: "capitalize",
               fontFamily: "Montserrat",
-              fontSize: "10px",
+              fontSize: "9px",
             }}
           >
             Total Egresos{" "}
@@ -163,7 +152,7 @@ export const ImprimirEstadisticaPdf = ({
               style={{
                 fontWeight: "normal",
                 fontFamily: "Montserrat",
-                fontSize: "10px",
+                fontSize: "9px",
               }}
             >
               {Number(totalSum).toLocaleString("es-AR", {
@@ -178,15 +167,15 @@ export const ImprimirEstadisticaPdf = ({
               fontWeight: "bold",
               textTransform: "capitalize",
               fontFamily: "Montserrat",
-              fontSize: "10px",
+              fontSize: "9px",
             }}
           >
-            Total estimado del presupuesto{" "}
+            Total del presupuesto asignado{" "}
             <Text
               style={{
                 fontWeight: "normal",
                 fontFamily: "Montserrat",
-                fontSize: "10px",
+                fontSize: "9px",
               }}
             >
               {Number(totalSumDos).toLocaleString("es-AR", {
@@ -196,9 +185,23 @@ export const ImprimirEstadisticaPdf = ({
             </Text>
           </Text>
         </View>
-        <View style={styles.container}>
+        <View
+          style={
+            ([styles.container],
+            { border: "1px solid black", padding: "10px 5px" })
+          }
+        >
           <View style={styles.table}>
-            <View style={styles.tableRow}>
+            <View
+              style={{
+                borderBottom: "1px solid black",
+                display: "flex",
+                flexDirection: "row",
+                margin: "auto",
+                width: "100%",
+                paddingBottom: "3px",
+              }}
+            >
               <Text
                 style={[
                   styles.tableHeader,
@@ -229,7 +232,7 @@ export const ImprimirEstadisticaPdf = ({
                 style={[
                   styles.tableHeader,
                   {
-                    width: "20%",
+                    width: "10%",
                     fontSize: "8px",
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
@@ -242,7 +245,7 @@ export const ImprimirEstadisticaPdf = ({
                 style={[
                   styles.tableHeader,
                   {
-                    width: "15%",
+                    width: "20%",
                     fontSize: "8px",
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
@@ -255,14 +258,14 @@ export const ImprimirEstadisticaPdf = ({
                 style={[
                   styles.tableHeader,
                   {
-                    width: "15%",
+                    width: "10%",
                     fontSize: "8px",
                     fontFamily: "Montserrat",
                     fontWeight: "bold",
                   },
                 ]}
               >
-                % egresos
+                % Egresos
               </Text>
               <Text
                 style={[
@@ -291,7 +294,15 @@ export const ImprimirEstadisticaPdf = ({
                 );
 
                 return (
-                  <View key={item.tipo} style={styles.tableRow}>
+                  <View
+                    key={item.tipo}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      margin: "auto",
+                      width: "100%",
+                    }}
+                  >
                     <Text
                       style={[
                         styles.tableCell,
@@ -326,7 +337,7 @@ export const ImprimirEstadisticaPdf = ({
                       style={[
                         styles.tableCell,
                         {
-                          width: "15%",
+                          width: "10%",
                           fontSize: "8px",
                           fontFamily: "Montserrat",
                           fontWeight: "bold",
@@ -355,7 +366,7 @@ export const ImprimirEstadisticaPdf = ({
                       style={[
                         styles.tableCell,
                         {
-                          width: "15%",
+                          width: "10%",
                           fontSize: "8px",
                           fontFamily: "Montserrat",
                           fontWeight: "bold",
@@ -393,6 +404,8 @@ export const ImprimirEstadisticaPdf = ({
             display: "flex",
             flexDirection: "row",
             alignItems: "start",
+            border: "1px solid black",
+            padding: "10px 5px",
           }}
         >
           <Text
@@ -410,7 +423,16 @@ export const ImprimirEstadisticaPdf = ({
         </View>
         <View style={styles.container}>
           <View style={styles.table}>
-            <View style={styles.tableRow}>
+            <View
+              style={{
+                borderBottom: "1px solid black",
+                display: "flex",
+                flexDirection: "row",
+                margin: "auto",
+                width: "100%",
+                paddingBottom: "3px",
+              }}
+            >
               <Text
                 style={[
                   styles.tableHeader,
@@ -435,7 +457,7 @@ export const ImprimirEstadisticaPdf = ({
                   },
                 ]}
               >
-                Total del egreso
+                Egresos total
               </Text>
               <Text
                 style={[
@@ -448,7 +470,7 @@ export const ImprimirEstadisticaPdf = ({
                   },
                 ]}
               >
-                % egresos
+                % Egresos
               </Text>
             </View>
             {ingresoMensualConPorcentaje.map((item) => {
@@ -458,7 +480,15 @@ export const ImprimirEstadisticaPdf = ({
               }
 
               return (
-                <View key={item.tipo} style={styles.tableRow}>
+                <View
+                  key={item.tipo}
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    margin: "auto",
+                    width: "100%",
+                  }}
+                >
                   <Text
                     style={[
                       styles.tableCell,
