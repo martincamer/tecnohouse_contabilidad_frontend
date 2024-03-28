@@ -151,9 +151,9 @@ export const DatosGuardados = () => {
               <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead>
                   <tr className="border-b-[1px]">
-                    <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+                    {/* <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
                       Numero
-                    </th>
+                    </th> */}
                     <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
                       Empleado
                     </th>
@@ -179,7 +179,7 @@ export const DatosGuardados = () => {
                       Sueldo neto
                     </th>
                     <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
-                      Descargar
+                      Ver Resumenes
                     </th>{" "}
                     {/* <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
                       Ver datos
@@ -193,9 +193,9 @@ export const DatosGuardados = () => {
                         key={datos.id}
                         className="hover:bg-slate-100 transition-all ease-in-out duration-200 cursor-pointer"
                       >
-                        <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
+                        {/* <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
                           {datos.id}
-                        </td>
+                        </td> */}
                         <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
                           {datos.empleado}
                         </td>
@@ -242,14 +242,36 @@ export const DatosGuardados = () => {
                             currency: "ARS",
                           })}
                         </td>
-                        <td className="py-3 px-3 text-sm text-left text-slate-700">
-                          <button
-                            type="button"
-                            className="bg-slate-600 text-white py-2 px-4 rounded-xl shadow"
-                            onClick={() => downloadDataAsExcel(datos.id)}
-                          >
-                            Descagar tipo excel
-                          </button>
+                        <td className="py-3 px-3 flex text-sm text-left text-slate-700 space-x-2">
+                          {datos.tipo === "quincenal" ? (
+                            <>
+                              <Link
+                                to={`/view-pdf-5-datos/${datos.id}`}
+                                target="_blank" // Esto abre el enlace en una nueva pestaña
+                                rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
+                                className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
+                              >
+                                Imprimir 5
+                              </Link>
+                              <Link
+                                to={`/view-pdf-20-datos/${datos.id}`}
+                                target="_blank" // Esto abre el enlace en una nueva pestaña
+                                rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
+                                className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
+                              >
+                                Imprimir 20
+                              </Link>
+                            </>
+                          ) : (
+                            <Link
+                              to={`/view-pdf-mensual-datos/${datos.id}`}
+                              target="_blank" // Esto abre el enlace en una nueva pestaña
+                              rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
+                              className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
+                            >
+                              Imprimir Mensual
+                            </Link>
+                          )}
                         </td>
                       </tr>
                     ))

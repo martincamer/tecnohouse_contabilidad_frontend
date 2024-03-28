@@ -132,10 +132,28 @@ export const Empleados = () => {
     setCurrentPage(newPage);
   };
 
+  function generarID() {
+    const caracteres =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const longitud = 10;
+    let id = "";
+    for (let i = 0; i < longitud; i++) {
+      const indice = Math.floor(Math.random() * caracteres.length);
+      id += caracteres.charAt(indice);
+    }
+    return id;
+  }
+
   const handleSubmit = async () => {
+    // Generar un nuevo ID para cada empleado antes de enviar los datos al backend
+    const empleadosConIDs = empleados.map((empleado) => ({
+      ...empleado,
+      id: generarID(), // Generar un nuevo ID aleatorio para cada empleado
+    }));
+
     try {
       const response = await client.post("/empleados-datos", {
-        datos: empleados,
+        datos: empleadosConIDs, // Usar empleadosConIDs que contiene los nuevos IDs generados
       });
 
       console.log(response);
@@ -235,8 +253,6 @@ export const Empleados = () => {
   const [obtenerId, setObtenerId] = useState(null);
 
   const handleId = (id) => setObtenerId(id);
-
-  console.log(obtenerId);
 
   return (
     <section className=" py-16 w-full h-full flex flex-col gap-5">
@@ -640,15 +656,36 @@ export const Empleados = () => {
                     </Link>
                   </td>
 
-                  <td className="py-3 px-3 flex text-sm text-left text-slate-700">
-                    <Link
-                      to={`/view-pdf/${e.id}`}
-                      target="_blank" // Esto abre el enlace en una nueva pestaña
-                      rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
-                      className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
-                    >
-                      Imprimir pdf
-                    </Link>
+                  <td className="py-3 px-3 flex text-sm text-left text-slate-700 space-x-2">
+                    {e.tipo === "quincenal" ? (
+                      <>
+                        <Link
+                          to={`/view-pdf-5/${e.id}`}
+                          target="_blank" // Esto abre el enlace en una nueva pestaña
+                          rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
+                          className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
+                        >
+                          Imprimir 5
+                        </Link>
+                        <Link
+                          to={`/view-pdf-20/${e.id}`}
+                          target="_blank" // Esto abre el enlace en una nueva pestaña
+                          rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
+                          className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
+                        >
+                          Imprimir 20
+                        </Link>
+                      </>
+                    ) : (
+                      <Link
+                        to={`/view-pdf-mensual/${e.id}`}
+                        target="_blank" // Esto abre el enlace en una nueva pestaña
+                        rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
+                        className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
+                      >
+                        Imprimir Mensual
+                      </Link>
+                    )}
                   </td>
                 </tr>
               ))}

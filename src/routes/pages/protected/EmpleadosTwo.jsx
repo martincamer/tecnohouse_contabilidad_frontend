@@ -4,7 +4,9 @@ import { useEmpleadosContext } from "../../../context/EmpleadosProvider";
 import { ModalCrearFabrica } from "../../../components/empleados/ModalCrearFabrica";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { ImprimirPdfEmpleados } from "../../../components/empleados/ImprimirPdfEmpleados";
-import { ImprimirComprobanteDos } from "../../../components/pdf/ImprimirComprobantesDos";
+import { ImprimirComprobantesCincoTodo } from "../../../components/pdf/ImprimirComprobantesCincoTodo";
+import { ImprimirComprobantesVeinteTodo } from "../../../components/pdf/ImprimirComprobantesVeinteTodo";
+import { ImprimirComprobanteMensualTodo } from "../../../components/pdf/ImprimirComprobantesMensualTodo";
 
 export const EmpleadosTwo = () => {
   const { empleados, fabricas } = useEmpleadosContext();
@@ -124,6 +126,8 @@ export const EmpleadosTwo = () => {
 
   const [dataLoaded, setDataLoaded] = useState(false);
   const [dataLoadedTwo, setDataLoadedTwo] = useState(false);
+  const [dataLoadedTree, setDataLoadedTree] = useState(false);
+  const [dataLoadedFourty, setDataLoadedFourty] = useState(false);
 
   const downloadRef = useRef(false);
 
@@ -144,7 +148,17 @@ export const EmpleadosTwo = () => {
 
   const handleLoadDataTwo = () => {
     // Simulate data loading (replace with your actual logic)
-    setTimeout(() => setDataLoadedTwo(true), 3000);
+    setTimeout(() => setDataLoadedTwo(true), 500);
+  };
+
+  const handleLoadDataTree = () => {
+    // Simulate data loading (replace with your actual logic)
+    setTimeout(() => setDataLoadedTree(true), 500);
+  };
+
+  const handleLoadDataFourty = () => {
+    // Simulate data loading (replace with your actual logic)
+    setTimeout(() => setDataLoadedFourty(true), 500);
   };
 
   return (
@@ -169,116 +183,14 @@ export const EmpleadosTwo = () => {
         </svg>
         VOLVER A EMPLEADOS
       </Link>
-      {/* <div className="px-10">
-        <div className=" bg-white w-full border-[1px] border-slate-300 shadow-sm shadow rounded-xl flex gap-4 items-center justify-center">
-          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
-            <p className="text-indigo-500 text-sm">Total empleados cargados</p>
-            <p className="text-slate-700 text-sm font-semibold">
-              {resultados.length}
-            </p>
-          </div>
 
-          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
-            <p className="text-indigo-500 text-sm">Total quincena 5</p>
-            <p className="text-slate-700 text-sm font-semibold">
-              {Number(totalFinalQuincenaCinco).toLocaleString("es-AR", {
-                style: "currency",
-                currency: "ARS",
-              })}
-            </p>
-          </div>
-
-          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
-            <p className="text-indigo-500 text-sm">Total quincena 20</p>
-            <p className="text-slate-700 text-sm font-semibold">
-              {Number(totalFinalQuincenaVeinte).toLocaleString("es-AR", {
-                style: "currency",
-                currency: "ARS",
-              })}
-            </p>
-          </div>
-
-          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
-            <p className="text-indigo-500 text-sm">Total a pagar</p>
-            <p className="text-slate-700 text-sm font-semibold">
-              {Number(totalFinalSum).toLocaleString("es-AR", {
-                style: "currency",
-                currency: "ARS",
-              })}
-            </p>
-          </div>
-
-          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full">
-            <p className="text-indigo-500 text-sm">Total fabricas cargadas</p>
-            <p className="text-slate-700 text-sm font-semibold">
-              {fabricas.length}
-            </p>
-          </div>
-        </div>
-      </div> */}
       <div className="px-10">
         <div className="bg-white w-full py-4 px-6 border-[1px] border-slate-300 shadow-md rounded-lg flex gap-4">
-          {/* <div>
-            <button
-              className="bg-indigo-500 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
-              type="button"
-            >
-              <Link to="/empleado-nuevo">Cargar nuevo empleado</Link>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-7 h-[20px]"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <div>
-            <button
-              onClick={() => openModal()}
-              className="bg-indigo-500 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
-              type="button"
-            >
-              Cargar nueva fabrica o editar fabrica
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-7 h-[20px]"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-                />
-              </svg>
-            </button>
-          </div> */}
-
           <div>
             <button
               className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
               type="button"
             >
-              {/* <PDFDownloadLink
-                fileName={`Resumen empleados ${tiposFabricaUnicosArray.map(
-                  (tipo) => tipo
-                )} - fecha_${fechaFormateada}`}
-                document={<ImprimirPdfEmpleados empleados={resultados} />}
-              >
-                Imprimir los datos
-              </PDFDownloadLink> */}
-
               <div>
                 {!dataLoaded && (
                   <button onClick={handleLoadData}>
@@ -322,16 +234,98 @@ export const EmpleadosTwo = () => {
               <div>
                 {!dataLoadedTwo && (
                   <button onClick={handleLoadDataTwo}>
-                    Descargar comprobantes..
+                    Descargar comprobantes de la quincena del 5
                   </button>
                 )}
                 {dataLoadedTwo && (
                   <PDFDownloadLink
-                    document={<ImprimirComprobanteDos datos={resultados} />}
+                    document={
+                      <ImprimirComprobantesCincoTodo datos={resultados} />
+                    }
                     download={() => setDataLoadedTwo(false)}
                     target="_blank"
                   >
-                    Hacer click.
+                    Hacer click para descargar..
+                  </PDFDownloadLink>
+                )}
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div>
+            <button
+              className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
+              type="button"
+            >
+              <div>
+                {!dataLoadedTree && (
+                  <button onClick={handleLoadDataTree}>
+                    Descargar comprobantes de la quincena del 20
+                  </button>
+                )}
+                {dataLoadedTree && (
+                  <PDFDownloadLink
+                    document={
+                      <ImprimirComprobantesVeinteTodo datos={resultados} />
+                    }
+                    download={() => setDataLoadedTree(false)}
+                    target="_blank"
+                  >
+                    Hacer click para descargar..
+                  </PDFDownloadLink>
+                )}
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div>
+            <button
+              className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
+              type="button"
+            >
+              <div>
+                {!dataLoadedFourty && (
+                  <button onClick={handleLoadDataFourty}>
+                    Descargar comprobantes mensuales
+                  </button>
+                )}
+                {dataLoadedFourty && (
+                  <PDFDownloadLink
+                    document={
+                      <ImprimirComprobanteMensualTodo datos={resultados} />
+                    }
+                    download={() => setDataLoadedFourty(false)}
+                    target="_blank"
+                  >
+                    Hacer click para descargar..
                   </PDFDownloadLink>
                 )}
               </div>

@@ -26,11 +26,17 @@ import { ViewPdfTwo } from "./components/pdf/ViewPdfTwo";
 import { ViewPdfPruebas } from "./components/pdf/ViewPdfPruebas";
 import { EmpleadosTwo } from "./routes/pages/protected/EmpleadosTwo";
 import { DatosGuardados } from "./routes/pages/protected/DatosGuardados";
+import { ViewPdfPruebasDos } from "./components/pdf/ViewPdfPruebasDos";
+import { ViewPdfCinco } from "./components/pdf/ViewPdfCinco";
+import { ViewPdfVeinte } from "./components/pdf/ViewPdfVeinte";
+import { ViewPdfMensual } from "./components/pdf/ViewPdfMensual";
 //import normales
 import RutaProtegida from "./layouts/RutaProtejida";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import { ViewPdfPruebasDos } from "./components/pdf/ViewPdfPruebasDos";
+import { ViewPdfCincoDatos } from "./components/pdf/ViewPdfCincoDatos";
+import { ViewPdfVeinteDatos } from "./components/pdf/ViewPdfCincoVeinte";
+import { ViewPdfMensualDatos } from "./components/pdf/ViewPdfMensualDatos";
 
 function App() {
   const { isAuth } = useAuth();
@@ -75,6 +81,27 @@ function App() {
               />
               <Route path="/cuenta" element={<Cuenta />} />
               <Route path="/view-pdf/:id" element={<ViewPdf />} />
+              <Route path="/view-pdf-5/:id" element={<ViewPdfCinco />} />
+              <Route path="/view-pdf-20/:id" element={<ViewPdfVeinte />} />
+              <Route
+                path="/view-pdf-5-datos/:id"
+                element={<ViewPdfCincoDatos />}
+              />
+
+              <Route
+                path="/view-pdf-20-datos/:id"
+                element={<ViewPdfVeinteDatos />}
+              />
+
+              <Route
+                path="/view-pdf-mensual-datos/:id"
+                element={<ViewPdfMensualDatos />}
+              />
+
+              <Route
+                path="/view-pdf-mensual/:id"
+                element={<ViewPdfMensual />}
+              />
               <Route path="/view-pdf-completo" element={<ViewPdfPruebas />} />
               <Route path="/view-pdf-dos" element={<ViewPdfPruebasDos />} />
               <Route path="/view-pdf/app" element={<ViewPdfTwo />} />
