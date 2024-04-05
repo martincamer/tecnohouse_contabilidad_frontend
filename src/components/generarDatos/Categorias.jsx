@@ -59,7 +59,7 @@ export const Categorias = () => {
     <div className="bg-white w-full py-4 px-6 border-[1px] border-slate-300 shadow rounded-lg flex gap-4">
       <div>
         <button
-          className="bg-slate-900 text-white py-2 px-5 rounded-xl uppercase text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
+          className="bg-indigo-500 text-white py-2 px-5 rounded-xl uppercase text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
           type="button"
           onClick={() => openModalIngresos()}
         >
@@ -84,7 +84,7 @@ export const Categorias = () => {
       <div>
         <button
           onClick={() => openModalTipo()}
-          className="bg-slate-900 text-white py-2 px-5 rounded-xl uppercase text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
+          className="bg-indigo-500 text-white py-2 px-5 rounded-xl uppercase text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
           type="button"
         >
           Crear tipo de egreso
@@ -107,7 +107,7 @@ export const Categorias = () => {
       <div>
         <button
           onClick={() => openModalTipoVer()}
-          className="bg-slate-900 text-white py-2 px-5 rounded-xl uppercase text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
+          className="bg-indigo-500 text-white py-2 px-5 rounded-xl uppercase text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
           type="button"
         >
           Editar tipo de egreso
@@ -129,7 +129,7 @@ export const Categorias = () => {
       </div>
       <div>
         <button
-          className="bg-slate-500 text-white uppercase py-2 px-5 rounded-xl text-sm flex gap-2 items-center"
+          className="bg-slate-800 text-white uppercase py-2 px-5 rounded-xl text-sm flex gap-2 items-center"
           type="button"
         >
           <PDFDownloadLink
@@ -162,7 +162,7 @@ export const Categorias = () => {
       <div>
         <button
           onClick={() => openModal()}
-          className="bg-slate-500 text-white uppercase py-2 px-5 rounded-xl text-sm flex gap-2 items-center"
+          className="bg-slate-800 text-white uppercase py-2 px-5 rounded-xl text-sm flex gap-2 items-center"
           type="button"
         >
           Generar presupuesto estimado
