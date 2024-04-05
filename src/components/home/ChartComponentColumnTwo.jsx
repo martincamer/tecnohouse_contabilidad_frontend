@@ -42,20 +42,12 @@ export const ChartComponentColumnTwo = ({
       />
       <Legend />
 
-      <Bar dataKey="total" name="Total egresos" fill="#6366f1" />
-      {/* <Bar
-        dataKey="porcentaje"
-        name="Porcentaje"
-        fill="#82ca9d"
-        label={{
-          formatter: (valor) => `${Number(valor).toFixed(2)}%`,
-          position: "top",
-        }}
-      /> */}
+      <Bar dataKey="total" name="Total egresos" fill="#303030" />
+
       <Bar
         dataKey="diferencia"
         name="Diferencia presupuesto asignado"
-        fill="#f87171"
+        fill="#a60202"
       />
     </BarChart>
   );

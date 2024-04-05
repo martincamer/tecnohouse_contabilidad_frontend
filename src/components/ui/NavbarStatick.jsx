@@ -7,16 +7,16 @@ export const NavbarStatick = () => {
   console.log(user);
 
   return (
-    <div className="absolute top-2 right-5 flex gap-2 items-start z-[-1]">
-      <p className="bg-indigo-500 py-1 px-4 rounded-lg shadow text-white">
+    <div className="absolute top-3 right-5 flex gap-2 items-start z-[-1]">
+      <p className="bg-black py-2 px-4 rounded-xl shadow text-white">
         Usuario Logeado{" "}
-        <span className="bg-slate-800 text-white py-[2px] px-2 rounded-lg capitalize">
+        <span className="text-slate-700 bg-white py-[2px] px-2 rounded-lg capitalize">
           {user?.username}
         </span>
       </p>
-      <p className="bg-indigo-500 py-1 px-4 rounded-lg shadow text-white">
+      <p className="bg-black py-2 px-4 rounded-xl shadow">
         {" "}
-        <span className="bg-slate-800 text-white py-[2px] px-2 rounded-lg capitalize">
+        <span className="bg-white text-slate-700 py-[2px] px-2 rounded-lg capitalize">
           {user?.role_id === "1" ? "usuario" : "admin"}
         </span>
       </p>

@@ -39,8 +39,8 @@ export const ChartComponentTree = () => {
     0
   );
 
-  const colorBarra = ingresosTotales > presupuestoTotal ? "#ef4444" : "#d946ef";
-  const colorTexto = colorBarra === "#ef4444" ? "#000000" : "#ffffff";
+  const colorBarra = ingresosTotales > presupuestoTotal ? "#990000" : "#3d3d3d";
+  const colorTexto = colorBarra === "#ef4444" ? "000000" : "#ffffff";
 
   const datosFormateados = [
     { tipo: "Presupuesto asignado mensual", total: presupuestoTotal },

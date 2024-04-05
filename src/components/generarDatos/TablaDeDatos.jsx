@@ -58,7 +58,7 @@ export const TablaDeDatos = ({
         <button
           onClick={downloadDataAsExcel}
           type="button"
-          className="bg-green-500 text-white py-2 px-4 mt-4 rounded-xl shadow"
+          className="bg-green-500 text-white py-2 px-4 mt-4 rounded-xl shadow uppercase text-sm"
         >
           Descargar archivo en formato excel
         </button>
@@ -67,31 +67,31 @@ export const TablaDeDatos = ({
         <table className="min-w-full divide-y-1 divide-gray-200 bg-white text-sm">
           <thead>
             <tr className="border-b-[1px]">
-              <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+              <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
                 Numero
               </th>
-              <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+              <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
                 Tipo
               </th>
-              <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+              <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
                 Detalle
               </th>
-              <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+              <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
                 Creador
               </th>
-              <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+              <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
                 Ingreso
               </th>
-              <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+              <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
                 Total
               </th>
-              <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+              <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
                 Editar
               </th>
-              <th className="py-4 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+              <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
                 Ver
               </th>
-              <th className="py-2 px-2 font-normal uppercase text-sm text-indigo-600 text-left">
+              <th className="py-2 px-2 uppercase text-sm text-slate-800 font-bold text-left">
                 Eliminar
               </th>
             </tr>
@@ -132,7 +132,7 @@ export const TablaDeDatos = ({
                       handleIdTwo(i?.id), openModalEditar();
                     }}
                     type="button"
-                    className="bg-indigo-500/10 border-[1px] border-indigo-500 py-1 px-3 text-indigo-600 rounded-lg text-left flex gap-2 items-center"
+                    className="bg-indigo-500 uppercase py-2 px-4 text-white rounded-xl text-left flex gap-2 items-center"
                   >
                     Editar
                     <svg
@@ -154,7 +154,7 @@ export const TablaDeDatos = ({
                 <td className="py-3 px-3 text-sm text-left text-slate-700 flex items-start">
                   <Link
                     to={`/view-ingreso/${i?.id}`}
-                    className=" bg-slate-500/10 border-[1px] border-slate-500 py-1 px-3 rounded-lg text-left text-slate-700 flex gap-2 items-center"
+                    className=" bg-slate-800 py-2 px-4 rounded-xl text-left text-white uppercase flex gap-2 items-center"
                   >
                     Ver ingreso
                     <svg
@@ -180,7 +180,7 @@ export const TablaDeDatos = ({
                       handleId(i?.id), openModalEliminar();
                     }}
                     type="button"
-                    className="bg-red-500/10 border-[1px] border-red-500 py-1 px-3 rounded-lg text-left text-red-700 flex gap-2 items-center"
+                    className="bg-red-100 py-2 px-4 rounded-xl text-left text-red-800 uppercase flex gap-2 items-center"
                   >
                     Eliminar
                     <svg

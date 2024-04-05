@@ -20,11 +20,11 @@ export const DatosComponent = ({ title, total, totalDos, icono }) => {
         <span class="text-xs font-medium"> {totalDos}% </span>
       </div>
       <div className="flex gap-1 flex-col justify-center w-full items-center">
-        <p className="font-normal text-slate-800 flex items-center gap-2">
+        <p className="font-normal text-slate-800 flex items-center gap-2 uppercase">
           {title}
           {icono}
         </p>
-        <p className="font-bold text-indigo-500 mt-2">{total}</p>
+        <p className="font-bold text-slate-700 mt-2">{total}</p>
       </div>
     </div>
   );

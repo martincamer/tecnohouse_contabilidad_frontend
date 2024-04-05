@@ -1,16 +1,6 @@
 import React from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
+import { BarChart, Bar, XAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import moment from "moment";
-import { useIngresosContext } from "../../context/IngresosProvider";
-import { usePresupuestosContext } from "../../context/PresupuestosProvider";
 
 const convertirFecha = (fecha) => {
   return moment(fecha).format("YYYY-MM-DD HH:mm:ss");
@@ -49,7 +39,7 @@ export const ChartComponentTwo = ({ datosFormateados }) => {
       />
       <Legend />
 
-      <Bar dataKey="total" name="Total" fill="#6366f1" />
+      <Bar dataKey="total" name="Total" fill="#3d3d3d" />
       <Bar
         dataKey="porcentaje"
         name="Porcentaje usado"

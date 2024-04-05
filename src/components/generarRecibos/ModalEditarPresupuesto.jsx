@@ -1,23 +1,25 @@
 import { Dialog, Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-import { useIngresosContext } from "../../context/IngresosProvider";
-import { crearIngresoNuevo } from "../../api/ingresos";
+import {
+  editarPresupuesto,
+  obtenerUnicoPresupuesto,
+} from "../../api/presupuestos";
 import { useTipoContext } from "../../context/TiposProvider";
+import { usePresupuestosContext } from "../../context/PresupuestosProvider";
 
-export const ModalNuevoIngreso = () => {
+export const ModalEditarPresupuesto = ({ obtenerId, setDatos, datos }) => {
   const {
     register,
     handleSubmit,
-    getValues,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const { isOpenIngresos, closeModalIngresos } = useIngresosContext();
-
-  const { setIngresoMensual, ingresoMensual } = useIngresosContext();
+  const { isOpenEditarIngresosTwo, closeModalEditarTwo } =
+    usePresupuestosContext();
 
   const { tipos } = useTipoContext();
 
@@ -31,19 +33,35 @@ export const ModalNuevoIngreso = () => {
       // Actualiza el valor en el objeto data
       data.total = precioUnidadNumerico;
 
-      const res = await crearIngresoNuevo(data);
+      const res = await editarPresupuesto(obtenerId, data);
 
-      // Verificar si el tipo ya existe antes de agregarlo al estado
-      const tipoExistente = ingresoMensual.find(
-        (tipo) => tipo.id === res.data.id
+      const tipoExistenteIndexTwo = datos.findIndex(
+        (tipo) => tipo.id === obtenerId
       );
 
-      if (!tipoExistente) {
-        // Actualizar el estado de tipos agregando el nuevo tipo al final
-        setIngresoMensual((prevTipos) => [...prevTipos, res.data]);
-      }
+      setDatos((prevTipos) => {
+        const newTipos = [...prevTipos];
+        const updatedTipo = JSON.parse(res.config.data); // Convierte el JSON a objeto
+        const updatedDetalle = JSON.parse(res.config.data); // Convierte el JSON a objeto
+        const updatedTotal = JSON.parse(res.config.data); // Convierte el JSON a objeto
 
-      toast.success("Ingreso creado correctamente!", {
+        newTipos[tipoExistenteIndexTwo] = {
+          id: obtenerId,
+          tipo: updatedTipo.tipo,
+          detalle: updatedDetalle.detalle,
+          total: updatedTotal.total,
+          created_at: newTipos[tipoExistenteIndexTwo].created_at,
+          updated_at: newTipos[tipoExistenteIndexTwo].updated_at,
+        };
+        console.log("Estado después de la actualización:", newTipos);
+        return newTipos;
+      });
+
+      setTimeout(() => {
+        closeModalEditarTwo();
+      }, 500);
+
+      toast.success("Ingreso editado correctamente!", {
         position: "top-right",
         autoClose: 1500,
         hideProgressBar: false,
@@ -53,23 +71,35 @@ export const ModalNuevoIngreso = () => {
         progress: undefined,
         theme: "light",
       });
-
-      setTimeout(() => {
-        closeModalIngresos();
-      }, 1000);
     } catch (error) {
       // console.log(error.response.data);
     }
   });
 
+  useEffect(() => {
+    async function loadData() {
+      const res = await obtenerUnicoPresupuesto(obtenerId);
+
+      if (res?.data) {
+        // Establecer los valores iniciales en los campos del formulario
+        reset({
+          detalle: res.data.detalle || "",
+          tipo: res.data.tipo || "",
+          total: res.data.total || "",
+        });
+      }
+    }
+
+    loadData();
+  }, [obtenerId]);
+
   return (
     <Menu as="div" className="z-50">
-      <ToastContainer />
-      <Transition appear show={isOpenIngresos} as={Fragment}>
+      <Transition appear show={isOpenEditarIngresosTwo} as={Fragment}>
         <Dialog
           as="div"
           className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={closeModalIngresos}
+          onClose={closeModalEditarTwo}
         >
           <Transition.Child
             as={Fragment}
@@ -114,7 +144,7 @@ export const ModalNuevoIngreso = () => {
             >
               <div className="inline-block w-[400px] p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <div className="text-lg text-indigo-500 mb-3 border-b-[1px] uppercase">
-                  Crear nuevo tipo
+                  Editar valor
                 </div>
                 <form
                   onSubmit={onSubmit}
@@ -123,7 +153,7 @@ export const ModalNuevoIngreso = () => {
                 >
                   <div className="flex flex-col gap-1">
                     <label htmlFor="" className="text-slate-600">
-                      Ingresa el detalle
+                      Editar el detalle
                     </label>
                     <input
                       {...register("detalle", { required: true })}
@@ -140,15 +170,11 @@ export const ModalNuevoIngreso = () => {
                     <select
                       {...register("tipo", { required: true })}
                       type="text"
-                      className="py-2 px-4 border-[1px] border-black/10 rounded-lg shadow shadow-black/10 outline-none bg-white capitalize"
+                      className="py-2 px-4 border-[1px] border-black/10 rounded-lg shadow shadow-black/10 outline-none"
                     >
-                      <option className="capitalize" value="">
-                        Seleccionar
-                      </option>
+                      <option value="">Seleccionar</option>
                       {tipos.map((t) => (
-                        <option className="capitalize" key={t.id}>
-                          {t?.tipo}
-                        </option>
+                        <option key={t.id}>{t?.tipo}</option>
                       ))}
                     </select>
                   </div>
@@ -195,7 +221,7 @@ export const ModalNuevoIngreso = () => {
                       type="submit"
                       className="bg-indigo-500 py-1 px-4 rounded-lg shadow text-white mt-2"
                     >
-                      Crear nuevo ingreso
+                      Editar el presupuesto asignado
                     </button>
                   </div>
                 </form>
@@ -203,7 +229,7 @@ export const ModalNuevoIngreso = () => {
                   <button
                     type="button"
                     className="inline-flex justify-center px-4 py-2 text-sm text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 duration-300 cursor-pointer max-md:text-xs"
-                    onClick={closeModalIngresos}
+                    onClick={closeModalEditarTwo}
                   >
                     Cerrar Ventana
                   </button>

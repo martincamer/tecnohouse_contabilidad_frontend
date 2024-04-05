@@ -67,7 +67,7 @@ export const GenerarDatos = () => {
     <section className="px-10 py-16 w-full h-full flex flex-col gap-5">
       <Link
         to={"/"}
-        className="absolute flex top-4 text-sm font-bold text-indigo-500 gap-2 items-center"
+        className="absolute flex top-4 text-sm font-bold text-slate-700 gap-2 items-center"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

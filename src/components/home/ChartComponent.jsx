@@ -55,14 +55,16 @@ export const ChartComponent = () => {
   const porcentajeDeseado = 30;
 
   // Calcula el valor del porcentaje
-  const porcentajeCalculado = (totalSumaTwo * porcentajeDeseado) / 100;
+  const porcentajeCalculado = (totalSumaTwo * porcentajeDeseado) / 100000000;
 
   console.log("asdas", porcentajeCalculado);
 
   return (
     <div className="flex items-center justify-center relative">
       <div className="bg-white border-[1px] border-slate-300 py-3 px-4 shadow-md space-y-2 rounded-xl absolute top-[-85px] right-0">
-        <p className="text-indigo-600 text-xl">Total en egresos generados</p>
+        <p className="text-slate-800 text-base uppercase">
+          Total en egresos generados
+        </p>
         <p className="flex gap-2">
           <span className="text-slate-700 text-lg font-semibold">
             {Number(totalSuma).toLocaleString("es-AR", {
@@ -99,13 +101,13 @@ export const ChartComponent = () => {
           type="monotone"
           dataKey="total"
           name="Egresos mensuales (Moneda) $"
-          stroke="#6366f1"
+          stroke="#000"
         />
         <Line
           type="monotone"
           dataKey="detalle"
           name="Detalle"
-          stroke="#6366f1"
+          stroke="#000"
           dot={false} // Para ocultar los puntos en el gráfico de línea
         >
           <LabelList

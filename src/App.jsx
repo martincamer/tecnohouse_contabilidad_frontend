@@ -30,13 +30,14 @@ import { ViewPdfPruebasDos } from "./components/pdf/ViewPdfPruebasDos";
 import { ViewPdfCinco } from "./components/pdf/ViewPdfCinco";
 import { ViewPdfVeinte } from "./components/pdf/ViewPdfVeinte";
 import { ViewPdfMensual } from "./components/pdf/ViewPdfMensual";
+import { ViewPdfCincoDatos } from "./components/pdf/ViewPdfCincoDatos";
+import { ViewPdfVeinteDatos } from "./components/pdf/ViewPdfCincoVeinte";
+import { ViewPdfMensualDatos } from "./components/pdf/ViewPdfMensualDatos";
 //import normales
 import RutaProtegida from "./layouts/RutaProtejida";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import { ViewPdfCincoDatos } from "./components/pdf/ViewPdfCincoDatos";
-import { ViewPdfVeinteDatos } from "./components/pdf/ViewPdfCincoVeinte";
-import { ViewPdfMensualDatos } from "./components/pdf/ViewPdfMensualDatos";
+import { GenerarRecibosPresupuesto } from "./routes/pages/protected/GenerarRecibosPresupuesto";
 
 function App() {
   const { isAuth } = useAuth();
@@ -74,6 +75,10 @@ function App() {
               <Route index path="/" element={<Home />} />
               <Route path="/generar-datos" element={<GenerarDatos />} />
               <Route path="/generar-recibos" element={<GenerarRecibos />} />
+              <Route
+                path="/generar-recibos-presupuesto"
+                element={<GenerarRecibosPresupuesto />}
+              />
               <Route path="/estadistica" element={<Estadistica />} />
               <Route
                 path="/estadistica-recibos"

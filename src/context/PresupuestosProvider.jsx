@@ -23,6 +23,16 @@ export const PresupuestosProvider = ({ children }) => {
   const [presupuestoMensual, setPresupuestoMensual] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
+  const [isOpenEditarIngresosTwo, setIsOpenEditarIngresosTwo] = useState(false);
+
+  const openModalEditarTwo = () => {
+    setIsOpenEditarIngresosTwo(true);
+  };
+
+  const closeModalEditarTwo = () => {
+    setIsOpenEditarIngresosTwo(false);
+  };
+
   const openModal = () => {
     setIsOpen(true);
   };
@@ -62,6 +72,9 @@ export const PresupuestosProvider = ({ children }) => {
         closeModal,
         presupuestoMensual,
         setPresupuestoMensual,
+        isOpenEditarIngresosTwo,
+        closeModalEditarTwo,
+        openModalEditarTwo,
       }}
     >
       {children}

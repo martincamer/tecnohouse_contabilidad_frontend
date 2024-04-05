@@ -4,7 +4,7 @@ export const Buscador = () => {
   const { handleBusquedaChange, busqueda } = useIngresosContext();
 
   return (
-    <div className="relative w-1/5 rounded-md border-slate-300 border-[1px] py-2.5 pr-10 shadow-sm sm:text-sm">
+    <div className="relative w-1/5 rounded-xl border-slate-300 border-[1px] py-2.5 pr-10 shadow-sm sm:text-sm">
       <input
         value={busqueda}
         onChange={handleBusquedaChange}
