@@ -109,14 +109,14 @@ export const GenerarDatos = () => {
       <ModalEditarIngreso obtenerId={obtenerIdTwo} />
       <ModalCrearTipo />
       <ModalVerTipos />
-      <div>
+      {/* <div>
         <button
           type="button"
           className="bg-indigo-500/10 border-indigo-500 text-indigo-600 rounded-lg border-[1px] px-4 py-1"
         >
           Imprimir todo
         </button>
-      </div>
+      </div> */}
     </section>
   );
 };

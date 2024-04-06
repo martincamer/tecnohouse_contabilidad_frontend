@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useIngresosContext } from "../../context/IngresosProvider";
 import { Link } from "react-router-dom";
 import * as XLSX from "xlsx";
@@ -52,9 +52,117 @@ export const TablaDeDatos = ({
     XLSX.writeFile(wb, "datos.xlsx");
   };
 
+  const [egresos, setEgresos] = useState(
+    JSON.parse(localStorage.getItem("egresos")) || []
+  );
+  const [editandoIndice, setEditandoIndice] = useState(null);
+  const [nuevoNumero, setNuevoNumero] = useState("");
+  const [nuevoTipo, setNuevoTipo] = useState("");
+  const [nuevaObs, setNuevaObs] = useState("");
+  const [nuevoPorcentaje, setNuevoPorcentaje] = useState("");
+  const [nuevoPresupuesto, setNuevoPresupuesto] = useState("");
+  const [nuevoUtilizado, setNuevoUtilizado] = useState("");
+  const [nuevaDiferencia, setNuevaDiferencia] = useState("");
+  const [presupuestoAsignado, setPresupuestoAsignado] = useState("");
+
+  // Guardar en localStorage cada vez que egresos cambie
+  useEffect(() => {
+    localStorage.setItem("egresos", JSON.stringify(egresos));
+  }, [egresos]);
+
+  // Arreglo para guardar el valor del presupuesto asignado
+  const [presupuestoValor, setPresupuestoValor] = useState([]);
+
+  // Efecto para cargar el presupuesto asignado del localStorage al cargar el componente
+  useEffect(() => {
+    const presupuestoGuardado = localStorage.getItem("presupuestoAsignado");
+    if (presupuestoGuardado) {
+      setPresupuestoAsignado(JSON.parse(presupuestoGuardado));
+      setPresupuestoValor((prevPresupuestoValor) => [
+        ...prevPresupuestoValor,
+        JSON.parse(presupuestoGuardado),
+      ]);
+    }
+  }, []); // Ejecutar solo una vez al cargar el componente
+
+  // Función para guardar el presupuesto asignado en el localStorage y actualizar el estado
+  const handlePresupuestoChange = (e) => {
+    const valor = e.target.value;
+    setPresupuestoAsignado(valor);
+    setPresupuestoValor((prevPresupuestoValor) => [
+      ...prevPresupuestoValor,
+      valor,
+    ]);
+    localStorage.setItem("presupuestoAsignado", JSON.stringify(valor));
+  };
+
+  const agregarFila = () => {
+    const nuevaFila = {
+      numero: nuevoNumero,
+      tipo: nuevoTipo,
+      obs: nuevaObs,
+      porcentaje: nuevoPorcentaje,
+      presupuesto: nuevoPresupuesto,
+      utilizado: nuevoUtilizado,
+      diferencia: nuevaDiferencia,
+    };
+    setEgresos([...egresos, nuevaFila]);
+    limpiarCampos();
+  };
+
+  const editarFila = (index) => {
+    setEditandoIndice(index);
+    const filaEditada = egresos[index];
+    setNuevoNumero(filaEditada.numero);
+    setNuevoTipo(filaEditada.tipo);
+    setNuevaObs(filaEditada.obs);
+    setNuevoPorcentaje(filaEditada.porcentaje);
+    setNuevoPresupuesto(filaEditada.presupuesto);
+    setNuevoUtilizado(filaEditada.utilizado);
+    setNuevaDiferencia(filaEditada.diferencia);
+  };
+
+  const actualizarFila = (index) => {
+    const nuevasFilas = [...egresos];
+    nuevasFilas[index] = {
+      numero: nuevoNumero,
+      tipo: nuevoTipo,
+      obs: nuevaObs,
+      porcentaje: nuevoPorcentaje,
+      presupuesto: nuevoPresupuesto,
+      utilizado: nuevoUtilizado,
+      diferencia: nuevaDiferencia,
+    };
+    setEgresos(nuevasFilas);
+    limpiarCampos();
+    setEditandoIndice(null);
+  };
+
+  const eliminarFila = (index) => {
+    const nuevasFilas = [...egresos];
+    nuevasFilas.splice(index, 1);
+    setEgresos(nuevasFilas);
+  };
+
+  const limpiarCampos = () => {
+    setNuevoNumero("");
+    setNuevoTipo("");
+    setNuevaObs("");
+    setNuevoPorcentaje("");
+    setNuevoPresupuesto("");
+    setNuevoUtilizado("");
+    setNuevaDiferencia("");
+  };
+
+  const sumaPorcentajes = egresos?.reduce(
+    (total, egreso) => total + parseFloat(egreso?.porcentaje),
+    0
+  );
+
   return (
     <div className="h-screen">
-      <div>
+      {/* <div>
+        <div></div>
         <button
           onClick={downloadDataAsExcel}
           type="button"
@@ -62,6 +170,18 @@ export const TablaDeDatos = ({
         >
           Descargar archivo en formato excel
         </button>
+      </div> */}
+      <div className="mt-3 flex flex-col gap-2">
+        <div>
+          <p className="text-sm uppercase text-slate-700">
+            PORCENTAJE VER SI SE PASA DEL 100%
+          </p>
+        </div>
+        <div className="flex">
+          <p className="font-bold bg-indigo-500 rounded-xl py-2 px-4 text-white mr-2">
+            {sumaPorcentajes}%
+          </p>
+        </div>
       </div>
       <div className="overflow-x-auto rounded-lg border border-gray-200 mt-5">
         <table className="min-w-full divide-y-1 divide-gray-200 bg-white text-sm">
@@ -71,138 +191,242 @@ export const TablaDeDatos = ({
                 Numero
               </th>
               <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
-                Tipo
+                Tipo de egreso
               </th>
               <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
-                Detalle
+                Obs.
               </th>
               <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
-                Creador
+                %
               </th>
               <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
-                Ingreso
+                Presupuesto
               </th>
               <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
-                Total
+                Utilizado Real
               </th>
               <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
-                Editar
+                Diferencia
               </th>
               <th className="py-4 px-2 uppercase text-sm text-slate-800 font-bold text-left">
-                Ver
-              </th>
-              <th className="py-2 px-2 uppercase text-sm text-slate-800 font-bold text-left">
-                Eliminar
+                Acciones
               </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 text-left">
-            {currentResults.map((i) => (
+            {egresos.map((egreso, index) => (
               <tr
-                key={i.id}
-                className=" hover:bg-slate-100 transition-all ease-in-out duration-200 cursor-pointer"
+                key={index}
+                className="hover:bg-slate-100 transition-all ease-in-out duration-200 cursor-pointer"
               >
-                <td className="py-3 px-3 text-sm text-left text-slate-700">
-                  {i.id}
+                <td className="py-6 px-3 text-sm text-left text-slate-700 uppercase">
+                  {editandoIndice === index ? (
+                    <input
+                      type="text"
+                      value={nuevoNumero}
+                      onChange={(e) => setNuevoNumero(e.target.value)}
+                    />
+                  ) : (
+                    egreso.numero
+                  )}
                 </td>
-                <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
-                  {i.tipo}
+                <td className="py-6 px-3 text-sm text-left text-slate-700 uppercase">
+                  {editandoIndice === index ? (
+                    <input
+                      type="text"
+                      value={nuevoTipo}
+                      onChange={(e) => setNuevoTipo(e.target.value)}
+                    />
+                  ) : (
+                    egreso.tipo
+                  )}
                 </td>
-                <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
-                  {i.detalle}
+                <td className="py-6 px-3 text-sm text-left text-slate-700 uppercase">
+                  {editandoIndice === index ? (
+                    <input
+                      type="text"
+                      value={nuevaObs}
+                      onChange={(e) => setNuevaObs(e.target.value)}
+                    />
+                  ) : (
+                    egreso.obs
+                  )}
                 </td>
-                <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
-                  {i.usuario}
+                <td className="py-6 px-3 text-sm text-left text-slate-700 uppercase">
+                  {editandoIndice === index ? (
+                    <input
+                      type="text"
+                      value={nuevoPorcentaje}
+                      onChange={(e) => setNuevoPorcentaje(e.target.value)}
+                    />
+                  ) : (
+                    `${egreso.porcentaje}%`
+                  )}
                 </td>
-                <td className="py-3 px-3 text-sm text-left text-slate-700">
-                  {Number(i?.total).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
-                </td>
-                <td className="py-3 px-3 text-sm text-left text-slate-700 font-bold">
-                  {Number(i?.total).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
-                </td>
-                <td className="py-3 px-3 text-sm text-left text-slate-700">
-                  <button
-                    onClick={() => {
-                      handleIdTwo(i?.id), openModalEditar();
-                    }}
-                    type="button"
-                    className="bg-indigo-500 uppercase py-2 px-4 text-white rounded-xl text-left flex gap-2 items-center"
-                  >
-                    Editar
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-                      />
-                    </svg>
-                  </button>
-                </td>
-                <td className="py-3 px-3 text-sm text-left text-slate-700 flex items-start">
-                  <Link
-                    to={`/view-ingreso/${i?.id}`}
-                    className=" bg-slate-800 py-2 px-4 rounded-xl text-left text-white uppercase flex gap-2 items-center"
-                  >
-                    Ver ingreso
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-                      />
-                    </svg>
-                  </Link>
-                </td>
+                <td className="py-6 px-3 text-sm text-left text-slate-700 font-bold">
+                  {editandoIndice === index ? (
+                    <input
+                      type="text"
+                      value={nuevoPresupuesto}
+                      onChange={(e) => setNuevoPresupuesto(e.target.value)}
+                    />
+                  ) : (
+                    // Number(egreso.presupuesto).toLocaleString("es-AR", {
+                    //   style: "currency",
+                    //   currency: "ARS",
+                    // })
 
-                <td className="py-3 px-3 text-sm text-left text-slate-700">
-                  <button
-                    onClick={() => {
-                      handleId(i?.id), openModalEliminar();
-                    }}
-                    type="button"
-                    className="bg-red-100 py-2 px-4 rounded-xl text-left text-red-800 uppercase flex gap-2 items-center"
-                  >
-                    Eliminar
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                      />
-                    </svg>
-                  </button>
+                    `${Number(
+                      (egreso.porcentaje * presupuestoAsignado) / 100
+                    ).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}`
+                  )}
+                </td>
+                <td className="py-6 px-3 text-sm text-left text-slate-700">
+                  {editandoIndice === index ? (
+                    <input
+                      type="text"
+                      value={nuevoUtilizado}
+                      onChange={(e) => setNuevoUtilizado(e.target.value)}
+                    />
+                  ) : (
+                    Number(egreso.utilizado).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })
+                  )}
+                </td>
+                <td className="py-6 px-3 text-sm text-left text-slate-700">
+                  {editandoIndice === index ? (
+                    <input
+                      type="text"
+                      value={nuevaDiferencia}
+                      onChange={(e) => setNuevaDiferencia(e.target.value)}
+                    />
+                  ) : (
+                    // Number(egreso.diferencia).toLocaleString("es-AR", {
+                    //   style: "currency",
+                    //   currency: "ARS",
+                    // })
+                    `${Number(
+                      Number((egreso.porcentaje * presupuestoAsignado) / 100) -
+                        egreso.utilizado
+                    ).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}`
+                  )}
+                </td>
+                <td className="space-x-2 gap-2">
+                  {editandoIndice === index ? (
+                    <>
+                      <button
+                        className="bg-green-500 py-2 px-3 rounded-xl text-white uppercase font-bold"
+                        onClick={() => actualizarFila(index)}
+                      >
+                        Guardar
+                      </button>
+                      <button
+                        className="bg-red-500/20 py-2 px-3 rounded-xl text-red-700 uppercase font-bold"
+                        onClick={() => setEditandoIndice(null)}
+                      >
+                        Cancelar
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => editarFila(index)}
+                        className="bg-indigo-500 py-2 px-3 rounded-xl text-white uppercase font-bold"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="bg-red-500/20 py-2 px-3 rounded-xl text-red-700 uppercase font-bold"
+                        onClick={() => eliminarFila(index)}
+                      >
+                        Eliminar
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <div className="mt-5 mx-5 mb-5 py-2">
+          <p className="text-left text-slate-800 uppercase text-sm">
+            Asignar presupuesto
+          </p>
+          <div className="flex gap-4 items-center mt-2">
+            <input
+              className="bg-white border-slate-300 border-[1px] py-2 px-5 rounded-xl shadow"
+              type="text"
+              value={presupuestoAsignado}
+              onChange={handlePresupuestoChange}
+            />
+            <p className="bg-indigo-500 py-2 px-2 rounded-xl text-white font-semibold text-sm">
+              {Number(presupuestoAsignado).toLocaleString("es-AR", {
+                style: "currency",
+                currency: "ARS",
+              })}
+            </p>
+          </div>
+        </div>
+        <form
+          className="py-3 px-5 rounded-xl border-[1px] mb-6 mx-5 flex gap-5"
+          onSubmit={(e) => {
+            e.preventDefault();
+            agregarFila();
+          }}
+        >
+          <div className="flex gap-2 items-center">
+            <label className="uppercase text-sm" htmlFor="nuevo-numero">
+              Numero:
+            </label>
+            <input
+              className="rounded-xl border-[1px] border-slate-200 shadow py-1 px-5 w-[100px]"
+              type="text"
+              id="nuevo-numero"
+              value={nuevoNumero}
+              onChange={(e) => setNuevoNumero(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-2 items-center">
+            <label className="uppercase text-sm" htmlFor="nuevo-tipo">
+              Tipo de Egreso:
+            </label>
+            <input
+              className="rounded-xl border-[1px] border-slate-200 shadow py-1 px-5"
+              type="text"
+              id="nuevo-tipo"
+              value={nuevoTipo}
+              onChange={(e) => setNuevoTipo(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-2 items-center">
+            <label className="uppercase text-sm" htmlFor="nueva-obs">
+              Observaciones:
+            </label>
+            <input
+              className="rounded-xl border-[1px] border-slate-200 shadow py-1 px-5"
+              type="text"
+              id="nueva-obs"
+              value={nuevaObs}
+              onChange={(e) => setNuevaObs(e.target.value)}
+            />
+          </div>
+          {/* Agregar más campos según sea necesario */}
+          <button
+            className="bg-indigo-500 py-2 px-2 text-white uppercase rounded-xl text-sm shadow font-semibold"
+            type="submit"
+          >
+            Agregar Fila
+          </button>
+        </form>
+
         {totalPages > 1 && (
           <div className="flex flex-wrap justify-center mt-4 mb-4 gap-3">
             <button
