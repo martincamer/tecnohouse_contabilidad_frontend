@@ -24,7 +24,7 @@ export const TablaEstadistica = () => {
   const [nuevoUtilizado, setNuevoUtilizado] = useState("");
   const [nuevaDiferencia, setNuevaDiferencia] = useState("");
   const [presupuestoAsignado, setPresupuestoAsignado] = useState(
-    localStorage.getItem("presupuestoAsignado-dos")
+    localStorage.getItem("presupuestoAsignado-dos") && 0
   );
 
   const [idObtenida, setIdObtenida] = useState(
