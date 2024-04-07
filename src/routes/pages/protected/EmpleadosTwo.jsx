@@ -162,7 +162,7 @@ export const EmpleadosTwo = () => {
   };
 
   return (
-    <section className=" py-16 w-full h-full flex flex-col gap-5">
+    <section className=" py-20 w-full h-full flex flex-col gap-5">
       <Link
         to={"/empleados"}
         className="px-10 absolute flex top-4 text-sm font-bold text-indigo-500 gap-2 items-center"
@@ -185,15 +185,15 @@ export const EmpleadosTwo = () => {
       </Link>
 
       <div className="px-10">
-        <div className="bg-white w-full py-4 px-6 border-[1px] border-slate-300 shadow-md rounded-lg flex gap-4">
+        <div className="bg-white w-full py-4 px-6 border-[1px] border-slate-300 shadow rounded-lg flex gap-4">
           <div>
             <button
-              className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
+              className="bg-green-100 text-green-600 font-bold uppercase py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
               type="button"
             >
               <div>
                 {!dataLoaded && (
-                  <button onClick={handleLoadData}>
+                  <button className="uppercase" onClick={handleLoadData}>
                     Descargar todo el resumen
                   </button>
                 )}
@@ -228,12 +228,12 @@ export const EmpleadosTwo = () => {
 
           <div>
             <button
-              className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
+              className="bg-slate-200 text-slate-800 uppercase font-bold py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
               type="button"
             >
               <div>
                 {!dataLoadedTwo && (
-                  <button onClick={handleLoadDataTwo}>
+                  <button className="uppercase" onClick={handleLoadDataTwo}>
                     Descargar comprobantes de la quincena del 5
                   </button>
                 )}
@@ -255,7 +255,7 @@ export const EmpleadosTwo = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-4 h-4"
+                className="w-5 h-5"
               >
                 <path
                   strokeLinecap="round"
@@ -268,12 +268,12 @@ export const EmpleadosTwo = () => {
 
           <div>
             <button
-              className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
+              className="bg-slate-200 text-slate-800 uppercase font-bold py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
               type="button"
             >
               <div>
                 {!dataLoadedTree && (
-                  <button onClick={handleLoadDataTree}>
+                  <button className="uppercase" onClick={handleLoadDataTree}>
                     Descargar comprobantes de la quincena del 20
                   </button>
                 )}
@@ -295,7 +295,7 @@ export const EmpleadosTwo = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-4 h-4"
+                className="w-5 h-5"
               >
                 <path
                   strokeLinecap="round"
@@ -308,12 +308,12 @@ export const EmpleadosTwo = () => {
 
           <div>
             <button
-              className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
+              className="bg-orange-100 text-orange-600 uppercase font-bold py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
               type="button"
             >
               <div>
                 {!dataLoadedFourty && (
-                  <button onClick={handleLoadDataFourty}>
+                  <button className="uppercase" onClick={handleLoadDataFourty}>
                     Descargar comprobantes mensuales
                   </button>
                 )}
@@ -355,7 +355,7 @@ export const EmpleadosTwo = () => {
             placeholder="Buscar el empleado..."
             type="text"
             id="Search"
-            className="outline-none px-2 w-full"
+            className="outline-none px-2 w-full uppercase"
           />
           <span className="absolute inset-y-0 right-0 grid w-10 place-content-center">
             <button
@@ -382,11 +382,13 @@ export const EmpleadosTwo = () => {
           </span>
         </div>
         <div className="flex gap-2 items-center cursor-pointer">
-          <label className="text-sm text-slate-600">Buscar por fabrica</label>
+          <label className="text-sm text-slate-600 uppercase">
+            Buscar por fabrica
+          </label>
           <select
             value={filtroFabrica}
             onChange={(e) => setFiltroFabrica(e.target.value)}
-            className="cursor-pointer rounded-xl bg-white px-4 border-slate-300 border-[1px] py-2.5 shadow uppercase text-slate-600 text-sm"
+            className="cursor-pointer rounded-xl bg-white px-4 border-slate-300 border-[1px] py-2.5 shadow uppercase text-slate-600 text-sm "
             name=""
             id=""
           >
@@ -446,7 +448,7 @@ export const EmpleadosTwo = () => {
                   key={e.id}
                   className=" hover:bg-slate-100 transition-all ease-in-out duration-200 cursor-pointer"
                 >
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 capitalize">
+                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 uppercase">
                     {e.empleado}
                   </td>
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
@@ -455,10 +457,10 @@ export const EmpleadosTwo = () => {
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
                     {e.antiguedad}
                   </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 capitalize">
+                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 uppercase">
                     {e.tipo}
                   </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 capitalize">
+                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 uppercase">
                     {e.tipo_fabrica}
                   </td>
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">

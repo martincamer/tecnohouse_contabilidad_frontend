@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
+import { guardarDatosEmpleado } from "../../../api/createDatos";
 import { useEmpleadosContext } from "../../../context/EmpleadosProvider";
 import { useEffect, useState } from "react";
 import { ModalCrearFabrica } from "../../../components/empleados/ModalCrearFabrica";
+import { ModalEditarEmpleado } from "../../../components/empleados/ModalEditarEmpleado";
 import * as XLSX from "xlsx";
 import client from "../../../api/axios";
-import { guardarDatosEmpleado } from "../../../api/createDatos";
-import { ModalEditarEmpleado } from "../../../components/empleados/ModalEditarEmpleado";
 
 export const Empleados = () => {
   const { empleados, fabricas } = useEmpleadosContext();
@@ -277,15 +277,61 @@ export const Empleados = () => {
         VOLVER
       </Link>
       <div className="px-10">
-        <div className=" bg-white w-full border-[1px] border-slate-300 shadow rounded-xl flex gap-4 items-center justify-center">
-          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
-            <p className="text-indigo-500 text-sm">Total empleados cargados</p>
-            <p className="text-slate-700 text-sm font-semibold">
-              {resultados.length}
-            </p>
-          </div>
+        <div className=" bg-white w-full grid grid-cols-4 gap-5">
+          <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+            <div className="flex gap-4 items-center">
+              <span className="rounded-full bg-indigo-100 p-4 text-indigo-700">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-9 h-9"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                  />
+                </svg>
+              </span>
 
-          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
+              <div>
+                <p className="text-2xl font-medium text-gray-900">
+                  {" "}
+                  {Number(resultados.length)}
+                </p>
+
+                <p className="text-sm text-gray-600 underline">
+                  TOTAL EMPLEADOS CARGADOS
+                </p>
+              </div>
+            </div>
+            <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                />
+              </svg>
+
+              <span className="text-sm font-bold">
+                {" "}
+                {Number(resultados.length / 10).toFixed(2)}%{" "}
+              </span>
+            </div>
+          </article>
+
+          {/* <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
             <p className="text-indigo-500 text-sm">Total quincena 5 a pagar</p>
             <p className="text-slate-700 text-sm font-semibold">
               {Number(totalFinalQuincenaCinco).toLocaleString("es-AR", {
@@ -293,31 +339,179 @@ export const Empleados = () => {
                 currency: "ARS",
               })}
             </p>
-          </div>
+          </div> */}
 
-          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full border-r-[1px] border-slate-300">
-            <p className="text-indigo-500 text-sm">Total quincena 20 a pagar</p>
-            <p className="text-slate-700 text-sm font-semibold">
-              {Number(totalFinalQuincenaVeinte).toLocaleString("es-AR", {
-                style: "currency",
-                currency: "ARS",
-              })}
-            </p>
-          </div>
+          <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+            <div className="flex gap-4 items-center">
+              <span className="rounded-full bg-green-100 p-4 text-green-700">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-9 h-9"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+              </span>
 
-          <div className="py-8 px-6 flex flex-col justify-center items-center gap-1 w-full h-full">
-            <p className="text-indigo-500 text-sm">Total fabricas cargadas</p>
-            <p className="text-slate-700 text-sm font-semibold">
-              {fabricas.length}
-            </p>
-          </div>
+              <div>
+                <p className="text-2xl font-medium text-gray-900">
+                  {" "}
+                  {Number(totalFinalQuincenaCinco).toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  })}
+                </p>
+
+                <p className="text-sm text-gray-600 underline">
+                  TOTAL QUINCENA A PAGAR DEL 5
+                </p>
+              </div>
+            </div>
+            <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                />
+              </svg>
+
+              <span className="text-sm font-bold">
+                {" "}
+                {Number(totalFinalQuincenaCinco / 1000000).toFixed(2)}%{" "}
+              </span>
+            </div>
+          </article>
+
+          <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+            <div className="flex gap-4 items-center">
+              <span className="rounded-full bg-green-100 p-4 text-green-700">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-9 h-9"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+              </span>
+
+              <div>
+                <p className="text-2xl font-medium text-gray-900">
+                  {" "}
+                  {Number(totalFinalQuincenaVeinte).toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  })}
+                </p>
+
+                <p className="text-sm text-gray-600 underline">
+                  TOTAL QUINCENA A PAGAR DEL 20
+                </p>
+              </div>
+            </div>
+            <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                />
+              </svg>
+
+              <span className="text-sm font-bold">
+                {" "}
+                {Number(totalFinalQuincenaVeinte / 1000000).toFixed(2)}%{" "}
+              </span>
+            </div>
+          </article>
+
+          <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+            <div className="flex gap-4 items-center">
+              <span className="rounded-full bg-indigo-100 p-4 text-indigo-700">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-9 h-9"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
+                  />
+                </svg>
+              </span>
+
+              <div>
+                <p className="text-2xl font-medium text-gray-900">
+                  {" "}
+                  {Number(fabricas.length)}
+                </p>
+
+                <p className="text-sm text-gray-600 underline">
+                  FABRICAS CARGADAS
+                </p>
+              </div>
+            </div>
+            <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                />
+              </svg>
+
+              <span className="text-sm font-bold">
+                {" "}
+                {Number(fabricas.length / 100).toFixed(2)}%{" "}
+              </span>
+            </div>
+          </article>
         </div>
       </div>
       <div className="px-10">
         <div className="bg-white w-full py-4 px-6 border-[1px] border-slate-300 shadow-md rounded-lg flex gap-4">
           <div>
             <button
-              className="bg-indigo-500 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
+              className="bg-indigo-100 text-indigo-500 font-semibold uppercase py-2.5 px-5 rounded-lg text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
               type="button"
             >
               <Link to="/empleado-nuevo">Cargar nuevo empleado</Link>
@@ -341,7 +535,7 @@ export const Empleados = () => {
           <div>
             <button
               onClick={() => openModal()}
-              className="bg-indigo-500 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
+              className="bg-indigo-100 text-indigo-500 font-semibold uppercase py-2.5 px-5 rounded-lg text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
               type="button"
             >
               Cargar nueva fabrica o editar fabrica
@@ -363,13 +557,11 @@ export const Empleados = () => {
           </div>
 
           <div>
-            <button
-              className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
-              type="button"
+            <Link
+              className="bg-slate-200 text-slate-700 py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer uppercase"
+              to={"/empleados-comprobantes"}
             >
-              <Link to={"/empleados-comprobantes"}>
-                Ir a pagina comprobantes
-              </Link>
+              Ir a pagina comprobantes
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -384,13 +576,13 @@ export const Empleados = () => {
                   d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
                 />
               </svg>
-            </button>
+            </Link>
           </div>
 
           <div>
             <Link
               to={"/empleados-datos"}
-              className="bg-slate-700 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
+              className="bg-slate-200 text-slate-700 py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer uppercase"
             >
               Ver los datos guardados
               <svg
@@ -410,11 +602,15 @@ export const Empleados = () => {
             </Link>
           </div>
           <div>
-            <button
-              className="bg-slate-500 text-white py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
+            <div
+              className="bg-orange-100 text-orange-700 font-semibold py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer "
               type="button"
             >
-              <button type="button" onClick={() => handleSubmit()}>
+              <button
+                className="uppercase"
+                type="button"
+                onClick={() => handleSubmit()}
+              >
                 Guardar pagos / paso final
               </button>
               <svg
@@ -431,7 +627,7 @@ export const Empleados = () => {
                   d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
                 />
               </svg>
-            </button>
+            </div>
           </div>
         </div>
       </div>
@@ -443,7 +639,7 @@ export const Empleados = () => {
             placeholder="Buscar el empleado..."
             type="text"
             id="Search"
-            className="outline-none px-2 w-full"
+            className="outline-none px-2 w-full uppercase"
           />
           <span className="absolute inset-y-0 right-0 grid w-10 place-content-center">
             <button type="button" className="text-gray-600 hover:text-gray-700">
@@ -466,11 +662,13 @@ export const Empleados = () => {
           </span>
         </div>
         <div className="flex gap-2 items-center cursor-pointer">
-          <label className="text-sm text-slate-600">Buscar por fabrica</label>
+          <label className="text-sm text-slate-600 uppercase">
+            Buscar por fabrica
+          </label>
           <select
             value={filtroFabrica}
             onChange={(e) => setFiltroFabrica(e.target.value)}
-            className="cursor-pointer rounded-xl bg-white px-4 border-slate-300 border-[1px] py-2.5 shadow uppercase text-slate-600 text-sm"
+            className="cursor-pointer rounded-xl bg-white px-4 border-slate-300 border-[1px] py-2.5 shadow text-slate-600 text-sm uppercase"
             name=""
             id=""
           >
@@ -484,7 +682,7 @@ export const Empleados = () => {
         </div>
         <button
           onClick={downloadExcel}
-          className="bg-green-500  py-2 px-5 text-white rounded-xl text-sm"
+          className="bg-green-500  py-2 px-5 text-white rounded-xl text-sm uppercase"
         >
           Descargar en formato excel
         </button>
@@ -547,7 +745,7 @@ export const Empleados = () => {
                   key={e.id}
                   className=" hover:bg-slate-100 transition-all ease-in-out duration-200 cursor-pointer"
                 >
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 capitalize">
+                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 uppercase">
                     {e.empleado}
                   </td>
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
@@ -556,10 +754,10 @@ export const Empleados = () => {
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
                     {e.antiguedad}
                   </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 capitalize">
+                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 uppercase">
                     {e.tipo}
                   </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 capitalize">
+                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 uppercase">
                     {e.tipo_fabrica}
                   </td>
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
@@ -608,7 +806,7 @@ export const Empleados = () => {
                       target="_blank" // Esto abre el enlace en una nueva pestaña
                       rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
                       to={`/empleados/${e.id}`}
-                      className=" bg-slate-500/10 border-[1px] border-slate-500 py-1 px-3 rounded-lg text-left text-slate-700 flex gap-2 items-center text-xs font-semibold"
+                      className=" bg-slate-200 py-2 px-3 rounded-xl text-left text-slate-700 flex gap-2 items-center text-xs font-semibold uppercase"
                     >
                       Ver
                       <svg
@@ -636,7 +834,7 @@ export const Empleados = () => {
                       // rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
                       // to={`/editar-empleado/${e.id}`}
                       type="button"
-                      className="bg-indigo-500/10 border-[1px] border-indigo-500 py-1 px-3 text-indigo-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold w-20"
+                      className=" bg-indigo-100 text-center py-2 px-3 rounded-xl text-indigo-500 flex gap-2 items-center text-xs font-semibold uppercase"
                     >
                       Editar
                       <svg
@@ -663,7 +861,7 @@ export const Empleados = () => {
                           to={`/view-pdf-5/${e.id}`}
                           target="_blank" // Esto abre el enlace en una nueva pestaña
                           rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
-                          className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
+                          className=" bg-green-100 text-center py-2 px-3 rounded-xl text-green-500 flex gap-2 items-center text-xs font-semibold uppercase"
                         >
                           Imprimir 5
                         </Link>
@@ -671,7 +869,7 @@ export const Empleados = () => {
                           to={`/view-pdf-20/${e.id}`}
                           target="_blank" // Esto abre el enlace en una nueva pestaña
                           rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
-                          className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
+                          className=" bg-orange-100 text-center py-2 px-3 rounded-xl text-orange-600 flex gap-2 items-center text-xs font-semibold uppercase"
                         >
                           Imprimir 20
                         </Link>
@@ -681,7 +879,7 @@ export const Empleados = () => {
                         to={`/view-pdf-mensual/${e.id}`}
                         target="_blank" // Esto abre el enlace en una nueva pestaña
                         rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
-                        className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
+                        className=" bg-green-100 text-center py-2 px-3 rounded-xl text-green-500 flex gap-2 items-center text-xs font-semibold uppercase"
                       >
                         Imprimir Mensual
                       </Link>

@@ -38,6 +38,7 @@ import RutaProtegida from "./layouts/RutaProtejida";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import { GenerarRecibosPresupuesto } from "./routes/pages/protected/GenerarRecibosPresupuesto";
+import { EditViewPdf } from "./components/pdf/EditViewPdf";
 
 function App() {
   const { isAuth } = useAuth();
@@ -72,8 +73,8 @@ function App() {
                 </PresupuestosProvider>
               }
             >
-              <Route index path="/" element={<Home />} />
-              <Route path="/generar-datos" element={<GenerarDatos />} />
+              {/* <Route index path="/" element={<Home />} /> */}
+              <Route path="/" element={<GenerarDatos />} />
               <Route path="/generar-recibos" element={<GenerarRecibos />} />
               <Route
                 path="/generar-recibos-presupuesto"
@@ -121,6 +122,7 @@ function App() {
               <Route path="/editar-empleado/:id" element={<EditarEmpleado />} />
               <Route path="/empleados/:id" element={<ViewEmpleado />} />
               <Route path="/empleados-datos" element={<DatosGuardados />} />
+              <Route path="/view-pdf-edit" element={<EditViewPdf />} />
             </Route>
           </Route>
           <Route path="*" element={<NotFound />} />
