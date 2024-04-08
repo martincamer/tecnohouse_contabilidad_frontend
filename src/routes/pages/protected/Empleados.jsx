@@ -72,6 +72,21 @@ export const Empleados = () => {
       return acumulador + parseFloat(empleado?.total_quincena_veinte);
     }, 0);
 
+  const totalFinalMensual = resultados
+    // Filtrar solo los empleados que tienen tipo === "quincena_veinte"
+    .filter((empleado) => empleado.tipo === "mensual")
+    // Reducir la lista filtrada sumando el valor de total_quincena_veinte convertido a número
+    .reduce((acumulador, empleado) => {
+      // Convertir el valor de total_final a número y sumarlo al acumulador
+      return (
+        acumulador +
+        parseFloat(empleado?.total_quincena) +
+        parseFloat(empleado?.otros) +
+        parseFloat(empleado?.comida_produccion) +
+        parseFloat(empleado?.premio_produccion)
+      );
+    }, 0);
+
   // Crear un conjunto para almacenar tipos de fábrica únicos
   const tiposFabricaUnicos = new Set(
     empleados.map((empleado) => empleado.tipo_fabrica)
@@ -465,6 +480,61 @@ export const Empleados = () => {
               <span className="text-sm font-bold">
                 {" "}
                 {Number(totalFinalQuincenaVeinte / 1000000).toFixed(2)}%{" "}
+              </span>
+            </div>
+          </article>
+          <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+            <div className="flex gap-4 items-center">
+              <span className="rounded-full bg-green-100 p-4 text-green-700">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-9 h-9"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+              </span>
+
+              <div>
+                <p className="text-2xl font-medium text-gray-900">
+                  {" "}
+                  {Number(totalFinalMensual).toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  })}
+                </p>
+
+                <p className="text-sm text-gray-600 underline">
+                  TOTAL MENSUAL A PAGAR DEL 5
+                </p>
+              </div>
+            </div>
+            <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                />
+              </svg>
+
+              <span className="text-sm font-bold">
+                {" "}
+                {Number(totalFinalMensual / 1000000).toFixed(2)}%{" "}
               </span>
             </div>
           </article>
