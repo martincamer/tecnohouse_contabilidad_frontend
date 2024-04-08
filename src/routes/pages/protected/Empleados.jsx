@@ -393,8 +393,9 @@ export const Empleados = () => {
 
               <div>
                 <p className="text-2xl font-medium text-gray-900">
-                  {" "}
-                  {Number(totalFinalQuincenaCinco).toLocaleString("es-AR", {
+                  {Number(
+                    Number(totalFinalQuincenaCinco) + Number(totalFinalMensual)
+                  ).toLocaleString("es-AR", {
                     style: "currency",
                     currency: "ARS",
                   })}
@@ -423,7 +424,11 @@ export const Empleados = () => {
 
               <span className="text-sm font-bold">
                 {" "}
-                {Number(totalFinalQuincenaCinco / 1000000).toFixed(2)}%{" "}
+                {Number(
+                  Number(totalFinalQuincenaCinco) +
+                    Number(totalFinalMensual) / 1000000
+                ).toFixed(2)}
+                %{" "}
               </span>
             </div>
           </article>
@@ -483,7 +488,7 @@ export const Empleados = () => {
               </span>
             </div>
           </article>
-          <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+          {/* <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
             <div className="flex gap-4 items-center">
               <span className="rounded-full bg-green-100 p-4 text-green-700">
                 <svg
@@ -537,7 +542,7 @@ export const Empleados = () => {
                 {Number(totalFinalMensual / 1000000).toFixed(2)}%{" "}
               </span>
             </div>
-          </article>
+          </article> */}
 
           <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
             <div className="flex gap-4 items-center">
