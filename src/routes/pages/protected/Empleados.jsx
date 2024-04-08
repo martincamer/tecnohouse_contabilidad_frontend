@@ -6,6 +6,7 @@ import { ModalCrearFabrica } from "../../../components/empleados/ModalCrearFabri
 import { ModalEditarEmpleado } from "../../../components/empleados/ModalEditarEmpleado";
 import * as XLSX from "xlsx";
 import client from "../../../api/axios";
+import { ModalGuardarDatosFinal } from "../../../components/empleados/ModalGuardarDatosFinal";
 
 export const Empleados = () => {
   const { empleados, fabricas } = useEmpleadosContext();
@@ -254,8 +255,18 @@ export const Empleados = () => {
 
   const handleId = (id) => setObtenerId(id);
 
+  const [guardarDatosFinal, setGuardarDatosFinal] = useState(false);
+
+  const openGuardarDatosFinal = () => {
+    setGuardarDatosFinal(true);
+  };
+
+  const closeGuardarDatosFinal = () => {
+    setGuardarDatosFinal(false);
+  };
+
   return (
-    <section className=" py-16 w-full h-full flex flex-col gap-5">
+    <section className=" py-24 w-full h-full flex flex-col gap-5">
       <Link
         to={"/"}
         className="px-10 absolute flex top-4 text-sm font-bold text-indigo-500 gap-2 items-center"
@@ -609,7 +620,8 @@ export const Empleados = () => {
               <button
                 className="uppercase"
                 type="button"
-                onClick={() => handleSubmit()}
+                // onClick={() => handleSubmit()}
+                onClick={() => openGuardarDatosFinal()}
               >
                 Guardar pagos / paso final
               </button>
@@ -680,12 +692,12 @@ export const Empleados = () => {
             ))}
           </select>
         </div>
-        <button
+        {/* <button
           onClick={downloadExcel}
           className="bg-green-500  py-2 px-5 text-white rounded-xl text-sm uppercase"
         >
           Descargar en formato excel
-        </button>
+        </button> */}
       </div>
 
       <div className="h-screen px-4">
@@ -892,7 +904,7 @@ export const Empleados = () => {
           {totalPages > 1 && (
             <div className="flex flex-wrap justify-center mt-4 mb-4 gap-3">
               <button
-                className="mx-1 px-3 py-1 rounded bg-gray-100 shadow shadow-black/20 text-sm flex gap-1 items-center hover:bg-indigo-500 transiton-all ease-in duration-100 hover:text-white"
+                className="mx-1 px-2 py-1 bg-white border-slate-300 border-[1px] shadow shadow-black/20 text-sm flex gap-1 items-center transiton-all ease-in duration-100 text-slate-700 rounded-xl"
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
               >
@@ -902,7 +914,7 @@ export const Empleados = () => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-4 h-4"
+                  className="w-5 h-5"
                 >
                   <path
                     strokeLinecap="round"
@@ -910,15 +922,14 @@ export const Empleados = () => {
                     d="M15.75 19.5 8.25 12l7.5-7.5"
                   />
                 </svg>
-                Anterior
               </button>
               {Array.from({ length: totalPages }).map((_, index) => (
                 <button
                   key={index}
-                  className={`mx-1 px-3 py-1 rounded ${
+                  className={`mx-1 px-3 py-1.5 rounded-xl ${
                     currentPage === index + 1
-                      ? "bg-indigo-500 hover:bg-primary transition-all ease-in-out text-white shadow shadow-black/20 text-sm"
-                      : "bg-gray-100 shadow shadow-black/20 text-sm"
+                      ? "bg-green-500 hover:bg-primary transition-all ease-in-out text-white shadow shadow-black/20 text-sm"
+                      : "bg-white border-slate-300 border-[1px] shadow shadow-black/20 text-sm"
                   }`}
                   onClick={() => handlePageChange(index + 1)}
                 >
@@ -926,18 +937,17 @@ export const Empleados = () => {
                 </button>
               ))}
               <button
-                className="mx-1 px-3 py-1 rounded bg-gray-100 shadow shadow-black/20 text-sm flex gap-1 items-center hover:bg-indigo-500 transiton-all ease-in duration-100 hover:text-white"
+                className="mx-1 px-2 py-1 bg-white border-slate-300 border-[1px] shadow shadow-black/20 text-sm flex gap-1 items-center transiton-all ease-in duration-100 text-slate-700 rounded-xl"
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
               >
-                Siguiente{" "}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-4 h-4"
+                  className="w-5 h-5"
                 >
                   <path
                     strokeLinecap="round"
@@ -956,6 +966,11 @@ export const Empleados = () => {
         obtenerId={obtenerId}
         isOpenEdit={isEdit}
         closeModalEdit={closeModalEdit}
+      />
+      <ModalGuardarDatosFinal
+        closeModal={closeGuardarDatosFinal}
+        isOpen={guardarDatosFinal}
+        handleSubmit={handleSubmit}
       />
     </section>
   );

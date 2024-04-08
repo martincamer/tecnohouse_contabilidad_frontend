@@ -91,30 +91,35 @@ export const DatosGuardados = () => {
   };
 
   return (
-    <section className="w-full py-20 px-20  h-full">
-      <div className="border-[1px] border-slate-300 py-10 px-10 rounded-xl shadow h-screen">
+    <section className="w-full py-24 px-4 max-h-full min-h-full h-screen">
+      <div className="px-5 h-full max-h-full min-h-full">
         <div className="text-base font-semibold border- text-indigo-500 uppercase">
-          <p>Datos guardados empleados</p>
+          <p>
+            Datos guardados empleados / Descargar comprobantes / Filtrar por la
+            fecha del mes de pagos.
+          </p>
         </div>
 
         <div className="mt-5">
           <div className="mt-10">
             <div className="flex gap-6 items-center">
               <div className="flex gap-2 items-center">
-                <label className="text-sm text-indigo-500">
+                <label className="text-sm text-slate-500 uppercase">
                   Fecha de inicio
                 </label>
                 <input
-                  className="text-sm bg-slate-100 py-1 px-2 rounded-lg shadow border-slate-300 border-[1px] cursor-pointer text-slate-700 outline-none"
+                  className="text-sm bg-white py-2 px-3 rounded-xl shadow border-slate-300 border-[1px] cursor-pointer text-slate-700 outline-none"
                   type="date"
                   value={fechaInicio}
                   onChange={(e) => setFechaInicio(e.target.value)}
                 />
               </div>
               <div className="flex gap-2 items-center">
-                <label className="text-sm text-indigo-500">Fecha de fin</label>
+                <label className="text-sm text-slate-500 uppercase">
+                  Fecha de fin
+                </label>
                 <input
-                  className="text-sm bg-slate-100 py-1 px-2 rounded-lg shadow border-slate-300 border-[1px] cursor-pointer text-slate-700 outline-none"
+                  className="text-sm bg-white py-2 px-3 rounded-xl shadow border-slate-300 border-[1px] cursor-pointer text-slate-700 outline-none"
                   type="date"
                   value={fechaFin}
                   onChange={(e) => setFechaFin(e.target.value)}
@@ -123,16 +128,30 @@ export const DatosGuardados = () => {
 
               <button
                 onClick={buscarIngresosPorFecha}
-                className="bg-indigo-500/10 text-sm border-[1px] border-indigo-500 text-indigo-700 px-2 py-1 rounded-md shadow"
+                className="bg-indigo-500/10 text-sm text-indigo-700 px-4 py-2 rounded-xl uppercase flex items-center gap-2"
               >
                 Buscar datos empleados
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                  />
+                </svg>
               </button>
             </div>
 
             <input
               type="text"
               placeholder="Buscar empleado..."
-              className="text-sm bg-white py-2 px-3 rounded-xl shadow border-slate-300 border-[1px] cursor-pointer text-slate-700 outline-none w-1/4 mt-5"
+              className="text-sm bg-white py-2 px-3 rounded-xl shadow border-slate-300 border-[1px] cursor-pointer text-slate-700 outline-none w-1/4 mt-5 uppercase"
               value={searchTerm}
               onChange={handleSearch}
             />
@@ -196,16 +215,16 @@ export const DatosGuardados = () => {
                         {/* <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
                           {datos.id}
                         </td> */}
-                        <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
+                        <td className="py-3 px-3 text-sm text-left text-slate-700 uppercase">
                           {datos.empleado}
                         </td>
-                        <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
+                        <td className="py-3 px-3 text-sm text-left text-slate-700 uppercase">
                           {datos.tipo}
                         </td>
-                        <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
+                        <td className="py-3 px-3 text-sm text-left text-slate-700 uppercase">
                           {datos.tipo_fabrica}
                         </td>
-                        <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
+                        <td className="py-3 px-3 text-sm text-left text-slate-700 uppercase">
                           {Number(datos.total_quincena).toLocaleString(
                             "es-AR",
                             {
@@ -214,7 +233,7 @@ export const DatosGuardados = () => {
                             }
                           )}
                         </td>
-                        <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
+                        <td className="py-3 px-3 text-sm text-left text-slate-700 uppercase">
                           {Number(datos.total_quincena_veinte).toLocaleString(
                             "es-AR",
                             {
@@ -223,20 +242,20 @@ export const DatosGuardados = () => {
                             }
                           )}
                         </td>
-                        <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
+                        <td className="py-3 px-3 text-sm text-left text-slate-700 uppercase">
                           {Number(datos.otros).toLocaleString("es-AR", {
                             style: "currency",
                             currency: "ARS",
                           })}
                         </td>
-                        <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
+                        <td className="py-3 px-3 text-sm text-left text-slate-700 uppercase">
                           {Number(datos.banco).toLocaleString("es-AR", {
                             style: "currency",
                             currency: "ARS",
                           })}
                         </td>
 
-                        <td className="py-3 px-3 text-sm text-left text-slate-700 capitalize">
+                        <td className="py-3 px-3 text-sm text-left text-slate-700 uppercase font-bold">
                           {Number(datos.total_final).toLocaleString("es-AR", {
                             style: "currency",
                             currency: "ARS",
@@ -249,7 +268,7 @@ export const DatosGuardados = () => {
                                 to={`/view-pdf-5-datos/${datos.id}`}
                                 target="_blank" // Esto abre el enlace en una nueva pestaña
                                 rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
-                                className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
+                                className={`bg-green-500/10 border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold uppercase`}
                               >
                                 Imprimir 5
                               </Link>
@@ -257,7 +276,7 @@ export const DatosGuardados = () => {
                                 to={`/view-pdf-20-datos/${datos.id}`}
                                 target="_blank" // Esto abre el enlace en una nueva pestaña
                                 rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
-                                className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
+                                className={`bg-green-500/10 border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold uppercase`}
                               >
                                 Imprimir 20
                               </Link>
@@ -267,7 +286,7 @@ export const DatosGuardados = () => {
                               to={`/view-pdf-mensual-datos/${datos.id}`}
                               target="_blank" // Esto abre el enlace en una nueva pestaña
                               rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
-                              className={`bg-green-500/10 border-[1px] border-green-500 py-1 px-3 text-green-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold`}
+                              className={`bg-indigo-500/10 py-1 px-3 text-indigo-600 rounded-lg text-left flex gap-2 items-center text-xs font-semibold uppercase`}
                             >
                               Imprimir Mensual
                             </Link>
