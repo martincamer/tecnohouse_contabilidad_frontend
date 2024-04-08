@@ -425,8 +425,9 @@ export const Empleados = () => {
               <span className="text-sm font-bold">
                 {" "}
                 {Number(
-                  Number(totalFinalQuincenaCinco) +
-                    Number(totalFinalMensual) / 10000000
+                  Number(
+                    Number(totalFinalQuincenaCinco) + Number(totalFinalMensual)
+                  ) / 10000000
                 ).toFixed(2)}
                 %{" "}
               </span>
