@@ -427,7 +427,7 @@ export const Empleados = () => {
                 {Number(
                   Number(
                     Number(totalFinalQuincenaCinco) + Number(totalFinalMensual)
-                  ) / 10000000
+                  ) / 1000000
                 ).toFixed(2)}
                 %{" "}
               </span>
