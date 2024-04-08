@@ -56,7 +56,7 @@ export const Empleados = () => {
 
   const totalFinalQuincenaCinco = resultados
     // Filtrar solo los empleados que tienen tipo === "quincena"
-    .filter((empleado) => empleado.tipo === "quincena")
+    .filter((empleado) => empleado.tipo === "quincenal")
     // Reducir la lista filtrada sumando el valor de total_quincena convertido a número
     .reduce((acumulador, empleado) => {
       // Convertir el valor de total_final a número y sumarlo al acumulador
@@ -65,7 +65,7 @@ export const Empleados = () => {
 
   const totalFinalQuincenaVeinte = resultados
     // Filtrar solo los empleados que tienen tipo === "quincena_veinte"
-    .filter((empleado) => empleado.tipo === "quincena_veinte")
+    .filter((empleado) => empleado.tipo === "quincenal")
     // Reducir la lista filtrada sumando el valor de total_quincena_veinte convertido a número
     .reduce((acumulador, empleado) => {
       // Convertir el valor de total_final a número y sumarlo al acumulador
