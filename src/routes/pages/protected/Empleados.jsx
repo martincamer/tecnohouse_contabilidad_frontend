@@ -63,13 +63,14 @@ export const Empleados = () => {
       return acumulador + parseFloat(empleado?.total_quincena);
     }, 0);
 
-  const totalFinalQuincenaVeinte = resultados?.reduce(
-    (acumulador, empleado) => {
+  const totalFinalQuincenaVeinte = resultados
+    // Filtrar solo los empleados que tienen tipo === "quincena_veinte"
+    .filter((empleado) => empleado.tipo === "quincena_veinte")
+    // Reducir la lista filtrada sumando el valor de total_quincena_veinte convertido a número
+    .reduce((acumulador, empleado) => {
       // Convertir el valor de total_final a número y sumarlo al acumulador
       return acumulador + parseFloat(empleado?.total_quincena_veinte);
-    },
-    0
-  );
+    }, 0);
 
   // Crear un conjunto para almacenar tipos de fábrica únicos
   const tiposFabricaUnicos = new Set(
