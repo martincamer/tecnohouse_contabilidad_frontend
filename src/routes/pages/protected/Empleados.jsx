@@ -54,10 +54,14 @@ export const Empleados = () => {
     return acumulador + parseFloat(empleado?.total_final);
   }, 0);
 
-  const totalFinalQuincenaCinco = resultados?.reduce((acumulador, empleado) => {
-    // Convertir el valor de total_final a número y sumarlo al acumulador
-    return acumulador + parseFloat(empleado?.total_quincena);
-  }, 0);
+  const totalFinalQuincenaCinco = resultados
+    // Filtrar solo los empleados que tienen tipo === "quincena"
+    .filter((empleado) => empleado.tipo === "quincena")
+    // Reducir la lista filtrada sumando el valor de total_quincena convertido a número
+    .reduce((acumulador, empleado) => {
+      // Convertir el valor de total_final a número y sumarlo al acumulador
+      return acumulador + parseFloat(empleado?.total_quincena);
+    }, 0);
 
   const totalFinalQuincenaVeinte = resultados?.reduce(
     (acumulador, empleado) => {
