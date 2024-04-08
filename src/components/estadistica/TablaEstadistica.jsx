@@ -24,7 +24,7 @@ export const TablaEstadistica = () => {
   const [nuevoUtilizado, setNuevoUtilizado] = useState("");
   const [nuevaDiferencia, setNuevaDiferencia] = useState("");
   const [presupuestoAsignado, setPresupuestoAsignado] = useState(
-    localStorage.getItem("presupuestoAsignado-dos") && 0
+    localStorage.getItem("presupuestoAsignado-dos")
   );
 
   const [idObtenida, setIdObtenida] = useState(
@@ -369,7 +369,7 @@ export const TablaEstadistica = () => {
                 <div>
                   <p className="text-2xl font-medium text-gray-900">
                     {" "}
-                    {Number(presupuestoAsignado).toLocaleString("es-AR", {
+                    {Number(presupuestoAsignado || 0).toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
                     })}
