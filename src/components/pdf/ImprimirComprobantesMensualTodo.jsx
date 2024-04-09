@@ -885,7 +885,7 @@ export const ImprimirComprobantes = ({ datos }) => {
               width: "100%",
             }}
           >
-            {Number(datos.total_final).toLocaleString("es-AR", {
+            {Number(Number(datos.total_final) - Number(datos.otros)).toLocaleString("es-AR", {
               style: "currency",
               currency: "ARS",
             })}
