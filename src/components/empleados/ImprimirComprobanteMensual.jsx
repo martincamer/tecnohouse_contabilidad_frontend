@@ -672,10 +672,10 @@ export const ImprimirComprobanteMensual = ({ datos }) => {
                   width: "100%",
                 }}
               >
-                {Number(datos.total_final).toLocaleString("es-AR", {
-                  style: "currency",
-                  currency: "ARS",
-                })}
+                 {Number(Number(datos.total_final) - Number(datos.otros)).toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })}
               </Text>
             </Text>
           </View>
