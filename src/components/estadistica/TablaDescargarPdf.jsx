@@ -40,8 +40,15 @@ export const TablaDescargarPdf = ({
   datos,
   presupuestoAsignado,
   fechaObtenida,
+  canjes,
 }) => {
-  console.log("DATOS:", datos);
+  const totalUtilizadoCanjes = canjes?.reduce((accumulator, currentValue) => {
+    return accumulator + parseInt(currentValue?.utilizado, 10);
+  }, 0);
+
+  const totalUtilizadoNormal = datos?.reduce((accumulator, currentValue) => {
+    return accumulator + parseInt(currentValue?.utilizado, 10);
+  }, 0);
 
   return (
     <Document>
@@ -139,7 +146,7 @@ export const TablaDescargarPdf = ({
                   padding: "0px 5px",
                 }}
               >
-                Recaudacioón efectivo + bancos
+                Recaudación efectivo + bancos
               </Text>
               <Text
                 style={{
@@ -308,6 +315,7 @@ export const TablaDescargarPdf = ({
                   width: "20%",
                   backgroundColor: "#0001",
                   paddingVertical: "5px",
+                  textAlign: "center",
                 }}
               >
                 {Number(egreso.utilizado).toLocaleString("es-AR", {
@@ -325,6 +333,7 @@ export const TablaDescargarPdf = ({
                   backgroundColor: "#0001",
                   paddingVertical: "5px",
                   margin: "0px 2px",
+                  textAlign: "center",
                 }}
               >
                 {Number(
@@ -337,6 +346,156 @@ export const TablaDescargarPdf = ({
               </Text>
             </View>
           ))}
+        </View>
+
+        <View>
+          <Text
+            style={{
+              fontSize: "9px",
+              fontWeight: "bold",
+              textTransform: "uppercase",
+              fontFamily: "Montserrat",
+              textDecoration: "underline",
+            }}
+          >
+            Egresos por Canjes
+          </Text>
+        </View>
+
+        <View
+          style={{
+            border: "1px solid #000",
+          }}
+        >
+          <View
+            style={{
+              padding: "10px",
+              borderBottom: "1px solid #000",
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "Montserrat",
+                fontSize: "7px",
+                paddingHorizontal: "5px",
+                fontWeight: "bold",
+                width: "20%",
+              }}
+            >
+              TIPO DE CANJE
+            </Text>
+            <Text
+              style={{
+                fontFamily: "Montserrat",
+                fontSize: "7px",
+                paddingHorizontal: "5px",
+                fontWeight: "bold",
+                width: "40%",
+              }}
+            >
+              OBS
+            </Text>
+
+            <Text
+              style={{
+                fontFamily: "Montserrat",
+                fontSize: "7px",
+                paddingHorizontal: "5px",
+                fontWeight: "bold",
+                width: "20%",
+              }}
+            >
+              UTILIZADO EN CANJES
+            </Text>
+          </View>
+          {canjes.map((canje) => (
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                padding: "10px",
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Montserrat",
+                  textTransform: "uppercase",
+                  fontSize: "7px",
+                  paddingHorizontal: "5px",
+                  fontWeight: "bold",
+                  width: "20%",
+                }}
+              >
+                {canje.tipo}
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "Montserrat",
+                  textTransform: "uppercase",
+                  fontSize: "7px",
+                  paddingHorizontal: "5px",
+                  fontWeight: "medium",
+                  width: "40%",
+                }}
+              >
+                {canje.obs}
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "Montserrat",
+                  fontSize: "7px",
+                  paddingHorizontal: "5px",
+                  fontWeight: "bold",
+                  width: "20%",
+                  backgroundColor: "#0001",
+                  paddingVertical: "5px",
+                  textAlign: "center",
+                }}
+              >
+                {Number(canje.utilizado).toLocaleString("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                })}
+              </Text>
+            </View>
+          ))}
+        </View>
+        <View
+          style={{
+            padding: "10px 5px",
+            border: "1px solid #000",
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Montserrat",
+              textTransform: "uppercase",
+              fontSize: "9px",
+              paddingHorizontal: "5px",
+              fontWeight: "medium",
+            }}
+          >
+            TOTAL UTILIZADO FINAL {"  "}
+            <Text
+              style={{
+                fontFamily: "Montserrat",
+                textTransform: "uppercase",
+                fontSize: "9px",
+                paddingHorizontal: "5px",
+                fontWeight: "bold",
+              }}
+            >
+              {Number(
+                totalUtilizadoCanjes + totalUtilizadoNormal
+              ).toLocaleString("es-AR", {
+                style: "currency",
+                currency: "ARS",
+              })}
+            </Text>
+          </Text>
         </View>
       </Page>
     </Document>

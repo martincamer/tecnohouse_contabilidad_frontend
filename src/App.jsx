@@ -122,7 +122,7 @@ function App() {
               <Route path="/editar-empleado/:id" element={<EditarEmpleado />} />
               <Route path="/empleados/:id" element={<ViewEmpleado />} />
               <Route path="/empleados-datos" element={<DatosGuardados />} />
-              <Route path="/view-pdf-edit" element={<EditViewPdf />} />
+              <Route path="/view-pdf-presupuesto" element={<EditViewPdf />} />
             </Route>
           </Route>
           <Route path="*" element={<NotFound />} />

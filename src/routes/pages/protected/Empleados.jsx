@@ -140,7 +140,7 @@ export const Empleados = () => {
   // Formatear la fecha
   const fechaFormateada = `${diasSemana[diaDeLaSemana]} ${meses[mes]} / ${diaDelMes} / ${ano}`;
 
-  const itemsPerPage = 10; // Cantidad de elementos por página
+  const itemsPerPage = 15; // Cantidad de elementos por página
   const [currentPage, setCurrentPage] = useState(1);
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -286,7 +286,7 @@ export const Empleados = () => {
   };
 
   return (
-    <section className=" py-24 w-full h-full flex flex-col gap-5">
+    <section className="px-5 py-24 w-full h-full flex flex-col gap-5">
       <Link
         to={"/"}
         className="px-10 absolute flex top-4 text-sm font-bold text-indigo-500 gap-2 items-center"
@@ -307,9 +307,9 @@ export const Empleados = () => {
         </svg>
         VOLVER
       </Link>
-      <div className="px-10">
+      <div>
         <div className=" bg-white w-full grid grid-cols-4 gap-5">
-          <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+          <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out">
             <div className="flex gap-4 items-center">
               <span className="rounded-full bg-indigo-100 p-4 text-indigo-700">
                 <svg
@@ -372,7 +372,7 @@ export const Empleados = () => {
             </p>
           </div> */}
 
-          <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+          <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out">
             <div className="flex gap-4 items-center">
               <span className="rounded-full bg-green-100 p-4 text-green-700">
                 <svg
@@ -434,7 +434,7 @@ export const Empleados = () => {
             </div>
           </article>
 
-          <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+          <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out">
             <div className="flex gap-4 items-center">
               <span className="rounded-full bg-green-100 p-4 text-green-700">
                 <svg
@@ -544,8 +544,7 @@ export const Empleados = () => {
               </span>
             </div>
           </article> */}
-
-          <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+          <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out">
             <div className="flex gap-4 items-center">
               <span className="rounded-full bg-indigo-100 p-4 text-indigo-700">
                 <svg
@@ -599,8 +598,8 @@ export const Empleados = () => {
           </article>
         </div>
       </div>
-      <div className="px-10">
-        <div className="bg-white w-full py-4 px-6 border-[1px] border-slate-300 shadow-md rounded-lg flex gap-4">
+      <div>
+        <div className="bg-white w-full py-4 px-6 border-[1px] border-slate-200 transition-all ease-linear hover:shadow-md rounded-2xl flex gap-4">
           <div>
             <button
               className="bg-indigo-100 text-indigo-500 font-semibold uppercase py-2.5 px-5 rounded-lg text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
@@ -781,8 +780,8 @@ export const Empleados = () => {
         </button> */}
       </div>
 
-      <div className="h-screen px-4">
-        <div className="overflow-x-auto rounded-lg border border-gray-200 mt-5">
+      <div>
+        <div className="overflow-x-auto rounded-2xl hover:shadow-md cursor-pointer transition-all ease-linear border border-gray-200 mt-5">
           <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
             <thead>
               <tr className="border-b-[1px]">
@@ -834,10 +833,7 @@ export const Empleados = () => {
             </thead>
             <tbody className="divide-y divide-gray-200 text-left">
               {currentResults.map((e) => (
-                <tr
-                  key={e.id}
-                  className=" hover:bg-slate-100 transition-all ease-in-out duration-200 cursor-pointer"
-                >
+                <tr key={e.id} className="cursor-pointer">
                   <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 uppercase">
                     {e.empleado}
                   </td>

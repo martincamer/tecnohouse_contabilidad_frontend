@@ -191,8 +191,15 @@ export const TablaDeDatos = ({
       presupuestoasignado: presupuestoAsignado,
     };
 
+    const datosCanjes = {
+      datos: "[]",
+    };
+
     try {
       const res = await client.post("/crear-datos", datos);
+
+      const resCanjes = await client.post("/crear-canjes", datosCanjes);
+
       toast.success("¡Datos creados correctamente!", {
         position: "top-center",
         autoClose: 1000,
@@ -265,7 +272,7 @@ export const TablaDeDatos = ({
     <div className="h-full min-h-full max-h-full">
       <ToastContainer />
       <div className="mt-6 mb-10 grid grid-cols-4 gap-5">
-        <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out">
           <div className="flex gap-4 items-center">
             <span className="rounded-full bg-green-100 p-4 text-green-700">
               <svg
@@ -318,7 +325,7 @@ export const TablaDeDatos = ({
           </div>
         </article>
 
-        <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+        <article className="flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out cursor-pointer">
           <div className="flex gap-4 items-center">
             <span className="rounded-full bg-red-100 p-4 text-red-700">
               <svg
@@ -370,7 +377,7 @@ export const TablaDeDatos = ({
           </div>
         </article>
 
-        <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+        <article className="flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out cursor-pointer">
           <div className="flex gap-4 items-center">
             <span className="rounded-full bg-red-100 p-4 text-red-700">
               <svg
@@ -427,7 +434,7 @@ export const TablaDeDatos = ({
           </div>
         </article>
 
-        <article className="flex justify-between items-start rounded-xl border border-gray-200 bg-white p-8 shadow">
+        <article className="flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out cursor-pointer">
           <div className="flex gap-4 items-center">
             <span className="rounded-full bg-green-100 p-4 text-green-700">
               <svg
@@ -491,7 +498,7 @@ export const TablaDeDatos = ({
           </p>
         </div>
       </div>
-      <div className="overflow-x-auto rounded-lg border border-gray-200 mt-5">
+      <div className="overflow-x-auto rounded-2xl border border-gray-200 mt-5 hover:shadow-md transition-all ease-linear cursor-pointer">
         <table className="min-w-full divide-y-1 divide-gray-200 bg-white text-sm">
           <thead>
             <tr className="border-b-[1px]">

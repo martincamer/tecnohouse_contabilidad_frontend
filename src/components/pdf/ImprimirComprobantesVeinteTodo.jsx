@@ -932,11 +932,14 @@ const formattedDate = today.toLocaleDateString("es-AR"); // Formatea la fecha se
 export const ImprimirComprobantesVeinteTodo = ({ datos }) => {
   return (
     <Document>
-      {datos?.map((empleado, index) => (
-        <Page key={index} style={{ padding: "30px 50px" }} size="A4">
-          <ImprimirComprobantes datos={empleado} />
-        </Page>
-      ))}
+      {datos?.map(
+        (empleado, index) =>
+          empleado.tipo === "quincenal" && (
+            <Page key={index} style={{ padding: "30px 50px" }} size="A4">
+              <ImprimirComprobantes datos={empleado} />
+            </Page>
+          )
+      )}
     </Document>
   );
 };

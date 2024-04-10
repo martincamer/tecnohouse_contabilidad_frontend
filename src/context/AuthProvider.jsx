@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react";
+import { toast } from "react-toastify";
 import axios from "../api/axios";
 import Cookies from "js-cookie";
 
@@ -46,6 +47,23 @@ export const AuthProvider = ({ children }) => {
 
       setUser(res.data);
       setIsAuth(true);
+
+      toast.success("¡Inicio de sesión correctamente!", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: false,
+        theme: "light",
+        style: {
+          padding: "20px 30px",
+          borderRadius: "15px",
+          // backgroundColor: "rgb(254 226 226)",
+          // color: "rgb(153 27 27)",
+        },
+      });
 
       return res.data;
     } catch (error) {

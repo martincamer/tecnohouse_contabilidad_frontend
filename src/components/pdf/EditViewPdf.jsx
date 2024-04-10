@@ -8,6 +8,7 @@ import client from "../../api/axios";
 
 export const EditViewPdf = () => {
   const [egresos, setEgresos] = useState([]);
+  const [canjes, setCanjes] = useState([]);
   const [presupuestoAsignado, setPresupuestoAsignado] = useState("");
   const [fechaObtenida, setFechaObtenida] = useState("");
 
@@ -15,9 +16,11 @@ export const EditViewPdf = () => {
     async function loadData() {
       const res = await client.get("/datos");
 
-      console.log("data", res);
+      const resCanjes = await client.get("/datos-canjes");
 
       const egresosArray = res?.data[0]?.egresos;
+
+      const canjesArray = resCanjes?.data[0]?.datos;
 
       //   const egresosObject = {};
 
@@ -27,6 +30,8 @@ export const EditViewPdf = () => {
 
       // Almacenar el objeto de egresos en setEgresos
       //   setEgresos(egresosObject);
+
+      setCanjes(canjesArray || []);
       setEgresos(egresosArray || []);
       setPresupuestoAsignado(res?.data[0]?.presupuestoasignado);
       setFechaObtenida(res?.data[0]?.created_at);
@@ -41,6 +46,7 @@ export const EditViewPdf = () => {
         datos={egresos}
         presupuestoAsignado={presupuestoAsignado}
         fechaObtenida={fechaObtenida}
+        canjes={canjes}
       />
     </PDFViewer>
   );
