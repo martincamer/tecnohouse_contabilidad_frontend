@@ -347,8 +347,17 @@ export const TablaDescargarPdf = ({
             </View>
           ))}
         </View>
-
-        <View>
+      </Page>
+    <Page
+        style={{
+          padding: "30px 30px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "15px",
+        }}
+        size="A4"
+      >
+       <View>
           <Text
             style={{
               fontSize: "9px",
