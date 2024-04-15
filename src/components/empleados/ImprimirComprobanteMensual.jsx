@@ -615,7 +615,7 @@ export const ImprimirComprobanteMensual = ({ datos }) => {
                   }}
                 >
                   {Number(
-                    Number(datos.total_quincena) + Number(datos.otros)
+                    Number(datos.quincena_del_cinco)
                   ).toLocaleString("es-AR", {
                     style: "currency",
                     currency: "ARS",
