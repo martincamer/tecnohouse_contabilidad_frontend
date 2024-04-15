@@ -528,7 +528,7 @@ export const ImprimirComprobantes = ({ datos }) => {
                 borderBottomWidth: 1,
               }}
             >
-              <Text>Monto sin atributos</Text>
+              <Text>Sueldo básico</Text>
               <Text
                 style={{
                   fontSize: 8,
@@ -537,11 +537,11 @@ export const ImprimirComprobantes = ({ datos }) => {
                 }}
               >
                 {Number(
-                  Number(datos.total_quincena) + Number(datos.otros)
-                ).toLocaleString("es-AR", {
-                  style: "currency",
-                  currency: "ARS",
-                })}
+                    Number(datos.quincena_del_cinco)
+                  ).toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  })}
               </Text>
             </View>
           </View>
