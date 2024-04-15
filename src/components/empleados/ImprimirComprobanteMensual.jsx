@@ -606,7 +606,7 @@ export const ImprimirComprobanteMensual = ({ datos }) => {
                   borderBottomWidth: 1,
                 }}
               >
-                <Text>Monto sin atributos</Text>
+                <Text>Sueldo básico</Text>
                 <Text
                   style={{
                     fontSize: 8,
