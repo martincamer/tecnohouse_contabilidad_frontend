@@ -146,7 +146,7 @@ export const TablaDescargarPdf = ({
                   padding: "0px 5px",
                 }}
               >
-                Recaudación efectivo + bancos
+                Recaudación efectivo + bancos + notas de credito
               </Text>
               <Text
                 style={{
