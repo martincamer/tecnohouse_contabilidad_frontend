@@ -94,12 +94,6 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
   // Convertir el conjunto a un array
   const tiposFabricaUnicosArray = Array.from(tiposFabricaUnicos);
 
-  // Aplicar un mapeo a cada tipo de fábrica único
-  //   const resultadoDelMap = tiposFabricaUnicosArray.map((tipoFabrica) => {
-  //     // Aquí puedes realizar alguna operación o simplemente devolver el tipo de fábrica
-  //     return `Tipo de fábrica único: ${tipoFabrica}`;
-  //   });
-
   return (
     <Document>
       <Page
@@ -155,13 +149,13 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
               fontFamily: "Montserrat",
             }}
           >
-            Total empleados resumen
+            Empleados resumen mensual
           </Text>
 
           <Text
             style={{
               fontSize: "10px",
-              fontWeight: "normal",
+              fontWeight: "semibold",
               fontFamily: "Montserrat",
             }}
           >
@@ -190,7 +184,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
               fontFamily: "Montserrat",
             }}
           >
-            Fabricas:
+            Fabricas/Sucursales:
           </Text>
           <View
             style={{
@@ -234,7 +228,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
               fontFamily: "Montserrat",
             }}
           >
-            Total empleados
+            Total empleados cargados en el sistema
           </Text>
           <View style={{}}>
             <Text
@@ -272,15 +266,15 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
             <React.Fragment key={tipoFabrica}>
               <Text
                 style={{
-                  fontSize: "10px",
+                  fontSize: "13px",
                   fontWeight: "bold",
                   fontFamily: "Montserrat",
-                  textTransform: "capitalize",
+                  textTransform: "uppercase",
                   marginBottom: "10px",
                   marginTop: "10px",
                 }}
               >
-                {tipoFabrica}
+                FABRICA/SUCURSAL {tipoFabrica}
               </Text>
               {empleados
                 .filter((empleado) => empleado.tipo_fabrica === tipoFabrica)
@@ -291,7 +285,6 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                         borderStyle: "solid",
                         borderWidth: "1px",
                         borderColor: "#000",
-                        borderRadius: "15px",
                         padding: "10px",
                         display: "flex",
                         flexDirection: "column",
@@ -302,113 +295,31 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                       <View
                         style={{
                           display: "flex",
-                          flexDirection: "row",
-                          gap: "8px",
+                          flexDirection: "column",
+                          gap: "2px",
+                          borderStyle: "solid",
+                          borderWidth: "1px",
+                          borderColor: "#000",
+                          padding: "5px",
                         }}
                       >
                         <Text
                           style={{
-                            fontSize: "8px",
+                            fontSize: "9px",
                             fontWeight: "bold",
                             fontFamily: "Montserrat",
+                            textTransform: "uppercase",
                           }}
                         >
-                          Nombre y Apellido{"  "}
-                          <Text
-                            style={{
-                              fontSize: "8px",
-                              fontWeight: "normal",
-                              textTransform: "capitalize",
-                              fontFamily: "Montserrat",
-                            }}
-                          >
-                            {e.empleado}
-                          </Text>
+                          Datos del empleado
                         </Text>
-                        <Text
+                        <View
                           style={{
-                            fontSize: "8px",
-                            fontWeight: "bold",
-                            fontFamily: "Montserrat",
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "8px",
                           }}
                         >
-                          Antiguedad{"  "}
-                          <Text
-                            style={{
-                              fontSize: "8px",
-                              fontWeight: "normal",
-                              textTransform: "capitalize",
-                              fontFamily: "Montserrat",
-                            }}
-                          >
-                            {e.antiguedad} años
-                          </Text>
-                        </Text>
-                        <Text
-                          style={{
-                            fontSize: "8px",
-                            fontWeight: "bold",
-                            fontFamily: "Montserrat",
-                          }}
-                        >
-                          Tipo de sueldo{"  "}
-                          <Text
-                            style={{
-                              fontSize: "8px",
-                              fontWeight: "normal",
-                              textTransform: "capitalize",
-                              fontFamily: "Montserrat",
-                            }}
-                          >
-                            {e.tipo}
-                          </Text>
-                        </Text>
-                        <Text
-                          style={{
-                            fontSize: "8px",
-                            fontWeight: "bold",
-                            fontFamily: "Montserrat",
-                          }}
-                        >
-                          Sucursal{"  "}
-                          <Text
-                            style={{
-                              fontSize: "8px",
-                              fontWeight: "normal",
-                              textTransform: "capitalize",
-                              fontFamily: "Montserrat",
-                            }}
-                          >
-                            {e.tipo_fabrica}
-                          </Text>
-                        </Text>
-                      </View>
-
-                      <Text
-                        style={{
-                          fontSize: "8px",
-                          fontWeight: "bold",
-                          fontFamily: "Montserrat",
-                        }}
-                      >
-                        Premio Asistencia{"  "}
-                        <Text
-                          style={{
-                            fontSize: "8px",
-                            fontWeight: "normal",
-                            textTransform: "capitalize",
-                            fontFamily: "Montserrat",
-                          }}
-                        >
-                          {Number(e.premio_asistencia).toLocaleString("es-AR", {
-                            style: "currency",
-                            currency: "ARS",
-                          })}
-                        </Text>
-                      </Text>
-
-                      <React.Fragment>
-                        {e.tipo_fabrica !== "administracion" && (
                           <Text
                             style={{
                               fontSize: "8px",
@@ -416,7 +327,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                               fontFamily: "Montserrat",
                             }}
                           >
-                            Premio producción{" "}
+                            Nombre y Apellido{"  "}
                             <Text
                               style={{
                                 fontSize: "8px",
@@ -425,7 +336,220 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                                 fontFamily: "Montserrat",
                               }}
                             >
-                              {Number(e.premio_produccion).toLocaleString(
+                              {e.empleado}
+                            </Text>
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: "8px",
+                              fontWeight: "bold",
+                              fontFamily: "Montserrat",
+                            }}
+                          >
+                            Antiguedad{"  "}
+                            <Text
+                              style={{
+                                fontSize: "8px",
+                                fontWeight: "normal",
+                                textTransform: "capitalize",
+                                fontFamily: "Montserrat",
+                              }}
+                            >
+                              {e.antiguedad} años
+                            </Text>
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: "8px",
+                              fontWeight: "bold",
+                              fontFamily: "Montserrat",
+                            }}
+                          >
+                            Tipo de sueldo{"  "}
+                            <Text
+                              style={{
+                                fontSize: "8px",
+                                fontWeight: "normal",
+                                textTransform: "capitalize",
+                                fontFamily: "Montserrat",
+                              }}
+                            >
+                              {e.tipo}
+                            </Text>
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: "8px",
+                              fontWeight: "bold",
+                              fontFamily: "Montserrat",
+                            }}
+                          >
+                            Sucursal{"  "}
+                            <Text
+                              style={{
+                                fontSize: "8px",
+                                fontWeight: "normal",
+                                textTransform: "capitalize",
+                                fontFamily: "Montserrat",
+                              }}
+                            >
+                              {e.tipo_fabrica}
+                            </Text>
+                          </Text>
+                        </View>
+                      </View>
+
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "3px",
+                          borderStyle: "solid",
+                          borderWidth: "1px",
+                          borderColor: "#000",
+                          padding: "5px",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontSize: "9px",
+                            fontWeight: "bold",
+                            fontFamily: "Montserrat",
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          RESUMEN DE PAGO
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: "8px",
+                            fontWeight: "bold",
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          Premio Asistencia{"  "}
+                          <Text
+                            style={{
+                              fontSize: "8px",
+                              fontWeight: "normal",
+                              textTransform: "capitalize",
+                              fontFamily: "Montserrat",
+                            }}
+                          >
+                            {Number(e.premio_asistencia).toLocaleString(
+                              "es-AR",
+                              {
+                                style: "currency",
+                                currency: "ARS",
+                              }
+                            )}
+                          </Text>
+                        </Text>
+
+                        <React.Fragment>
+                          {e.tipo_fabrica !== "administracion" && (
+                            <Text
+                              style={{
+                                fontSize: "8px",
+                                fontWeight: "bold",
+                                fontFamily: "Montserrat",
+                              }}
+                            >
+                              Premio producción{" "}
+                              <Text
+                                style={{
+                                  fontSize: "8px",
+                                  fontWeight: "normal",
+                                  textTransform: "capitalize",
+                                  fontFamily: "Montserrat",
+                                }}
+                              >
+                                {Number(e.premio_produccion).toLocaleString(
+                                  "es-AR",
+                                  {
+                                    style: "currency",
+                                    currency: "ARS",
+                                  }
+                                )}
+                              </Text>
+                            </Text>
+                          )}
+                        </React.Fragment>
+
+                        <React.Fragment>
+                          {
+                            <Text
+                              style={{
+                                fontSize: "8px",
+                                fontWeight: "bold",
+                                fontFamily: "Montserrat",
+                              }}
+                            >
+                              Comida/Premio
+                              <Text
+                                style={{
+                                  fontSize: "8px",
+                                  fontWeight: "normal",
+                                  textTransform: "capitalize",
+                                  fontFamily: "Montserrat",
+                                }}
+                              >
+                                {Number(e.comida_produccion).toLocaleString(
+                                  "es-AR",
+                                  {
+                                    style: "currency",
+                                    currency: "ARS",
+                                  }
+                                )}
+                              </Text>
+                            </Text>
+                          }
+                        </React.Fragment>
+
+                        <Text
+                          style={{
+                            fontSize: "8px",
+                            fontWeight: "bold",
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          Sin descuentos y premios quincena 5{"  "}
+                          <Text
+                            style={{
+                              fontSize: "8px",
+                              fontWeight: "normal",
+                              textTransform: "capitalize",
+                              fontFamily: "Montserrat",
+                            }}
+                          >
+                            {Number(e.quincena_del_cinco).toLocaleString(
+                              "es-AR",
+                              {
+                                style: "currency",
+                                currency: "ARS",
+                              }
+                            )}
+                          </Text>
+                        </Text>
+
+                        {e.tipo !== "mensual" && (
+                          <Text
+                            style={{
+                              fontSize: "8px",
+                              fontWeight: "bold",
+                              fontFamily: "Montserrat",
+                            }}
+                          >
+                            Sin descuentos y premios Quincena 20
+                            <Text
+                              style={{
+                                fontSize: "8px",
+                                fontWeight: "normal",
+                                textTransform: "capitalize",
+                                fontFamily: "Montserrat",
+                              }}
+                            >
+                              {Number(e.total_quincena_veinte).toLocaleString(
                                 "es-AR",
                                 {
                                   style: "currency",
@@ -435,10 +559,57 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             </Text>
                           </Text>
                         )}
-                      </React.Fragment>
 
-                      <React.Fragment>
-                        {
+                        <Text
+                          style={{
+                            fontSize: "8px",
+                            fontWeight: "bold",
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          Total Antiguedad{"  "}
+                          <Text
+                            style={{
+                              fontSize: "8px",
+                              fontWeight: "normal",
+                              textTransform: "capitalize",
+                              fontFamily: "Montserrat",
+                            }}
+                          >
+                            {Number(e.total_antiguedad).toLocaleString(
+                              "es-AR",
+                              {
+                                style: "currency",
+                                currency: "ARS",
+                              }
+                            )}{" "}
+                          </Text>
+                        </Text>
+
+                        <Text
+                          style={{
+                            fontSize: "8px",
+                            fontWeight: "bold",
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          Mes cobro dia 5{"  "}
+                          <Text
+                            style={{
+                              fontSize: "8px",
+                              fontWeight: "normal",
+                              textTransform: "capitalize",
+                              fontFamily: "Montserrat",
+                            }}
+                          >
+                            {Number(e.total_quincena).toLocaleString("es-AR", {
+                              style: "currency",
+                              currency: "ARS",
+                            })}
+                          </Text>
+                        </Text>
+
+                        {e.tipo !== "mensual" && (
                           <Text
                             style={{
                               fontSize: "8px",
@@ -446,7 +617,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                               fontFamily: "Montserrat",
                             }}
                           >
-                            Comida/Premio
+                            Mes cobro dia 20{"  "}
                             <Text
                               style={{
                                 fontSize: "8px",
@@ -455,7 +626,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                                 fontFamily: "Montserrat",
                               }}
                             >
-                              {Number(e.comida_produccion).toLocaleString(
+                              {Number(e.total_quincena_veinte).toLocaleString(
                                 "es-AR",
                                 {
                                   style: "currency",
@@ -464,36 +635,31 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                               )}
                             </Text>
                           </Text>
-                        }
-                      </React.Fragment>
+                        )}
 
-                      <Text
-                        style={{
-                          fontSize: "8px",
-                          fontWeight: "bold",
-                          fontFamily: "Montserrat",
-                        }}
-                      >
-                        Sin descuentos y premios quincena 5{"  "}
                         <Text
                           style={{
                             fontSize: "8px",
-                            fontWeight: "normal",
-                            textTransform: "capitalize",
+                            fontWeight: "bold",
                             fontFamily: "Montserrat",
                           }}
                         >
-                          {Number(e.quincena_del_cinco).toLocaleString(
-                            "es-AR",
-                            {
+                          Descuento{"  "}
+                          <Text
+                            style={{
+                              fontSize: "8px",
+                              fontWeight: "normal",
+                              textTransform: "capitalize",
+                              fontFamily: "Montserrat",
+                            }}
+                          >
+                            {Number(e.descuento).toLocaleString("es-AR", {
                               style: "currency",
                               currency: "ARS",
-                            }
-                          )}
+                            })}
+                          </Text>
                         </Text>
-                      </Text>
 
-                      {e.tipo !== "mensual" && (
                         <Text
                           style={{
                             fontSize: "8px",
@@ -501,7 +667,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             fontFamily: "Montserrat",
                           }}
                         >
-                          Sin descuentos y premios Quincena 20
+                          Otros{"  "}
                           <Text
                             style={{
                               fontSize: "8px",
@@ -510,64 +676,13 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                               fontFamily: "Montserrat",
                             }}
                           >
-                            {Number(e.total_quincena_veinte).toLocaleString(
-                              "es-AR",
-                              {
-                                style: "currency",
-                                currency: "ARS",
-                              }
-                            )}
+                            {Number(e.banco).toLocaleString("es-AR", {
+                              style: "currency",
+                              currency: "ARS",
+                            })}
                           </Text>
                         </Text>
-                      )}
 
-                      <Text
-                        style={{
-                          fontSize: "8px",
-                          fontWeight: "bold",
-                          fontFamily: "Montserrat",
-                        }}
-                      >
-                        Total Antiguedad{"  "}
-                        <Text
-                          style={{
-                            fontSize: "8px",
-                            fontWeight: "normal",
-                            textTransform: "capitalize",
-                            fontFamily: "Montserrat",
-                          }}
-                        >
-                          {Number(e.total_antiguedad).toLocaleString("es-AR", {
-                            style: "currency",
-                            currency: "ARS",
-                          })}{" "}
-                        </Text>
-                      </Text>
-
-                      <Text
-                        style={{
-                          fontSize: "8px",
-                          fontWeight: "bold",
-                          fontFamily: "Montserrat",
-                        }}
-                      >
-                        Mes cobro dia 5{"  "}
-                        <Text
-                          style={{
-                            fontSize: "8px",
-                            fontWeight: "normal",
-                            textTransform: "capitalize",
-                            fontFamily: "Montserrat",
-                          }}
-                        >
-                          {Number(e.total_quincena).toLocaleString("es-AR", {
-                            style: "currency",
-                            currency: "ARS",
-                          })}
-                        </Text>
-                      </Text>
-
-                      {e.tipo !== "mensual" && (
                         <Text
                           style={{
                             fontSize: "8px",
@@ -575,7 +690,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             fontFamily: "Montserrat",
                           }}
                         >
-                          Mes cobro dia 20{"  "}
+                          Banco{"  "}
                           <Text
                             style={{
                               fontSize: "8px",
@@ -584,123 +699,32 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                               fontFamily: "Montserrat",
                             }}
                           >
-                            {Number(e.total_quincena_veinte).toLocaleString(
-                              "es-AR",
-                              {
-                                style: "currency",
-                                currency: "ARS",
-                              }
-                            )}
+                            {Number(e.otros).toLocaleString("es-AR", {
+                              style: "currency",
+                              currency: "ARS",
+                            })}
                           </Text>
                         </Text>
-                      )}
 
-                      <Text
-                        style={{
-                          fontSize: "8px",
-                          fontWeight: "bold",
-                          fontFamily: "Montserrat",
-                        }}
-                      >
-                        Descuento{"  "}
                         <Text
-                          style={{
-                            fontSize: "8px",
-                            fontWeight: "normal",
-                            textTransform: "capitalize",
-                            fontFamily: "Montserrat",
-                          }}
-                        >
-                          {Number(e.descuento).toLocaleString("es-AR", {
-                            style: "currency",
-                            currency: "ARS",
-                          })}
-                        </Text>
-                      </Text>
-
-                      {/* <Text
                           style={{
                             fontSize: "8px",
                             fontWeight: "bold",
                             fontFamily: "Montserrat",
                           }}
                         >
-                          Obs{"  "}
+                          Observaciónes{"  "}
                           <Text
                             style={{
                               fontSize: "8px",
                               fontWeight: "normal",
-                              textTransform: "capitalize",
                               fontFamily: "Montserrat",
                             }}
                           >
                             {e.obs}
                           </Text>
-                        </Text> */}
-                      <Text
-                        style={{
-                          fontSize: "8px",
-                          fontWeight: "bold",
-                          fontFamily: "Montserrat",
-                        }}
-                      >
-                        Otros{"  "}
-                        <Text
-                          style={{
-                            fontSize: "8px",
-                            fontWeight: "normal",
-                            textTransform: "capitalize",
-                            fontFamily: "Montserrat",
-                          }}
-                        >
-                          {Number(e.banco).toLocaleString("es-AR", {
-                            style: "currency",
-                            currency: "ARS",
-                          })}
                         </Text>
-                      </Text>
-
-                      <Text
-                        style={{
-                          fontSize: "8px",
-                          fontWeight: "bold",
-                          fontFamily: "Montserrat",
-                        }}
-                      >
-                        Banco{"  "}
-                        <Text
-                          style={{
-                            fontSize: "8px",
-                            fontWeight: "normal",
-                            textTransform: "capitalize",
-                            fontFamily: "Montserrat",
-                          }}
-                        >
-                          {Number(e.otros).toLocaleString("es-AR", {
-                            style: "currency",
-                            currency: "ARS",
-                          })}
-                        </Text>
-                      </Text>
-
-                      <Text
-                        style={{
-                          fontSize: "8px",
-                          fontWeight: "bold",
-                          fontFamily: "Montserrat",
-                        }}
-                      >
-                        Observaciónes{"  "}
-                        <Text
-                          style={{
-                            fontSize: "8px",
-                            fontWeight: "normal",
-                            fontFamily: "Montserrat",
-                          }}
-                        >
-                          {e.obs}
-                        </Text>
-                      </Text>
+                      </View>
 
                       <Text
                         style={{
@@ -710,11 +734,11 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                           marginTop: "5px",
                         }}
                       >
-                        Total Final Cobro{"  "}
+                        Sueldo final del empleado cobrado{"  "}
                         <Text
                           style={{
                             fontSize: "9px",
-                            fontWeight: "normal",
+                            fontWeight: "semibold",
                             textTransform: "capitalize",
                             fontFamily: "Montserrat",
                           }}
