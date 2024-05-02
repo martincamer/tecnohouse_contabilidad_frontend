@@ -383,7 +383,7 @@ export const ImprimirComprobante = ({ datos }) => {
                   fontWeight: "bold",
                 }}
               >
-                Pago de haberes - Comprobante
+                Pago de haberes - Comprobante Quincena del 5
               </Text>
               <Text
                 style={{
@@ -601,49 +601,45 @@ export const ImprimirComprobante = ({ datos }) => {
           </View>
 
           <View>
-            {shouldShowAntiguedadRemunerada && (
-              <Text
-                style={{
-                  textTransform: "capitalize",
-                  fontSize: "8px",
-                  fontFamily: "Montserrat",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "5px",
-                }}
-              >
-                Descuento por faltas / banco{" "}
-                {Number(
-                  Number(datos.descuento) + Number(datos.otros)
-                ).toLocaleString("es-AR", {
-                  style: "currency",
-                  currency: "ARS",
-                })}{" "}
-              </Text>
-            )}
+            <Text
+              style={{
+                textTransform: "capitalize",
+                fontSize: "8px",
+                fontFamily: "Montserrat",
+                fontWeight: "bold",
+                width: "100%",
+                marginBottom: "5px",
+              }}
+            >
+              Descuento por faltas / banco{" "}
+              {Number(
+                Number(datos.descuento) + Number(datos.otros)
+              ).toLocaleString("es-AR", {
+                style: "currency",
+                currency: "ARS",
+              })}{" "}
+            </Text>
 
-            {shouldShowAntiguedadRemunerada && (
+            <Text
+              style={{
+                fontSize: "8px",
+                fontFamily: "Montserrat",
+                fontWeight: "bold",
+                width: "100%",
+                marginBottom: "5px",
+              }}
+            >
+              Observación por descuentos:{" "}
               <Text
                 style={{
                   fontSize: "8px",
                   fontFamily: "Montserrat",
-                  fontWeight: "bold",
-                  width: "100%",
-                  marginBottom: "5px",
+                  fontWeight: "normal",
                 }}
               >
-                Observación por descuentos:{" "}
-                <Text
-                  style={{
-                    fontSize: "8px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "normal",
-                  }}
-                >
-                  {datos.obs}
-                </Text>
+                {datos.obs}
               </Text>
-            )}
+            </Text>
 
             <View
               style={{

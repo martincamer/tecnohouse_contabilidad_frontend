@@ -328,7 +328,6 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
             gap: "10px",
             border: "1px solid #000",
             padding: "20px 20px",
-            borderRadius: "10px",
           }}
         >
           <View
@@ -384,7 +383,7 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
                   fontWeight: "bold",
                 }}
               >
-                Pago de haberes - Comprobante
+                Pago de haberes - Comprobante Quincena del 5
               </Text>
               <Text
                 style={{

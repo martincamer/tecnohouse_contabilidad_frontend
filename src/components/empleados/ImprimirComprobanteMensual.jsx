@@ -111,7 +111,6 @@ export const ImprimirComprobanteMensual = ({ datos }) => {
             gap: "10px",
             border: "1px solid #000",
             padding: "20px 20px",
-            borderRadius: "10px",
           }}
         >
           <View
@@ -167,7 +166,7 @@ export const ImprimirComprobanteMensual = ({ datos }) => {
                   fontWeight: "bold",
                 }}
               >
-                Pago de haberes - Comprobante
+                Pago de haberes - Comprobante Mensual
               </Text>
               <Text
                 style={{
@@ -388,44 +387,6 @@ export const ImprimirComprobanteMensual = ({ datos }) => {
           </View>
 
           <View>
-            {/* <Text
-              style={{
-                textTransform: "capitalize",
-                fontSize: "8px",
-                fontFamily: "Montserrat",
-                fontWeight: "bold",
-                width: "100%",
-                marginBottom: "5px",
-              }}
-            >
-              Descuento por faltas / banco{" "}
-              {Number(
-                Number(datos.descuento) + Number(datos.otros)
-              ).toLocaleString("es-AR", {
-                style: "currency",
-                currency: "ARS",
-              })}{" "}
-            </Text> */}
-            {/* <Text
-              style={{
-                fontSize: "8px",
-                fontFamily: "Montserrat",
-                fontWeight: "bold",
-                width: "100%",
-                marginBottom: "5px",
-              }}
-            >
-              Observación por descuentos:{" "}
-              <Text
-                style={{
-                  fontSize: "8px",
-                  fontFamily: "Montserrat",
-                  fontWeight: "normal",
-                }}
-              >
-                {datos.obs}
-              </Text>
-            </Text> */}
             <View
               style={{
                 display: "flex",
@@ -434,6 +395,44 @@ export const ImprimirComprobanteMensual = ({ datos }) => {
                 marginTop: "5px",
               }}
             >
+              <Text
+                style={{
+                  textTransform: "capitalize",
+                  fontSize: "8px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "5px",
+                }}
+              >
+                Descuento por faltas / banco{" "}
+                {Number(
+                  Number(datos.descuento) + Number(datos.otros)
+                ).toLocaleString("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                })}{" "}
+              </Text>
+              <Text
+                style={{
+                  fontSize: "8px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "bold",
+                  width: "100%",
+                  marginBottom: "5px",
+                }}
+              >
+                Observación por descuentos:{" "}
+                <Text
+                  style={{
+                    fontSize: "8px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "normal",
+                  }}
+                >
+                  {datos.obs}
+                </Text>
+              </Text>
               <View
                 style={{
                   display: "flex",
@@ -455,28 +454,6 @@ export const ImprimirComprobanteMensual = ({ datos }) => {
                   Sueldo Observación
                 </Text>
               </View>
-              {/* <View
-                style={{
-                  fontSize: "8px",
-                  fontFamily: "Montserrat",
-                  fontWeight: "normal",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1px",
-                  borderBottom: "1px",
-                }}
-              >
-                <Text>Descuento por faltas/etc </Text>
-                <Text
-                  style={{
-                    fontSize: "8px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                  }}
-                >
-                  -{datos.descuento}
-                </Text>
-              </View> */}
               <View
                 style={{
                   fontSize: "8px",
@@ -488,6 +465,29 @@ export const ImprimirComprobanteMensual = ({ datos }) => {
                   borderBottom: "1px",
                 }}
               >
+                <View
+                  style={{
+                    fontSize: "8px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "normal",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1px",
+                    borderBottom: "1px",
+                  }}
+                >
+                  <Text>Descuento por faltas/etc </Text>
+                  <Text
+                    style={{
+                      fontSize: "8px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    -{datos.descuento}
+                  </Text>
+                </View>
+
                 <Text>Premios</Text>
 
                 <Text
@@ -614,12 +614,13 @@ export const ImprimirComprobanteMensual = ({ datos }) => {
                     fontWeight: "bold",
                   }}
                 >
-                  {Number(
-                    Number(datos.quincena_del_cinco)
-                  ).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
+                  {Number(Number(datos.quincena_del_cinco)).toLocaleString(
+                    "es-AR",
+                    {
+                      style: "currency",
+                      currency: "ARS",
+                    }
+                  )}
                 </Text>
               </View>
             </View>

@@ -33,12 +33,12 @@ import { ViewPdfMensual } from "./components/pdf/ViewPdfMensual";
 import { ViewPdfCincoDatos } from "./components/pdf/ViewPdfCincoDatos";
 import { ViewPdfVeinteDatos } from "./components/pdf/ViewPdfCincoVeinte";
 import { ViewPdfMensualDatos } from "./components/pdf/ViewPdfMensualDatos";
+import { GenerarRecibosPresupuesto } from "./routes/pages/protected/GenerarRecibosPresupuesto";
+import { EditViewPdf } from "./components/pdf/EditViewPdf";
 //import normales
 import RutaProtegida from "./layouts/RutaProtejida";
 import "react-toastify/dist/ReactToastify.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import { GenerarRecibosPresupuesto } from "./routes/pages/protected/GenerarRecibosPresupuesto";
-import { EditViewPdf } from "./components/pdf/EditViewPdf";
 
 function App() {
   const { isAuth } = useAuth();

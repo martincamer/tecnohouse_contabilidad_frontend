@@ -162,30 +162,9 @@ export const EmpleadosTwo = () => {
   };
 
   return (
-    <section className=" py-20 w-full h-full flex flex-col gap-5">
-      <Link
-        to={"/empleados"}
-        className="px-10 absolute flex top-4 text-sm font-bold text-indigo-500 gap-2 items-center"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-          />
-        </svg>
-        VOLVER A EMPLEADOS
-      </Link>
-
-      <div className="px-10">
-        <div className="bg-white w-full py-4 px-6 border-[1px] border-slate-300 shadow rounded-lg flex gap-4">
+    <section className="px-5 py-20 w-full h-full flex flex-col gap-5">
+      <div className="px-0">
+        <div className="bg-white w-full py-6 px-6 shadow-xl rounded-2xl flex gap-4">
           <div>
             <button
               className="bg-green-100 text-green-600 font-bold uppercase py-2 px-5 rounded-lg text-sm flex gap-2 items-center cursor-pointer"
@@ -347,15 +326,15 @@ export const EmpleadosTwo = () => {
           </div>
         </div>
       </div>
-      <div className="flex gap-16 items-center px-10">
-        <div className="relative w-1/5 rounded-xl border-slate-300 border-[1px] py-2.5 pr-10 shadow-sm sm:text-sm cursor-pointer">
+      <div className="flex gap-16 items-center px-0 mt-4">
+        <div className="relative w-1/5 rounded-2xl bg-white py-3 shadow-xl pr-10 sm:text-sm cursor-pointer">
           <input
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
             placeholder="Buscar el empleado..."
             type="text"
             id="Search"
-            className="outline-none px-2 w-full uppercase"
+            className="outline-none px-2 w-full uppercase bg-white font-semibold"
           />
           <span className="absolute inset-y-0 right-0 grid w-10 place-content-center">
             <button
@@ -382,13 +361,13 @@ export const EmpleadosTwo = () => {
           </span>
         </div>
         <div className="flex gap-2 items-center cursor-pointer">
-          <label className="text-sm text-slate-600 uppercase">
+          <label className="text-sm text-slate-600 uppercase font-bold">
             Buscar por fabrica
           </label>
           <select
             value={filtroFabrica}
             onChange={(e) => setFiltroFabrica(e.target.value)}
-            className="cursor-pointer rounded-xl bg-white px-4 border-slate-300 border-[1px] py-2.5 shadow uppercase text-slate-600 text-sm "
+            className="cursor-pointer rounded-2xl bg-white px-4 border-slate-300 border-[1px] py-3 shadow-xl font-semibold uppercase text-slate-600 text-sm border-none"
             name=""
             id=""
           >
@@ -401,170 +380,286 @@ export const EmpleadosTwo = () => {
           </select>
         </div>
       </div>
+      <div className="rounded-2xl hover:shadow-md cursor-pointer transition-all ease-linear shadow-xl mt-5 bg-white py-2">
+        <table className="min-w-full divide-y-2 divide-gray-200 text-sm table">
+          <thead>
+            <tr className="border-b-[1px]">
+              <th className="py-6 px-3 uppercase text-sm font-bold text-indigo-600 text-left">
+                Empleado
+              </th>
+              <th className="py-6 px-3 uppercase text-sm font-bold text-indigo-600 text-left">
+                Fecha
+              </th>
+              <th className="py-6 px-3 uppercase text-sm font-bold text-indigo-600 text-left">
+                Antg.
+              </th>
+              <th className="py-6 px-3 uppercase text-sm font-bold text-indigo-600 text-left">
+                Tipo
+              </th>
+              <th className="py-6 px-3 uppercase text-sm font-bold text-indigo-600 text-left">
+                Sucrsal o Fabr.
+              </th>
+              <th className="py-6 px-3 uppercase text-sm font-bold text-indigo-600 text-left">
+                mes 5
+              </th>
+              <th className="py-6 px-3 uppercase text-sm font-bold text-indigo-600 text-left">
+                mes 20
+              </th>
+              <th className="py-6 px-3 uppercase text-sm font-bold text-indigo-600 text-left">
+                Desc mes 5.
+              </th>
+              <th className="py-6 px-3 uppercase text-sm font-bold text-indigo-600 text-left">
+                Desc mes 20.
+              </th>
+              <th className="py-6 px-3 uppercase text-sm font-bold text-indigo-600 text-left">
+                Banco
+              </th>
+              <th className="py-6 px-3 uppercase text-sm font-bold text-indigo-600 text-left">
+                Otros
+              </th>
+              <th className="py-6 px-3 uppercase text-sm font-bold text-indigo-600 text-left">
+                Sueldo final
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200 text-left">
+            {currentResults.map((e) => (
+              <tr key={e.id} className="cursor-pointer">
+                <td className="py-3 px-3 text-sm font-normal text-left text-slate-600 uppercase">
+                  {e.empleado}
+                </td>
+                <td className="py-3 px-3 text-sm font-normal text-left text-slate-600">
+                  {new Date(e.fecha).getFullYear()}
+                </td>
+                <td className="py-3 px-3 text-sm font-bold text-left text-slate-600">
+                  {e.antiguedad}
+                </td>
+                <td className="py-3 px-3 text-sm font-normal text-left text-slate-600 uppercase">
+                  {e.tipo}
+                </td>
+                <td className="py-3 px-3 text-sm font-normal text-left text-slate-600 uppercase">
+                  {e.tipo_fabrica}
+                </td>
+                <td className="py-3 px-3 text-sm text-left text-slate-600 font-bold">
+                  {Number(e.total_quincena).toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  })}
+                </td>
+                <td className="py-3 px-3 text-sm text-left text-slate-600 font-bold">
+                  {(e.tipo !== "mensual" &&
+                    Number(e.total_quincena_veinte).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })) ||
+                    0}
+                </td>
 
-      <div className="h-screen px-4">
-        <div className="overflow-x-auto rounded-lg border border-gray-200 mt-5">
-          <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-            <thead>
-              <tr className="border-b-[1px]">
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Empleado
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Fecha
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Antg.
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Tipo
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Sucrsal o Fabr.
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  mes 5
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  mes 20
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Antiguedad
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Desc.
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Banco
-                </th>
-                <th className="py-4 px-2 uppercase text-xs font-bold text-indigo-600 text-left">
-                  Total Final
-                </th>
+                <td className="py-3 px-3 text-sm text-left text-slate-600 font-bold">
+                  {" "}
+                  {Number(e.descuento).toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  }) || 0}
+                </td>
+
+                <td className="py-3 px-3 text-sm text-left text-slate-600 font-bold">
+                  {" "}
+                  {Number(e.descuento_20).toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  }) || 0}
+                </td>
+                <td className="py-3 px-3 text-sm text-left text-slate-600 font-bold">
+                  {" "}
+                  {Number(e.otros).toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  }) || 0}
+                </td>
+                <td className="py-3 px-3 text-sm text-left text-slate-600 font-bold">
+                  {" "}
+                  {Number(e.banco).toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  }) || 0}
+                </td>
+                <td className="py-3 px-3 text-sm font-bold text-left text-green-600">
+                  {Number(e.total_final).toLocaleString("es-AR", {
+                    style: "currency",
+                    currency: "ARS",
+                  }) || 0}
+                </td>
+                <td className="py-3 px-3 text-sm text-left text-slate-700 flex items-start">
+                  <div className="dropdown dropdown-left dropdown-bottom z-10">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      className="m-1 hover:bg-slate-200 py-2 px-2 rounded-full transition-all ease-linear"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
+                        />
+                      </svg>
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-2xl border w-52 z-[100] gap-2"
+                    >
+                      {/* <li>
+                        <Link
+                          target="_blank" // Esto abre el enlace en una nueva pestaña
+                          rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
+                          to={`/empleados/${e.id}`}
+                          className=" bg-slate-200 py-2 px-3 rounded-xl text-left text-slate-700 flex gap-2 items-center text-xs font-semibold uppercase justify-between"
+                        >
+                          Ver
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-4 h-4"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+                            />
+                          </svg>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          onClick={() => {
+                            handleId(e.id), openModalEdit();
+                          }}
+                          type="button"
+                          className=" bg-indigo-100 text-center py-2 px-3 rounded-xl text-indigo-500 flex gap-2 items-center text-xs font-semibold uppercase justify-between"
+                        >
+                          Editar
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-4 h-4"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                            />
+                          </svg>
+                        </Link>
+                      </li> */}
+                      <li>
+                        {e.tipo === "quincenal" ? (
+                          <>
+                            <Link
+                              to={`/view-pdf-5/${e.id}`}
+                              target="_blank" // Esto abre el enlace en una nueva pestaña
+                              rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
+                              className=" bg-green-100 text-center py-2 px-3 rounded-xl text-green-500 flex gap-2 items-center text-xs font-semibold uppercase w-full mb-2"
+                            >
+                              Imprimir 5
+                            </Link>
+                            <Link
+                              to={`/view-pdf-20/${e.id}`}
+                              target="_blank" // Esto abre el enlace en una nueva pestaña
+                              rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
+                              className=" bg-orange-100 text-center py-2 px-3 rounded-xl text-orange-600 flex gap-2 items-center text-xs font-semibold uppercase w-full"
+                            >
+                              Imprimir 20
+                            </Link>
+                          </>
+                        ) : (
+                          <Link
+                            to={`/view-pdf-mensual/${e.id}`}
+                            target="_blank" // Esto abre el enlace en una nueva pestaña
+                            rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
+                            className=" bg-green-100 text-center py-2 px-3 rounded-xl text-green-500 flex gap-2 items-center text-xs font-semibold uppercase"
+                          >
+                            Imprimir Mensual
+                          </Link>
+                        )}
+                      </li>
+                    </ul>
+                  </div>
+                </td>
               </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200 text-left">
-              {currentResults.map((e) => (
-                <tr
-                  key={e.id}
-                  className=" hover:bg-slate-100 transition-all ease-in-out duration-200 cursor-pointer"
-                >
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 uppercase">
-                    {e.empleado}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {new Date(e.fecha).getFullYear()}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {e.antiguedad}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 uppercase">
-                    {e.tipo}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600 uppercase">
-                    {e.tipo_fabrica}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {Number(e.total_quincena).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {e.tipo !== "mensual" &&
-                      Number(e.total_quincena_veinte).toLocaleString("es-AR", {
-                        style: "currency",
-                        currency: "ARS",
-                      })}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {" "}
-                    {Number(e.descuento).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {" "}
-                    {Number(e.banco).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td>
-                  <td className="py-3 px-3 text-xs font-semibold text-left text-slate-600">
-                    {" "}
-                    {Number(e.otros).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td>
-                  <td className="py-3 px-3 text-sm font-bold text-left text-green-600">
-                    {Number(e.total_final).toLocaleString("es-AR", {
-                      style: "currency",
-                      currency: "ARS",
-                    })}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {totalPages > 1 && (
-            <div className="flex flex-wrap justify-center mt-4 mb-4 gap-3">
-              <button
-                className="mx-1 px-2 py-1 bg-white border-slate-300 border-[1px] shadow shadow-black/20 text-sm flex gap-1 items-center transiton-all ease-in duration-100 text-slate-700 rounded-xl"
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
+            ))}
+          </tbody>
+        </table>
+        {totalPages > 1 && (
+          <div className="flex flex-wrap justify-center mt-4 mb-4 gap-1">
+            <button
+              className="mx-1 px-2 py-1 bg-white border-slate-300 border-[1px] shadow shadow-black/20 text-sm flex gap-1 items-center transiton-all ease-in duration-100 text-slate-700 rounded-xl"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-5 h-5"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 19.5 8.25 12l7.5-7.5"
-                  />
-                </svg>
-              </button>
-              {Array.from({ length: totalPages }).map((_, index) => (
-                <button
-                  key={index}
-                  className={`mx-1 px-3 py-1.5 rounded-xl ${
-                    currentPage === index + 1
-                      ? "bg-green-500 hover:bg-primary transition-all ease-in-out text-white shadow shadow-black/20 text-sm"
-                      : "bg-white border-slate-300 border-[1px] shadow shadow-black/20 text-sm"
-                  }`}
-                  onClick={() => handlePageChange(index + 1)}
-                >
-                  {index + 1}
-                </button>
-              ))}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 19.5 8.25 12l7.5-7.5"
+                />
+              </svg>
+            </button>
+            {Array.from({ length: totalPages }).map((_, index) => (
               <button
-                className="mx-1 px-2 py-1 bg-white border-slate-300 border-[1px] shadow shadow-black/20 text-sm flex gap-1 items-center transiton-all ease-in duration-100 text-slate-700 rounded-xl"
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
+                key={index}
+                className={`mx-1 px-3 py-1.5 rounded-xl ${
+                  currentPage === index + 1
+                    ? "bg-indigo-500 border border-indigo-500 hover:bg-indigo/600 transition-all ease-in-out text-white shadow shadow-black/20 text-sm"
+                    : "bg-white border-slate-300 border-[1px] shadow shadow-black/20 text-sm"
+                }`}
+                onClick={() => handlePageChange(index + 1)}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="m8.25 4.5 7.5 7.5-7.5 7.5"
-                  />
-                </svg>
+                {index + 1}
               </button>
-            </div>
-          )}
-        </div>
+            ))}
+            <button
+              className="mx-1 px-2 py-1 bg-white border-slate-300 border-[1px] shadow shadow-black/20 text-sm flex gap-1 items-center transiton-all ease-in duration-100 text-slate-700 rounded-xl"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
 
       <ModalCrearFabrica isOpen={isOpen} closeModal={closeModal} />

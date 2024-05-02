@@ -7,7 +7,7 @@ export const NavbarStatick = () => {
   console.log(user);
 
   return (
-    <div className="absolute top-3 right-5 flex gap-2 items-start z-[-1]">
+    <div className="absolute top-3 right-5 gap-2 items-start z-[-1] hidden">
       <p className="bg-indigo-500 py-2 px-4 rounded-xl shadow text-white">
         Bienvenido a la aplicación{" "}
         <span className="text-slate-700 bg-white py-[2px] px-2 rounded-lg capitalize">

@@ -111,7 +111,6 @@ export const ImprimirComprobanteVeinte = ({ datos }) => {
             gap: "10px",
             border: "1px solid #000",
             padding: "20px 20px",
-            borderRadius: "10px",
           }}
         >
           <View
@@ -167,7 +166,7 @@ export const ImprimirComprobanteVeinte = ({ datos }) => {
                   fontWeight: "bold",
                 }}
               >
-                Pago de haberes - Comprobante
+                Pago de haberes - Comprobante Quincena del 20
               </Text>
               <Text
                 style={{
@@ -391,7 +390,7 @@ export const ImprimirComprobanteVeinte = ({ datos }) => {
           </View>
 
           <View>
-            {/* <Text
+            <Text
               style={{
                 textTransform: "capitalize",
                 fontSize: "8px",
@@ -401,15 +400,13 @@ export const ImprimirComprobanteVeinte = ({ datos }) => {
                 marginBottom: "5px",
               }}
             >
-              Descuento por faltas / banco{" "}
-              {Number(
-                Number(datos.descuento) + Number(datos.otros)
-              ).toLocaleString("es-AR", {
+              Descuento por faltas{" "}
+              {Number(Number(datos.descuento_20)).toLocaleString("es-AR", {
                 style: "currency",
                 currency: "ARS",
               })}{" "}
-            </Text> */}
-            {/* <Text
+            </Text>
+            <Text
               style={{
                 fontSize: "8px",
                 fontFamily: "Montserrat",
@@ -426,9 +423,9 @@ export const ImprimirComprobanteVeinte = ({ datos }) => {
                   fontWeight: "normal",
                 }}
               >
-                {datos.obs}
+                {datos.obs_20 || "-"}
               </Text>
-            </Text> */}
+            </Text>{" "}
             <View
               style={{
                 display: "flex",
@@ -458,7 +455,7 @@ export const ImprimirComprobanteVeinte = ({ datos }) => {
                   Sueldo Observación
                 </Text>
               </View>
-              {/* <View
+              <View
                 style={{
                   fontSize: "8px",
                   fontFamily: "Montserrat",
@@ -469,7 +466,7 @@ export const ImprimirComprobanteVeinte = ({ datos }) => {
                   borderBottom: "1px",
                 }}
               >
-                <Text>Descuento por faltas/etc </Text>
+                <Text>Descuento por faltas/etc</Text>
                 <Text
                   style={{
                     fontSize: "8px",
@@ -477,9 +474,9 @@ export const ImprimirComprobanteVeinte = ({ datos }) => {
                     fontWeight: "bold",
                   }}
                 >
-                  -{datos.descuento}
+                  -{datos.descuento_20}
                 </Text>
-              </View> */}
+              </View>
               <View
                 style={{
                   fontSize: "8px",
@@ -505,114 +502,8 @@ export const ImprimirComprobanteVeinte = ({ datos }) => {
                     style: "currency",
                     currency: "ARS",
                   })}{" "}
-                  {/* / Premio Producción:{" "}
-                  {Number(datos.premio_produccion).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}{" "} */}
                 </Text>
               </View>
-              {/* <View
-                style={{
-                  fontSize: "8px",
-                  fontFamily: "Montserrat",
-                  fontWeight: "normal",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1px",
-                  borderBottom: "1px",
-                }}
-              >
-                <Text>Antiguedad remunerada</Text>
-                <Text
-                  style={{
-                    fontSize: "8px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                  }}
-                >
-                  +{" "}
-                  {Number(datos.total_antiguedad).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
-                </Text>
-              </View> */}
-              {/* <View
-                style={{
-                  fontSize: 8,
-                  fontFamily: "Montserrat",
-                  fontWeight: "normal",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 1,
-                  borderBottomWidth: 1,
-                }}
-              >
-                <Text>Otros/etc</Text>
-                <Text
-                  style={{
-                    fontSize: 8,
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {Number(datos.banco).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
-                </Text>
-              </View> */}
-              {/* <View
-                style={{
-                  fontSize: "8px",
-                  fontFamily: "Montserrat",
-                  fontWeight: "normal",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1px",
-                  borderBottom: "1px",
-                }}
-              >
-                <Text>Banco</Text>
-                <Text
-                  style={{
-                    fontSize: 8,
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {" "}
-                  {Number(datos.otros).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
-                </Text>
-              </View> */}
-              {/* {
-                <View
-                  style={{
-                    fontSize: 8,
-                    fontFamily: "Montserrat",
-                    fontWeight: "normal",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 1,
-                    borderBottomWidth: 1,
-                  }}
-                >
-                  <Text>Monto sin atributos</Text>
-                  <Text
-                    style={{
-                      fontSize: 8,
-                      fontFamily: "Montserrat",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {datos.total_quincena}
-                  </Text>
-                </View>
-              } */}
             </View>
             <Text
               style={{

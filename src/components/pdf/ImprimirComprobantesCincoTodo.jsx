@@ -93,7 +93,6 @@ export const ImprimirComprobantes = ({ datos }) => {
           gap: "10px",
           border: "1px solid #000",
           padding: "20px 20px",
-          borderRadius: "10px",
         }}
       >
         <View
@@ -149,7 +148,7 @@ export const ImprimirComprobantes = ({ datos }) => {
                 fontWeight: "bold",
               }}
             >
-              Pago de haberes - Comprobante
+              Pago de haberes - Comprobante Quincena del 5
             </Text>
             <Text
               style={{
@@ -382,10 +381,8 @@ export const ImprimirComprobantes = ({ datos }) => {
               marginBottom: "5px",
             }}
           >
-            Descuento por faltas / banco{" "}
-            {Number(
-              Number(datos.descuento) + Number(datos.otros)
-            ).toLocaleString("es-AR", {
+            Descuento por faltas/etc{" "}
+            {Number(Number(datos.descuento)).toLocaleString("es-AR", {
               style: "currency",
               currency: "ARS",
             })}{" "}
@@ -450,7 +447,7 @@ export const ImprimirComprobantes = ({ datos }) => {
                 borderBottom: "1px",
               }}
             >
-              <Text>Descuento por faltas/etc </Text>
+              <Text>Descuento por faltas/etc</Text>
               <Text
                 style={{
                   fontSize: "8px",

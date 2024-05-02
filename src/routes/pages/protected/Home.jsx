@@ -203,8 +203,6 @@ export const Home = () => {
       : 0,
   }));
 
-  console.log("asdas1", presupuestoMensualConPorcentaje);
-
   return (
     <section className="w-full h-full py-14 px-4 max-md:px-4 flex flex-col gap-20">
       <div className="grid grid-cols-5 gap-4 py-5">

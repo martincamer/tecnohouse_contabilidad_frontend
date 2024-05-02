@@ -82,238 +82,6 @@ function generateInvoiceNumber() {
 const facturaAleatoria = generateInvoiceNumber();
 
 export const ImprimirComprobantes = ({ datos }) => {
-  // Extract employee data from the object
-  // const {
-  //   fecha,
-  //   tipo,
-  //   total_quincena,
-  //   total_quincena_veinte,
-  //   total_final,
-  //   quincena_del_cinco,
-  //   quincena_del_veinte,
-  //   premio_produccion,
-  //   premio_asistencia,
-  //   comida_produccion,
-  //   tipo_fabrica,
-  //   total_antiguedad,
-  //   banco,
-  //   descuento,
-  //   otros,
-  //   obs,
-  //   antiguedad,
-  //   empleado,
-  // } = datos;
-
-  // const fechaFormateadaTwo = new Date(datos.created_at).toLocaleDateString(
-  //   "es-AR"
-  // );
-  // const hoyEsDia = new Date().getDate();
-
-  // let mensaje = "";
-
-  // const tipoPago = tipo;
-
-  // if (tipoPago === "quincenal") {
-  //   if (hoyEsDia >= 1 && hoyEsDia <= 14) {
-  //     mensaje = Number(Number(total_quincena) + Number(otros)).toLocaleString(
-  //       "es-AR",
-  //       {
-  //         style: "currency",
-  //         currency: "ARS",
-  //       }
-  //     );
-  //   } else if (hoyEsDia >= 15 && hoyEsDia <= 28) {
-  //     mensaje = Number(total_quincena_veinte).toLocaleString("es-AR", {
-  //       style: "currency",
-  //       currency: "ARS",
-  //     });
-  //   } else {
-  //     mensaje = "No hay quincena disponible para hoy.";
-  //   }
-  // } else if (tipoPago === "mensual") {
-  //   mensaje = Number(total_final).toLocaleString("es-AR", {
-  //     style: "currency",
-  //     currency: "ARS",
-  //   });
-  // } else {
-  //   mensaje = "Tipo de pago no reconocido.";
-  // }
-
-  // let mensajeTree = "";
-
-  // if (tipoPago === "quincenal") {
-  //   if (hoyEsDia >= 1 && hoyEsDia <= 14) {
-  //     mensajeTree = Number(Number(total_quincena)).toLocaleString("es-AR", {
-  //       style: "currency",
-  //       currency: "ARS",
-  //     });
-  //   } else if (hoyEsDia >= 15 && hoyEsDia <= 28) {
-  //     mensajeTree = Number(total_quincena_veinte).toLocaleString("es-AR", {
-  //       style: "currency",
-  //       currency: "ARS",
-  //     });
-  //   } else {
-  //     mensajeTree = "No hay quincena disponible para hoy.";
-  //   }
-  // } else if (tipoPago === "mensual") {
-  //   mensajeTree = Number(
-  //     otros > 1 ? total_quincena : total_final
-  //   ).toLocaleString("es-AR", {
-  //     style: "currency",
-  //     currency: "ARS",
-  //   });
-  // } else {
-  //   mensajeTree = "Tipo de pago no reconocido.";
-  // }
-
-  // let quincenaReal = "";
-
-  // if (tipoPago === "quincenal") {
-  //   if (hoyEsDia >= 1 && hoyEsDia <= 14) {
-  //     quincenaReal = Number(quincena_del_cinco).toLocaleString("es-AR", {
-  //       style: "currency",
-  //       currency: "ARS",
-  //     });
-  //   } else if (hoyEsDia >= 14 && hoyEsDia <= 28) {
-  //     quincenaReal = Number(quincena_del_veinte).toLocaleString("es-AR", {
-  //       style: "currency",
-  //       currency: "ARS",
-  //     });
-  //   } else {
-  //     quincenaReal = "No hay quincena disponible para hoy.";
-  //   }
-  // } else if (tipoPago === "mensual") {
-  //   quincenaReal = Number(total_final).toLocaleString("es-AR", {
-  //     style: "currency",
-  //     currency: "ARS",
-  //   });
-  // } else {
-  //   quincenaReal = "Tipo de pago no reconocido.";
-  // }
-
-  // let mensajes = [];
-
-  // if (tipoPago === "quincenal") {
-  //   if (hoyEsDia >= 1 && hoyEsDia <= 14) {
-  //     mensajes = [
-  //       `Premio Producción: ${Number(premio_produccion).toLocaleString(
-  //         "es-AR",
-  //         {
-  //           style: "currency",
-  //           currency: "ARS",
-  //         }
-  //       )} - `,
-  //       `Premio Asistencia: ${Number(premio_asistencia).toLocaleString(
-  //         "es-AR",
-  //         {
-  //           style: "currency",
-  //           currency: "ARS",
-  //         }
-  //       )}`,
-  //     ];
-  //   } else if (
-  //     hoyEsDia >= 11 &&
-  //     hoyEsDia <= 31 &&
-  //     tipo_fabrica !== "administracion"
-  //   ) {
-  //     mensajes = [
-  //       `Comida: ${Number(comida_produccion).toLocaleString("es-AR", {
-  //         style: "currency",
-  //         currency: "ARS",
-  //       })}`,
-  //     ];
-  //   } else {
-  //     mensajes = ["No hay quincena disponible para hoy."];
-  //   }
-  // } else if (tipoPago === "mensual") {
-  //   mensajes = [
-  //     `Premio Asistencia: ${Number(premio_asistencia).toLocaleString("es-AR", {
-  //       style: "currency",
-  //       currency: "ARS",
-  //     })}, Comida: ${Number(comida_produccion).toLocaleString("es-AR", {
-  //       style: "currency",
-  //       currency: "ARS",
-  //     })} ${
-  //       tipo_fabrica === "gerencia"
-  //         ? `, Premio Producción: ${Number(premio_produccion).toLocaleString(
-  //             "es-AR",
-  //             {
-  //               style: "currency",
-  //               currency: "ARS",
-  //             }
-  //           )}`
-  //         : ""
-  //     }`,
-  //   ];
-  // } else {
-  //   mensajes = ["Tipo de pago no reconocido."];
-  // }
-
-  // let obsReal = [];
-
-  // if (tipoPago === "quincenal") {
-  //   if (hoyEsDia >= 1 && hoyEsDia <= 14) {
-  //     obsReal = [
-  //       `Premio Producción: ${Number(premio_produccion).toLocaleString(
-  //         "es-AR",
-  //         {
-  //           style: "currency",
-  //           currency: "ARS",
-  //         }
-  //       )}`,
-  //       `Premio Asistencia: ${Number(premio_asistencia).toLocaleString(
-  //         "es-AR",
-  //         {
-  //           style: "currency",
-  //           currency: "ARS",
-  //         }
-  //       )}`,
-  //     ];
-  //   } else if (
-  //     hoyEsDia >= 11 &&
-  //     hoyEsDia <= 31 &&
-  //     tipo_fabrica !== "administracion"
-  //   ) {
-  //     obsReal = [
-  //       `Comida: ${Number(comida_produccion).toLocaleString("es-AR", {
-  //         style: "currency",
-  //         currency: "ARS",
-  //       })}`,
-  //     ];
-  //   } else {
-  //     obsReal = ["No hay quincena disponible para hoy."];
-  //   }
-  // } else if (tipoPago === "mensual") {
-  //   obsReal = [
-  //     `Premio Asistencia: ${Number(premio_asistencia).toLocaleString("es-AR", {
-  //       style: "currency",
-  //       currency: "ARS",
-  //     })} / Comida: ${Number(comida_produccion).toLocaleString("es-AR", {
-  //       style: "currency",
-  //       currency: "ARS",
-  //     })} ${
-  //       tipo_fabrica === "gerencia"
-  //         ? `, Premio Producción: ${Number(premio_produccion).toLocaleString(
-  //             "es-AR",
-  //             {
-  //               style: "currency",
-  //               currency: "ARS",
-  //             }
-  //           )}`
-  //         : ""
-  //     }`,
-  //   ];
-  // } else {
-  //   obsReal = ["Tipo de pago no reconocido."];
-  // }
-  // const currentDate = new Date();
-  // const currentDay = currentDate.getDate();
-
-  // // Suponiendo que `datos.tipo` contiene el tipo de dato
-  // const shouldShowAntiguedadRemunerada =
-  //   tipo === "mensual" ||
-  //   (tipo === "quincenal" && currentDay >= 1 && currentDay <= 14);
-
   const fechaFormateadaTwo = new Date(datos.fecha).toLocaleDateString("es-AR");
 
   return (
@@ -324,7 +92,6 @@ export const ImprimirComprobantes = ({ datos }) => {
         gap: "10px",
         border: "1px solid #000",
         padding: "20px 20px",
-        borderRadius: "10px",
       }}
     >
       <View
@@ -380,7 +147,7 @@ export const ImprimirComprobantes = ({ datos }) => {
               fontWeight: "bold",
             }}
           >
-            Pago de haberes - Comprobante
+            Pago de haberes - Comprobante Quincena del 20
           </Text>
           <Text
             style={{
@@ -602,46 +369,43 @@ export const ImprimirComprobantes = ({ datos }) => {
           </View>
         </View>
       </View>
-
       <View>
-        {/* <Text
-              style={{
-                textTransform: "capitalize",
-                fontSize: "8px",
-                fontFamily: "Montserrat",
-                fontWeight: "bold",
-                width: "100%",
-                marginBottom: "5px",
-              }}
-            >
-              Descuento por faltas / banco{" "}
-              {Number(
-                Number(datos.descuento) + Number(datos.otros)
-              ).toLocaleString("es-AR", {
-                style: "currency",
-                currency: "ARS",
-              })}{" "}
-            </Text> */}
-        {/* <Text
-              style={{
-                fontSize: "8px",
-                fontFamily: "Montserrat",
-                fontWeight: "bold",
-                width: "100%",
-                marginBottom: "5px",
-              }}
-            >
-              Observación por descuentos:{" "}
-              <Text
-                style={{
-                  fontSize: "8px",
-                  fontFamily: "Montserrat",
-                  fontWeight: "normal",
-                }}
-              >
-                {datos.obs}
-              </Text>
-            </Text> */}
+        <Text
+          style={{
+            textTransform: "capitalize",
+            fontSize: "8px",
+            fontFamily: "Montserrat",
+            fontWeight: "bold",
+            width: "100%",
+            marginBottom: "5px",
+          }}
+        >
+          Descuento por faltas/etc{" "}
+          {Number(Number(datos.descuento_20)).toLocaleString("es-AR", {
+            style: "currency",
+            currency: "ARS",
+          })}{" "}
+        </Text>
+        <Text
+          style={{
+            fontSize: "8px",
+            fontFamily: "Montserrat",
+            fontWeight: "bold",
+            width: "100%",
+            marginBottom: "5px",
+          }}
+        >
+          Observación por descuentos:{" "}
+          <Text
+            style={{
+              fontSize: "8px",
+              fontFamily: "Montserrat",
+              fontWeight: "normal",
+            }}
+          >
+            {datos.obs_20}
+          </Text>
+        </Text>
         <View
           style={{
             display: "flex",
@@ -671,28 +435,28 @@ export const ImprimirComprobantes = ({ datos }) => {
               Sueldo Observación
             </Text>
           </View>
-          {/* <View
-                style={{
-                  fontSize: "8px",
-                  fontFamily: "Montserrat",
-                  fontWeight: "normal",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1px",
-                  borderBottom: "1px",
-                }}
-              >
-                <Text>Descuento por faltas/etc </Text>
-                <Text
-                  style={{
-                    fontSize: "8px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                  }}
-                >
-                  -{datos.descuento}
-                </Text>
-              </View> */}
+          <View
+            style={{
+              fontSize: "8px",
+              fontFamily: "Montserrat",
+              fontWeight: "normal",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1px",
+              borderBottom: "1px",
+            }}
+          >
+            <Text>Descuento por faltas/etc </Text>
+            <Text
+              style={{
+                fontSize: "8px",
+                fontFamily: "Montserrat",
+                fontWeight: "bold",
+              }}
+            >
+              -{datos.descuento_20}
+            </Text>
+          </View>
           <View
             style={{
               fontSize: "8px",
@@ -718,114 +482,8 @@ export const ImprimirComprobantes = ({ datos }) => {
                 style: "currency",
                 currency: "ARS",
               })}{" "}
-              {/* / Premio Producción:{" "}
-                  {Number(datos.premio_produccion).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}{" "} */}
             </Text>
           </View>
-          {/* <View
-                style={{
-                  fontSize: "8px",
-                  fontFamily: "Montserrat",
-                  fontWeight: "normal",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1px",
-                  borderBottom: "1px",
-                }}
-              >
-                <Text>Antiguedad remunerada</Text>
-                <Text
-                  style={{
-                    fontSize: "8px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                  }}
-                >
-                  +{" "}
-                  {Number(datos.total_antiguedad).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
-                </Text>
-              </View> */}
-          {/* <View
-                style={{
-                  fontSize: 8,
-                  fontFamily: "Montserrat",
-                  fontWeight: "normal",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 1,
-                  borderBottomWidth: 1,
-                }}
-              >
-                <Text>Otros/etc</Text>
-                <Text
-                  style={{
-                    fontSize: 8,
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {Number(datos.banco).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
-                </Text>
-              </View> */}
-          {/* <View
-                style={{
-                  fontSize: "8px",
-                  fontFamily: "Montserrat",
-                  fontWeight: "normal",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1px",
-                  borderBottom: "1px",
-                }}
-              >
-                <Text>Banco</Text>
-                <Text
-                  style={{
-                    fontSize: 8,
-                    fontFamily: "Montserrat",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {" "}
-                  {Number(datos.otros).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
-                </Text>
-              </View> */}
-          {/* {
-                <View
-                  style={{
-                    fontSize: 8,
-                    fontFamily: "Montserrat",
-                    fontWeight: "normal",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 1,
-                    borderBottomWidth: 1,
-                  }}
-                >
-                  <Text>Monto sin atributos</Text>
-                  <Text
-                    style={{
-                      fontSize: 8,
-                      fontFamily: "Montserrat",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {datos.total_quincena}
-                  </Text>
-                </View>
-              } */}
         </View>
         <Text
           style={{

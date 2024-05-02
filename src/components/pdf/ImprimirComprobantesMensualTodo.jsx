@@ -370,6 +370,43 @@ export const ImprimirComprobantes = ({ datos }) => {
         </View>
 
         <View>
+          <Text
+            style={{
+              textTransform: "capitalize",
+              fontSize: "8px",
+              fontFamily: "Montserrat",
+              fontWeight: "bold",
+              width: "100%",
+              marginBottom: "5px",
+            }}
+          >
+            Descuento por faltas/etc{" "}
+            {Number(Number(datos.descuento)).toLocaleString("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            })}{" "}
+          </Text>
+          <Text
+            style={{
+              fontSize: "8px",
+              fontFamily: "Montserrat",
+              fontWeight: "bold",
+              width: "100%",
+              marginBottom: "5px",
+            }}
+          >
+            Observación por descuentos:{" "}
+            <Text
+              style={{
+                fontSize: "8px",
+                fontFamily: "Montserrat",
+                fontWeight: "normal",
+              }}
+            >
+              {datos.obs}
+            </Text>
+          </Text>
+
           <View
             style={{
               display: "flex",
@@ -536,12 +573,13 @@ export const ImprimirComprobantes = ({ datos }) => {
                   fontWeight: "bold",
                 }}
               >
-                {Number(
-                    Number(datos.quincena_del_cinco)
-                  ).toLocaleString("es-AR", {
+                {Number(Number(datos.quincena_del_cinco)).toLocaleString(
+                  "es-AR",
+                  {
                     style: "currency",
                     currency: "ARS",
-                  })}
+                  }
+                )}
               </Text>
             </View>
           </View>

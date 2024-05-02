@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { ImprimirComprobante } from "../empleados/ImprimirComprobante";
 import { obtenerUnicoEmpleado } from "../../api/empleados.api";
 
-// import { ImprimirPdf } from "./ImprirmirPdf";
-
 export const ViewPdf = () => {
   const [datos, setDatos] = useState([]);
 

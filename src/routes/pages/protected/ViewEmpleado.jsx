@@ -6,8 +6,6 @@ import {
 } from "../../../api/empleados.api";
 import { ToastContainer, toast } from "react-toastify";
 import { useEmpleadosContext } from "../../../context/EmpleadosProvider";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { ImprimirComprobante } from "../../../components/empleados/ImprimirComprobante";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
@@ -136,30 +134,10 @@ export const ViewEmpleado = () => {
   return (
     <section className="py-16 px-5 w-full max-h-full min-h-full h-screen flex flex-col gap-5">
       <ToastContainer />
-      <Link
-        to={"/empleados"}
-        className="flex text-sm font-bold text-indigo-500 gap-2 items-center"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-          />
-        </svg>
-        VOLVER
-      </Link>
       <div className="h-full">
         <div className="py-5 grid grid-cols-4 gap-3">
           {datos.tipo === "mensual" ? (
-            <article className="flex flex-col gap-4 rounded-2xl border border-slate-200 hover:shadow-md transition-all ease-linear bg-white p-6 cursor-pointer uppercase">
+            <article className="flex flex-col gap-4 rounded- hover:shadow-xl shadow-lg transition-all ease-linear bg-white p-6 cursor-pointer uppercase rounded-2xl">
               <div className="inline-flex gap-2 self-end rounded-xl bg-green-100 py-2 px-2 text-green-600">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +187,7 @@ export const ViewEmpleado = () => {
               </div>
             </article>
           ) : (
-            <article className="flex flex-col gap-4 rounded-2xl border border-slate-200 hover:shadow-md transition-all ease-linear bg-white p-6 cursor-pointer uppercase">
+            <article className="flex flex-col gap-4 rounded- hover:shadow-xl shadow-lg transition-all ease-linear bg-white p-6 cursor-pointer uppercase rounded-2xl">
               <div className="inline-flex gap-2 self-end rounded-xl bg-green-100 py-2 px-2 text-green-600">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -261,7 +239,7 @@ export const ViewEmpleado = () => {
           )}
 
           {datos.tipo !== "mensual" && (
-            <article className="flex flex-col gap-4 rounded-2xl border border-slate-200 hover:shadow-md transition-all ease-linear bg-white p-6 cursor-pointer uppercase">
+            <article className="flex flex-col gap-4 rounded- hover:shadow-xl shadow-lg transition-all ease-linear bg-white p-6 cursor-pointer uppercase rounded-2xl">
               <div className="inline-flex gap-2 self-end rounded-xl bg-green-100 py-2 px-2 text-green-600">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -315,7 +293,7 @@ export const ViewEmpleado = () => {
             </article>
           )}
 
-          <article className="flex flex-col gap-4 rounded-2xl border border-slate-200 hover:shadow-md transition-all ease-linear bg-white p-6 cursor-pointer uppercase">
+          <article className="flex flex-col gap-4 rounded- hover:shadow-xl shadow-lg transition-all ease-linear bg-white p-6 cursor-pointer uppercase rounded-2xl">
             <div className="inline-flex gap-2 self-end rounded-xl bg-indigo-100 py-2 px-2 text-indigo-600">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -364,7 +342,7 @@ export const ViewEmpleado = () => {
               </p>
             </div>
           </article>
-          <article className="flex flex-col gap-4 rounded-2xl border border-slate-200 hover:shadow-md transition-all ease-linear bg-white p-6 cursor-pointer uppercase">
+          <article className="flex flex-col gap-4 rounded- hover:shadow-xl shadow-lg transition-all ease-linear bg-white p-6 cursor-pointer uppercase rounded-2xl">
             <div className="inline-flex gap-2 self-end rounded-xl bg-indigo-100 py-2 px-2 text-indigo-600">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -399,7 +377,7 @@ export const ViewEmpleado = () => {
           </article>
         </div>
 
-        <div className="mt-5 border-slate-200 border-[1px] rounded-2xl hover:shadow-md transition-all ease-linear cursor-pointer px-10 py-10">
+        <div className="mt-5 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all ease-linear cursor-pointer px-10 py-10">
           <div className="flex">
             <p className="text-green-700 shadow-md shadow-gray-200 font-normal bg-green-100 py-3 px-5 rounded-xl ">
               EMPLEADO RESUMEN{" "}
@@ -469,12 +447,32 @@ export const ViewEmpleado = () => {
               <div className="flex gap-2">
                 <p className="uppercase text-slate-700 font-bold">Descuentos</p>
                 <p className="uppercase text-slate-700">
-                  {" "}
-                  -{" "}
-                  {Number(datos.descuento).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}
+                  {datos.tipo === "mensual" ? (
+                    <p>
+                      -{" "}
+                      {Number(datos.descuento).toLocaleString("es-AR", {
+                        style: "currency",
+                        currency: "ARS",
+                      })}
+                    </p>
+                  ) : (
+                    <div className="flex flex-col gap-2">
+                      <p>
+                        del 5 -
+                        {Number(datos.descuento).toLocaleString("es-AR", {
+                          style: "currency",
+                          currency: "ARS",
+                        })}
+                      </p>
+                      <p>
+                        del 20 -
+                        {Number(datos.descuento_20).toLocaleString("es-AR", {
+                          style: "currency",
+                          currency: "ARS",
+                        })}
+                      </p>
+                    </div>
+                  )}
                 </p>
               </div>
 
@@ -625,12 +623,6 @@ export const ViewEmpleado = () => {
       </div>
 
       <div className="mt-5 flex gap-2">
-        {/* <button className="bg-black text-white rounded-xl py-2 px-6 hover:shadow-md transiton-all ease-in-out duration-200">
-          <PDFDownloadLink document={<ImprimirComprobante datos={datos} />}>
-            Descargar Comprobante Empleado
-          </PDFDownloadLink>
-        </button> */}
-
         <button
           onClick={() => {
             openEliminar();
@@ -700,7 +692,7 @@ export const ModalEliminar = ({ isOpen, closeEliminar, handleEliminar }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-[500px] p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <div className="inline-block w-[400px] p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 <div className="text-lg text-indigo-500 mb-3 border-b-[1px] uppercase">
                   DESEAS ELIMINAR EL EMPLEADO?
                 </div>

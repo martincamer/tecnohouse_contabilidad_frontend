@@ -104,7 +104,7 @@ export const ModalCrearFabrica = ({ isOpen, closeModal }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div className="fixed inset-0 bg-black bg-opacity-10" />
           </Transition.Child>
 
           <div className="min-h-screen px-4 text-center">
@@ -160,28 +160,30 @@ export const ModalCrearFabrica = ({ isOpen, closeModal }) => {
                       {...register("tipo", { required: true })}
                       type="text"
                       placeholder="Ingresa el nombre.."
-                      className="py-2 px-4 border-[1px] border-black/10 rounded-lg shadow shadow-black/10 outline-none"
+                      className="py-2 px-4 border-[1px] border-black/10 rounded-2xl shadow shadow-black/10 outline-none uppercase"
                     />
                   </div>
 
                   <div>
                     <button
                       type="submit"
-                      className="bg-indigo-500 py-1 px-4 rounded-lg shadow text-white mt-2"
+                      className="bg-indigo-500 py-1.5 px-6 font-semibold rounded-full shadow text-white mt-2"
                     >
                       Crear nueva fabrica
                     </button>
                   </div>
                 </form>
 
-                <div className="text-lg text-indigo-500 mb-3 border-b-[1px] uppercase mt-5">
+                <div className="text-base text-slate-700 font-bold mb-3 border-b-[1px] uppercase mt-5">
                   Fabricas creadas
                 </div>
 
                 <div className="grid grid-cols-3 items-start gap-2">
                   {fabricas.map((f) => (
-                    <div className="border-slate-300 border-[1px] py-1 px-3 rounded-xl shadow flex gap-2 justify-center items-center">
-                      <p className="text-sm text-slate-600">{f.tipo}</p>
+                    <div className="border-slate-300 border-[1px] py-2 px-3 rounded-xl shadow flex gap-2 justify-center items-center">
+                      <p className="text-sm text-slate-600 uppercase font-semibold">
+                        {f.tipo}
+                      </p>
                       <svg
                         onClick={() => handleEliminar(f.id)}
                         xmlns="http://www.w3.org/2000/svg"
