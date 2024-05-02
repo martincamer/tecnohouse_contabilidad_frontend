@@ -152,7 +152,7 @@ export const SideBar = () => {
                   </a>
                 </Link>
 
-                <Link to={"/cuenta"}>
+                {/* <Link to={"/cuenta"}>
                   <a
                     href="#"
                     className={`${
@@ -183,7 +183,7 @@ export const SideBar = () => {
                       </button>
                     </div>
                   </a>
-                </Link>
+                </Link> */}
               </ul>
             </div>
           </div>

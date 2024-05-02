@@ -271,8 +271,12 @@ export const TablaDeDatos = ({
   return (
     <div className="h-full min-h-full max-h-full">
       <ToastContainer />
+
+      <div className="font-semibold text-xl">
+        Generar los datos de la estadistica del mes 🖐️
+      </div>
       <div className="mt-6 mb-10 grid grid-cols-4 gap-5">
-        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out">
+        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
           <div className="flex gap-4 items-center">
             <span className="rounded-full bg-green-100 p-4 text-green-700">
               <svg
@@ -325,7 +329,7 @@ export const TablaDeDatos = ({
           </div>
         </article>
 
-        <article className="flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out cursor-pointer">
+        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
           <div className="flex gap-4 items-center">
             <span className="rounded-full bg-red-100 p-4 text-red-700">
               <svg
@@ -377,7 +381,7 @@ export const TablaDeDatos = ({
           </div>
         </article>
 
-        <article className="flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out cursor-pointer">
+        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
           <div className="flex gap-4 items-center">
             <span className="rounded-full bg-red-100 p-4 text-red-700">
               <svg
@@ -434,7 +438,7 @@ export const TablaDeDatos = ({
           </div>
         </article>
 
-        <article className="flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out cursor-pointer">
+        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
           <div className="flex gap-4 items-center">
             <span className="rounded-full bg-green-100 p-4 text-green-700">
               <svg
@@ -494,11 +498,11 @@ export const TablaDeDatos = ({
         </div>
         <div className="flex">
           <p className="font-bold bg-indigo-500 rounded-xl py-2 px-4 text-white mr-2">
-            {sumaPorcentajes}%
+            {sumaPorcentajes || 0}%
           </p>
         </div>
       </div>
-      <div className="overflow-x-auto rounded-2xl border border-gray-200 mt-5 hover:shadow-md transition-all ease-linear cursor-pointer">
+      <div className="overflow-x-auto rounded-2xl mt-5 hover:shadow-md transition-all ease-linear cursor-pointer bg-white shadow-lg">
         <table className="min-w-full divide-y-1 divide-gray-200 bg-white text-sm">
           <thead>
             <tr className="border-b-[1px]">
@@ -822,12 +826,11 @@ export const TablaDeDatos = ({
 
       <div className="py-10">
         <button
-          // onClick={() => onSubmit()}
           onClick={() => openGuardarDatos()}
-          className="bg-indigo-500 py-2 px-5 rounded-xl text-white font-bold shadow"
+          className="bg-indigo-500 py-3 px-6 rounded-full text-white font-semibold shadow"
           type="button"
         >
-          GUARDAR LOS DATOS.
+          Guardar los datos de la estadistica
         </button>
       </div>
 

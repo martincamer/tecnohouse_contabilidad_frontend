@@ -162,7 +162,11 @@ export const EmpleadosTwo = () => {
   };
 
   return (
-    <section className="px-5 py-20 w-full h-full flex flex-col gap-5">
+    <section className="px-5 py-16 w-full h-full flex flex-col gap-5">
+      <div className="font-semibold text-xl">
+        Bienvenido al sector comprobantes, descarga todos los comprobantes
+        mensuales,quincenales,etc 🖐️
+      </div>
       <div className="px-0">
         <div className="bg-white w-full py-6 px-6 shadow-xl rounded-2xl flex gap-4">
           <div>

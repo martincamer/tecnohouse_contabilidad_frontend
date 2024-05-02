@@ -35,7 +35,7 @@ export const TablaEstadistica = () => {
   const [editandoIndiceCanjes, setEditandoIndiceCanjes] = useState(null);
 
   const [presupuestoAsignado, setPresupuestoAsignado] = useState(
-    localStorage.getItem("presupuestoAsignado-dos")
+    localStorage.getItem("presupuestoAsignado-dos" || 0)
   );
 
   const [idObtenida, setIdObtenida] = useState(
@@ -382,25 +382,28 @@ export const TablaEstadistica = () => {
   return (
     <div className="h-full min-h-full max-h-full">
       <ToastContainer />
+      <div className="font-semibold text-xl">
+        Filtrar los datos de la estadistica del mes generadas 🖐️
+      </div>
       <div className="mt-10 mb-10">
         <div className="flex gap-6 items-center">
           <div className="flex gap-2 items-center">
-            <label className="text-base text-slate-700 uppercase">
+            <label className="text-base text-slate-700 uppercase font-semibold">
               Fecha de inicio
             </label>
             <input
-              className="text-sm bg-slate-100 py-1 px-2 rounded-lg shadow border-slate-300 border-[1px] cursor-pointer text-slate-700 outline-none"
+              className="text-sm bg-white py-2 px-3 rounded-2xl shadow-lg cursor-pointer text-slate-700 outline-none"
               type="date"
               value={fechaInicio}
               onChange={(e) => setFechaInicio(e.target.value)}
             />
           </div>
           <div className="flex gap-2 items-center">
-            <label className="text-base text-slate-700 uppercase">
+            <label className="text-base text-slate-700 uppercase font-semibold">
               Fecha de fin
             </label>
             <input
-              className="text-sm bg-slate-100 py-1 px-2 rounded-lg shadow border-slate-300 border-[1px] cursor-pointer text-slate-700 outline-none"
+              className="text-sm bg-white py-2 px-3 rounded-2xl shadow-lg cursor-pointer text-slate-700 outline-none"
               type="date"
               value={fechaFin}
               onChange={(e) => setFechaFin(e.target.value)}
@@ -409,7 +412,7 @@ export const TablaEstadistica = () => {
 
           <button
             onClick={buscarIngresosPorFecha}
-            className="text-white uppercase text-sm bg-indigo-500 px-5 py-2 rounded-xl shadow"
+            className="text-white capitalize text-sm bg-indigo-500 px-6 py-3 rounded-full shadow-lg font-semibold"
           >
             Buscar estadistica
           </button>
@@ -421,7 +424,7 @@ export const TablaEstadistica = () => {
       ) : (
         <>
           <div className="mt-6 mb-10 grid grid-cols-4 gap-5">
-            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out">
+            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
               <div className="flex gap-4 items-center">
                 <span className="rounded-full bg-green-100 p-4 text-green-700">
                   <svg
@@ -470,11 +473,14 @@ export const TablaEstadistica = () => {
                   />
                 </svg>
 
-                <span className="text-sm font-bold"> {sumaPorcentajes}% </span>
+                <span className="text-sm font-bold">
+                  {" "}
+                  {sumaPorcentajes || 0}%{" "}
+                </span>
               </div>
             </article>
 
-            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out">
+            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
               <div className="flex gap-4 items-center">
                 <span className="rounded-full bg-red-100 p-4 text-red-700">
                   <svg
@@ -533,7 +539,7 @@ export const TablaEstadistica = () => {
               </div>
             </article>
 
-            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out">
+            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
               <div className="flex gap-4 items-center">
                 <span className="rounded-full bg-red-100 p-4 text-red-700">
                   <svg
@@ -593,7 +599,7 @@ export const TablaEstadistica = () => {
               </div>
             </article>
 
-            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out">
+            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
               <div className="flex gap-4 items-center">
                 <span className="rounded-full bg-green-100 p-4 text-green-700">
                   <svg
@@ -648,7 +654,7 @@ export const TablaEstadistica = () => {
               </div>
             </article>
 
-            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-md transition-all ease-in-out">
+            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
               <div className="flex gap-4 items-center">
                 <span className="rounded-full bg-green-100 p-4 text-green-700">
                   <svg
@@ -696,7 +702,7 @@ export const TablaEstadistica = () => {
               </p>
             </div>
           </div>
-          <div className="overflow-x-auto rounded-2xl cursor-pointer border border-gray-200  mt-5 hover:shadow-md transition-all ease-in-out">
+          <div className="overflow-x-auto rounded-2xl cursor-pointer shadow-lg mt-5 hover:shadow-md transition-all ease-in-out bg-white">
             <table className="min-w-full divide-y-1 divide-gray-200 bg-white text-sm">
               <thead>
                 <tr className="border-b-[1px]">
@@ -966,7 +972,7 @@ export const TablaEstadistica = () => {
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-2xl border border-gray-200 mt-5 hover:shadow-md transition-all ease-in-out cursor-pointer">
+          <div className="overflow-x-auto rounded-2xl cursor-pointer shadow-lg mt-5 hover:shadow-md transition-all ease-in-out bg-white">
             <table className="min-w-full divide-y-1 divide-gray-200 bg-white text-sm">
               <thead>
                 <tr className="border-b-[1px]">
@@ -1147,10 +1153,10 @@ export const TablaEstadistica = () => {
             <button
               // onClick={() => onSubmit()}
               onClick={() => openGuardarDatos()}
-              className="bg-indigo-500 py-2 px-5 rounded-xl text-white font-bold shadow"
+              className="bg-indigo-500 py-2 px-5 rounded-full text-white font-semibold shadow"
               type="button"
             >
-              GUARDAR LOS DATOS.
+              Guardar los datos en la base de datos.
             </button>
           </div>
         </>
@@ -1166,7 +1172,7 @@ export const TablaEstadistica = () => {
           fileName={`PRESUPUESTO ASIGNADO + DIFERENCIAS + ETC, MES ${obtenerMes(
             fechaObtenida
           )}`}
-          className="bg-green-500 rounded-xl py-3 px-6 text-white shadow font-bold flex gap-2 items-center"
+          className="bg-green-500/90 rounded-full py-3 px-6 text-white shadow font-semibold flex gap-2 items-center"
           target="_blank"
           download={false}
           document={
@@ -1178,7 +1184,7 @@ export const TablaEstadistica = () => {
             />
           }
         >
-          DESCARGAR E IMPRIMIR ESTADISTICA
+          Descargar e imprimir la estadistica filtrada.
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

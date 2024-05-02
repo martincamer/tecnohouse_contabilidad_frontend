@@ -155,7 +155,10 @@ export const Empleados = () => {
   };
 
   return (
-    <section className="px-5 py-24 w-full h-full flex flex-col gap-5">
+    <section className="px-5 py-16 w-full h-full flex flex-col gap-5">
+      <div className="font-semibold text-xl">
+        Bienvenido al sector empleados, crea nuevos empleados,edita,etc 🖐️
+      </div>
       <div>
         <div className="w-full grid grid-cols-4 gap-3">
           <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
