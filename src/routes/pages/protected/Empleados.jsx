@@ -5,11 +5,21 @@ import { ModalCrearFabrica } from "../../../components/empleados/ModalCrearFabri
 import { ModalEditarEmpleado } from "../../../components/empleados/ModalEditarEmpleado";
 import { ModalGuardarDatosFinal } from "../../../components/empleados/ModalGuardarDatosFinal";
 import client from "../../../api/axios";
+import { ModalCrearEmpleado } from "../../../components/empleados/ModalCrearEmpleado";
 
 export const Empleados = () => {
   const { empleados, fabricas } = useEmpleadosContext();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenCrear, setIsOpenCrear] = useState(false);
+
+  const openModalCrear = () => {
+    setIsOpenCrear(true);
+  };
+
+  const closeModalCrear = () => {
+    setIsOpenCrear(false);
+  };
 
   const openModal = () => {
     setIsOpen(true);
@@ -377,7 +387,9 @@ export const Empleados = () => {
               className="bg-indigo-500 text-white font-semibold uppercase py-3 px-5 rounded-full text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
               type="button"
             >
-              <Link to="/empleado-nuevo">Cargar nuevo empleado</Link>
+              <Link onClick={() => openModalCrear()}>
+                Cargar nuevo empleado
+              </Link>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -786,6 +798,10 @@ export const Empleados = () => {
         closeModal={closeGuardarDatosFinal}
         isOpen={guardarDatosFinal}
         handleSubmit={handleSubmit}
+      />
+      <ModalCrearEmpleado
+        isOpenEdit={isOpenCrear}
+        closeModalEdit={closeModalCrear}
       />
     </section>
   );

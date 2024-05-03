@@ -1,32 +1,20 @@
 import { Dialog, Menu, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import { editarTipo, obtenerUnicoTipo } from "../../api/fabrica.api";
-import { useForm } from "react-hook-form";
+import { Fragment, useState } from "react";
+import { toast } from "react-toastify";
 import { useEmpleadosContext } from "../../context/EmpleadosProvider";
-import {
-  actualizarEmpleado,
-  obtenerUnicoEmpleado,
-} from "../../api/empleados.api";
+import { crearNuevoEmpleado } from "../../api/empleados.api";
 
-export const ModalEditarEmpleado = ({
-  obtenerId,
-  isOpenEdit,
-  closeModalEdit,
-}) => {
+export const ModalCrearEmpleado = ({ isOpenEdit, closeModalEdit }) => {
   const { empleados, setEmpleados, fabricas } = useEmpleadosContext();
 
   //errores
   const [error, setError] = useState(null);
-
-  const [datos, setDatos] = useState([]);
 
   //formulario state
   const [empleado, setEmpleado] = useState("");
   const [fecha, setFecha] = useState("");
   const [tipo, setTipo] = useState("");
   const [antiguedad, setAntiguedad] = useState(0);
-  const [tipo_fabrica, setTipoFabrica] = useState("");
   const [quincena_del_cinco, setQuincenaCinco] = useState(0);
   const [quincena_del_veinte, setQuincenaVeinte] = useState(0);
   const [setTotalAntiguedad] = useState(0);
@@ -38,47 +26,12 @@ export const ModalEditarEmpleado = ({
   const [setTotalQuincena] = useState(0);
   const [setTotalQuincenaVeinte] = useState(0);
   const [setTotalFinal] = useState(0);
+  const [tipo_fabrica, setTipoFabrica] = useState("");
   const [obs, setObs] = useState("");
   const [otros, setOtros] = useState(0);
-  const [obs_20, setObs20] = useState("");
   const [descuento_20, setDescuento20] = useState(0);
+  const [obs_20, setObs20] = useState("");
   const [rol, setRol] = useState("");
-  //   const params = useParams();
-
-  useEffect(() => {
-    async function loadData() {
-      const res = await obtenerUnicoEmpleado(obtenerId);
-
-      setDatos(res.data);
-
-      const empleadoData = res.data;
-
-      // Convertir la fecha de ISO a "YYYY-MM-DD"
-      const fechaISO = new Date(empleadoData.fecha);
-      const fechaFormateada = fechaISO.toISOString().split("T")[0];
-
-      // Establecer los valores en los estados
-      setEmpleado(empleadoData.empleado || "");
-      setFecha(fechaFormateada || "");
-      setTipo(empleadoData.tipo || "");
-      setAntiguedad(empleadoData.antiguedad || 0);
-      setQuincenaCinco(empleadoData.quincena_del_cinco || 0);
-      setQuincenaVeinte(empleadoData.quincena_del_veinte || 0);
-      setBanco(empleadoData.banco || 0);
-      setAsistencia(empleadoData.premio_asistencia || 0);
-      setProduccion(empleadoData.premio_produccion || 0);
-      setProducci(empleadoData.comida_produccion || 0);
-      setDescuento(empleadoData.descuento || 0);
-      setTipoFabrica(empleadoData.tipo_fabrica || "");
-      setObs(empleadoData.obs || "");
-      setObs20(empleadoData.obs_20 || "");
-      setOtros(empleadoData.otros || "");
-      setDescuento20(empleadoData.descuento_20 || 0);
-      setRol(empleadoData.rol || "");
-    }
-
-    loadData();
-  }, [obtenerId]);
 
   const total_antiguedad =
     (Number(quincena_del_cinco) + Number(quincena_del_veinte)) *
@@ -101,14 +54,31 @@ export const ModalEditarEmpleado = ({
   const total_final =
     Number(total_quincena_veinte) + Number(otros) + Number(total_quincena);
 
-  //   const navigate = useNavigate();
+  const resetFormulario = () => {
+    setEmpleado("");
+    setFecha("");
+    setTipo("");
+    setAntiguedad(0);
+    setQuincenaCinco(0);
+    setQuincenaVeinte(0);
+    setBanco(0);
+    setAsistencia(0);
+    setProduccion(0);
+    setProducci(0);
+    setDescuento(0);
+    setTipoFabrica("");
+    setObs("");
+    setOtros(0);
+    setDescuento20(0);
+    setObs20("");
+    setRol("");
+  };
 
   //
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
-
-      const res = await actualizarEmpleado(obtenerId, {
+      const res = await crearNuevoEmpleado({
         empleado,
         fecha,
         tipo,
@@ -121,53 +91,20 @@ export const ModalEditarEmpleado = ({
         premio_produccion,
         comida_produccion,
         descuento,
-        obs,
         otros,
         total_quincena,
         total_quincena_veinte,
         total_final,
+        obs,
         tipo_fabrica,
         obs_20,
         descuento_20,
         rol,
       });
 
-      const tipoExistenteIndex = empleados.findIndex(
-        (tipo) => tipo.id == obtenerId
-      );
+      setEmpleados((prevTipos) => [...prevTipos, res.data]);
 
-      setEmpleados((prevTipos) => {
-        const newTipos = [...prevTipos];
-        const updatedEmpleado = JSON.parse(res.config.data); // Convierte el JSON a objeto
-
-        newTipos[tipoExistenteIndex] = {
-          id: obtenerId,
-          empleado: updatedEmpleado.empleado,
-          fecha: updatedEmpleado.fecha,
-          tipo: updatedEmpleado.tipo,
-          tipo_fabrica: updatedEmpleado.tipo_fabrica,
-          antiguedad: updatedEmpleado.antiguedad,
-          quincena_del_cinco: updatedEmpleado.quincena_del_cinco,
-          quincena_del_veinte: updatedEmpleado.quincena_del_veinte,
-          total_antiguedad: updatedEmpleado.total_antiguedad,
-          banco: updatedEmpleado.banco,
-          premio_produccion: updatedEmpleado.premio_produccion,
-          premio_asistencia: updatedEmpleado.premio_asistencia,
-          comida_produccion: updatedEmpleado.comida_produccion,
-          descuento: updatedEmpleado.descuento,
-          total_quincena: updatedEmpleado.total_quincena,
-          total_quincena_veinte: updatedEmpleado.total_quincena_veinte,
-          total_final: updatedEmpleado.total_final,
-          obs: updatedEmpleado.obs,
-          otros: updatedEmpleado.otros,
-          descuento_20: updatedEmpleado.descuento_20,
-          obs_20: updatedEmpleado.obs_20,
-          rol: updatedEmpleado.rol,
-        };
-        return newTipos;
-      });
-
-      toast.success("¡Empleado editado correctamente!", {
+      toast.success("¡Empleado creado correctamente!", {
         position: "top-center",
         autoClose: 1500,
         hideProgressBar: true,
@@ -185,9 +122,9 @@ export const ModalEditarEmpleado = ({
 
       setError(null);
 
-      setTimeout(() => {
-        closeModalEdit();
-      }, 500);
+      closeModalEdit();
+
+      resetFormulario();
     } catch (error) {
       if (error.response.data.message) {
         setError(error.response.data.message);
@@ -269,11 +206,15 @@ export const ModalEditarEmpleado = ({
                     />
                   </svg>
                 </div>
-                <div className="text-base text-indigo-500 border-b-[1px] uppercase mb-10 font-semibold">
-                  Editar empleado /{" "}
-                  <span className="font-bold text-slate-600">
-                    {datos.empleado}
-                  </span>
+                <div className="text-base text-indigo-500 border-b-[1px] uppercase mb-2 font-semibold">
+                  Crear nuevo empleado
+                </div>
+
+                <div className="mb-5 flex flex-col">
+                  <p>
+                    Registra nuevo empleado rellena los siguientes campos para
+                    crear un nuevo empleado.
+                  </p>
                 </div>
 
                 <form onSubmit={onSubmit} action="#" className="space-y-6">
@@ -1145,7 +1086,7 @@ export const ModalEditarEmpleado = ({
                       type="submit"
                       className="inline-block w-full rounded-full text-sm font-bold bg-indigo-500 px-5 py-3 text-white sm:w-auto"
                     >
-                      Editar el empleado
+                      Crear empleado nuevo
                     </button>
                   </div>
                 </form>
