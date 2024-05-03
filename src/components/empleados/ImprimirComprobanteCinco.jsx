@@ -428,7 +428,9 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
                     width: "100%",
                   }}
                 >
-                  {Number(Number(datos.total_final)).toLocaleString("es-AR", {
+                  {Number(
+                    Number(datos.total_quincena) + Number(datos.otros)
+                  ).toLocaleString("es-AR", {
                     style: "currency",
                     currency: "ARS",
                   })}
@@ -690,7 +692,9 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
                 }}
               >
                 {" "}
-                {Number(Number(datos.total_final)).toLocaleString("es-AR", {
+                {Number(
+                  Number(datos.total_quincena) + Number(datos.otros)
+                ).toLocaleString("es-AR", {
                   style: "currency",
                   currency: "ARS",
                 })}
