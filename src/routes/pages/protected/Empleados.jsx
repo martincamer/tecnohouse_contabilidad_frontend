@@ -191,27 +191,6 @@ export const Empleados = () => {
                 </p>
               </div>
             </div>
-            {/* <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                />
-              </svg>
-
-              <span className="text-sm font-bold">
-                {" "}
-                {Number(resultados.length / 10).toFixed(2)}%{" "}
-              </span>
-            </div> */}
           </article>
 
           <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">

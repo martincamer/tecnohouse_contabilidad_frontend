@@ -276,7 +276,7 @@ export const TablaDeDatos = ({
         Generar los datos de la estadistica del mes 🖐️
       </div>
       <div className="mt-6 mb-10 grid grid-cols-4 gap-5">
-        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
+        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out relative">
           <div className="flex gap-4 items-center">
             <span className="rounded-full bg-green-100 p-4 text-green-700">
               <svg
@@ -309,7 +309,7 @@ export const TablaDeDatos = ({
               </p>
             </div>
           </div>
-          <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600">
+          <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600 absolute top-[-14px] right-8">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4"
@@ -329,7 +329,7 @@ export const TablaDeDatos = ({
           </div>
         </article>
 
-        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
+        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out relative">
           <div className="flex gap-4 items-center">
             <span className="rounded-full bg-red-100 p-4 text-red-700">
               <svg
@@ -361,7 +361,7 @@ export const TablaDeDatos = ({
               <p className="text-sm text-gray-600 underline">UTILIZADO REAL</p>
             </div>
           </div>
-          <div className="inline-flex gap-2 rounded-xl bg-red-100 p-2 text-red-600">
+          <div className="inline-flex gap-2 rounded-xl bg-red-100 p-2 text-red-600 absolute top-[-14px] right-8">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4"
@@ -381,7 +381,7 @@ export const TablaDeDatos = ({
           </div>
         </article>
 
-        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
+        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out relative">
           <div className="flex gap-4 items-center">
             <span className="rounded-full bg-red-100 p-4 text-red-700">
               <svg
@@ -418,7 +418,7 @@ export const TablaDeDatos = ({
               </p>
             </div>
           </div>
-          <div className="inline-flex gap-2 rounded-xl bg-red-100 p-2 text-red-600">
+          <div className="inline-flex gap-2 rounded-xl bg-red-100 p-2 text-red-600 absolute top-[-14px] right-8">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4"
@@ -438,7 +438,7 @@ export const TablaDeDatos = ({
           </div>
         </article>
 
-        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
+        <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out relative">
           <div className="flex gap-4 items-center">
             <span className="rounded-full bg-green-100 p-4 text-green-700">
               <svg
@@ -470,7 +470,7 @@ export const TablaDeDatos = ({
               </p>
             </div>
           </div>
-          <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600">
+          <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600 absolute top-[-14px] right-8">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4"

@@ -424,7 +424,7 @@ export const TablaEstadistica = () => {
       ) : (
         <>
           <div className="mt-6 mb-10 grid grid-cols-4 gap-5">
-            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
+            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out relative">
               <div className="flex gap-4 items-center">
                 <span className="rounded-full bg-green-100 p-4 text-green-700">
                   <svg
@@ -444,7 +444,7 @@ export const TablaEstadistica = () => {
                 </span>
 
                 <div>
-                  <p className="text-2xl font-medium text-gray-900">
+                  <p className="text-2xl font-bold text-gray-900">
                     {" "}
                     {Number(presupuestoAsignado || 0).toLocaleString("es-AR", {
                       style: "currency",
@@ -457,7 +457,7 @@ export const TablaEstadistica = () => {
                   </p>
                 </div>
               </div>
-              <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600">
+              <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600 absolute top-[-14px] right-8">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"
@@ -480,7 +480,7 @@ export const TablaEstadistica = () => {
               </div>
             </article>
 
-            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
+            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out relative">
               <div className="flex gap-4 items-center">
                 <span className="rounded-full bg-red-100 p-4 text-red-700">
                   <svg
@@ -500,7 +500,7 @@ export const TablaEstadistica = () => {
                 </span>
 
                 <div>
-                  <p className="text-2xl font-medium text-red-700">
+                  <p className="text-2xl font-bold text-red-700">
                     {" "}
                     -
                     {Number(
@@ -516,7 +516,7 @@ export const TablaEstadistica = () => {
                   </p>
                 </div>
               </div>
-              <div className="inline-flex gap-2 rounded-xl bg-red-100 p-2 text-red-600">
+              <div className="inline-flex gap-2 rounded-xl bg-red-100 p-2 text-red-600 absolute top-[-14px] right-8">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"
@@ -539,7 +539,7 @@ export const TablaEstadistica = () => {
               </div>
             </article>
 
-            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
+            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out relative">
               <div className="flex gap-4 items-center">
                 <span className="rounded-full bg-red-100 p-4 text-red-700">
                   <svg
@@ -564,7 +564,7 @@ export const TablaEstadistica = () => {
                 </span>
 
                 <div>
-                  <p className="text-2xl font-medium text-red-700">
+                  <p className="text-2xl font-bold text-red-700">
                     {sumaTotal.toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
@@ -576,7 +576,7 @@ export const TablaEstadistica = () => {
                   </p>
                 </div>
               </div>
-              <div className="inline-flex gap-2 rounded-xl bg-red-100 p-2 text-red-600">
+              <div className="inline-flex gap-2 rounded-xl bg-red-100 p-2 text-red-600 absolute top-[-14px] right-8">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"
@@ -599,7 +599,7 @@ export const TablaEstadistica = () => {
               </div>
             </article>
 
-            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
+            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out relative">
               <div className="flex gap-4 items-center">
                 <span className="rounded-full bg-green-100 p-4 text-green-700">
                   <svg
@@ -619,7 +619,7 @@ export const TablaEstadistica = () => {
                 </span>
 
                 <div>
-                  <p className="text-2xl font-medium text-slate-800">
+                  <p className="text-2xl font-bold text-slate-800">
                     {sumaTotalPositivos.toLocaleString("es-AR", {
                       style: "currency",
                       currency: "ARS",
@@ -631,7 +631,7 @@ export const TablaEstadistica = () => {
                   </p>
                 </div>
               </div>
-              <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600">
+              <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600 absolute top-[-14px] right-8">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"
@@ -654,7 +654,7 @@ export const TablaEstadistica = () => {
               </div>
             </article>
 
-            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out">
+            <article className="cursor-pointer flex justify-between items-start rounded-2xl border border-gray-200 bg-white p-8 hover:shadow-xl shadow-lg border-none transition-all ease-in-out relative">
               <div className="flex gap-4 items-center">
                 <span className="rounded-full bg-green-100 p-4 text-green-700">
                   <svg
@@ -674,7 +674,7 @@ export const TablaEstadistica = () => {
                 </span>
 
                 <div>
-                  <p className="text-2xl font-medium text-slate-800 uppercase">
+                  <p className="text-2xl text-slate-800 uppercase font-bold">
                     {obtenerMes(fechaObtenida)}
                   </p>
 
@@ -683,9 +683,9 @@ export const TablaEstadistica = () => {
                   </p>
                 </div>
               </div>
-              <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600">
+              <div className="inline-flex gap-2 rounded-xl bg-green-100 p-2 text-green-600 absolute top-[-14px] right-8">
                 <span className="text-sm font-bold uppercase">
-                  {obtenerMes(fechaObtenida)}
+                  {obtenerMes(fechaObtenida && "11-02-2024")}
                 </span>
               </div>
             </article>

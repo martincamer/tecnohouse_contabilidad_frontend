@@ -96,222 +96,7 @@ const facturaAleatoria = generateInvoiceNumber();
 export const ImprimirComprobanteCinco = ({ datos }) => {
   const fechaFormateadaTwo = new Date(datos.fecha).toLocaleDateString("es-AR");
 
-  const tipoPago = datos?.tipo;
-  const hoyEsDia = new Date().getDate();
-
-  //   let mensaje = "";
-
-  //   if (tipoPago === "quincenal") {
-  //     if (hoyEsDia >= 1 && hoyEsDia <= 14) {
-  //       mensaje = Number(
-  //         Number(datos.total_quincena) + Number(datos.otros)
-  //       ).toLocaleString("es-AR", {
-  //         style: "currency",
-  //         currency: "ARS",
-  //       });
-  //     } else if (hoyEsDia >= 15 && hoyEsDia <= 28) {
-  //       mensaje = Number(datos.total_quincena_veinte).toLocaleString("es-AR", {
-  //         style: "currency",
-  //         currency: "ARS",
-  //       });
-  //     } else {
-  //       mensaje = "No hay quincena disponible para hoy.";
-  //     }
-  //   } else if (tipoPago === "mensual") {
-  //     mensaje = Number(datos.total_final).toLocaleString("es-AR", {
-  //       style: "currency",
-  //       currency: "ARS",
-  //     });
-  //   } else {
-  //     mensaje = "Tipo de pago no reconocido.";
-  //   }
-
-  //   let mensajeTree = "";
-
-  //   if (tipoPago === "quincenal") {
-  //     if (hoyEsDia >= 1 && hoyEsDia <= 14) {
-  //       mensajeTree = Number(Number(datos.total_quincena)).toLocaleString(
-  //         "es-AR",
-  //         {
-  //           style: "currency",
-  //           currency: "ARS",
-  //         }
-  //       );
-  //     } else if (hoyEsDia >= 15 && hoyEsDia <= 28) {
-  //       mensajeTree = Number(datos.total_quincena_veinte).toLocaleString(
-  //         "es-AR",
-  //         {
-  //           style: "currency",
-  //           currency: "ARS",
-  //         }
-  //       );
-  //     } else {
-  //       mensajeTree = "No hay quincena disponible para hoy.";
-  //     }
-  //   } else if (tipoPago === "mensual") {
-  //     mensajeTree = Number(
-  //       datos.otros > 1 ? datos.total_quincena : datos.total_final
-  //     ).toLocaleString("es-AR", {
-  //       style: "currency",
-  //       currency: "ARS",
-  //     });
-  //   } else {
-  //     mensajeTree = "Tipo de pago no reconocido.";
-  //   }
-
-  //   let quincenaReal = "";
-
-  //   if (tipoPago === "quincenal") {
-  //     if (hoyEsDia >= 1 && hoyEsDia <= 14) {
-  //       quincenaReal = Number(datos.quincena_del_cinco).toLocaleString("es-AR", {
-  //         style: "currency",
-  //         currency: "ARS",
-  //       });
-  //     } else if (hoyEsDia >= 15 && hoyEsDia <= 28) {
-  //       quincenaReal = Number(datos.quincena_del_veinte).toLocaleString("es-AR", {
-  //         style: "currency",
-  //         currency: "ARS",
-  //       });
-  //     } else {
-  //       quincenaReal = "No hay quincena disponible para hoy.";
-  //     }
-  //   } else if (tipoPago === "mensual") {
-  //     quincenaReal = Number(datos.quincena_del_cinco).toLocaleString("es-AR", {
-  //       style: "currency",
-  //       currency: "ARS",
-  //     });
-  //   } else {
-  //     quincenaReal = "Tipo de pago no reconocido.";
-  //   }
-
-  //   let mensajes = [];
-
-  //   if (tipoPago === "quincenal") {
-  //     if (hoyEsDia >= 1 && hoyEsDia <= 14) {
-  //       mensajes = [
-  //         `Premio Producción: ${Number(datos.premio_produccion).toLocaleString(
-  //           "es-AR",
-  //           {
-  //             style: "currency",
-  //             currency: "ARS",
-  //           }
-  //         )} - `,
-  //         `Premio Asistencia: ${Number(datos.premio_asistencia).toLocaleString(
-  //           "es-AR",
-  //           {
-  //             style: "currency",
-  //             currency: "ARS",
-  //           }
-  //         )}`,
-  //       ];
-  //     } else if (
-  //       hoyEsDia >= 11 &&
-  //       hoyEsDia <= 31 &&
-  //       datos.tipo_fabrica !== "administracion"
-  //     ) {
-  //       mensajes = [
-  //         `Comida: ${Number(datos.comida_produccion).toLocaleString("es-AR", {
-  //           style: "currency",
-  //           currency: "ARS",
-  //         })}`,
-  //       ];
-  //     } else {
-  //       mensajes = ["No hay quincena disponible para hoy."];
-  //     }
-  //   } else if (tipoPago === "mensual") {
-  //     mensajes = [
-  //       `Premio Asistencia: ${Number(datos.premio_asistencia).toLocaleString(
-  //         "es-AR",
-  //         {
-  //           style: "currency",
-  //           currency: "ARS",
-  //         }
-  //       )}, Comida: ${Number(datos.comida_produccion).toLocaleString("es-AR", {
-  //         style: "currency",
-  //         currency: "ARS",
-  //       })} ${
-  //         datos.tipo_fabrica === "gerencia"
-  //           ? `, Premio Producción: ${Number(
-  //               datos.premio_produccion
-  //             ).toLocaleString("es-AR", {
-  //               style: "currency",
-  //               currency: "ARS",
-  //             })}`
-  //           : ""
-  //       }`,
-  //     ];
-  //   } else {
-  //     mensajes = ["Tipo de pago no reconocido."];
-  //   }
-
-  //   let obsReal = [];
-
-  //   if (tipoPago === "quincenal") {
-  //     if (hoyEsDia >= 1 && hoyEsDia <= 14) {
-  //       obsReal = [
-  //         `Premio Producción: ${Number(datos.premio_produccion).toLocaleString(
-  //           "es-AR",
-  //           {
-  //             style: "currency",
-  //             currency: "ARS",
-  //           }
-  //         )}`,
-  //         `Premio Asistencia: ${Number(datos.premio_asistencia).toLocaleString(
-  //           "es-AR",
-  //           {
-  //             style: "currency",
-  //             currency: "ARS",
-  //           }
-  //         )}`,
-  //       ];
-  //     } else if (
-  //       hoyEsDia >= 11 &&
-  //       hoyEsDia <= 31 &&
-  //       datos.tipo_fabrica !== "administracion"
-  //     ) {
-  //       obsReal = [
-  //         `Comida: ${Number(datos.comida_produccion).toLocaleString("es-AR", {
-  //           style: "currency",
-  //           currency: "ARS",
-  //         })}`,
-  //       ];
-  //     } else {
-  //       obsReal = ["No hay quincena disponible para hoy."];
-  //     }
-  //   } else if (tipoPago === "mensual") {
-  //     obsReal = [
-  //       `Premio Asistencia: ${Number(datos.premio_asistencia).toLocaleString(
-  //         "es-AR",
-  //         {
-  //           style: "currency",
-  //           currency: "ARS",
-  //         }
-  //       )} / Comida: ${Number(datos.comida_produccion).toLocaleString("es-AR", {
-  //         style: "currency",
-  //         currency: "ARS",
-  //       })} ${
-  //         datos.tipo_fabrica === "gerencia"
-  //           ? `, Premio Producción: ${Number(
-  //               datos.premio_produccion
-  //             ).toLocaleString("es-AR", {
-  //               style: "currency",
-  //               currency: "ARS",
-  //             })}`
-  //           : ""
-  //       }`,
-  //     ];
-  //   } else {
-  //     obsReal = ["Tipo de pago no reconocido."];
-  //   }
-  //   const currentDate = new Date();
-  //   const currentDay = currentDate.getDate();
-
-  //   // Suponiendo que `datos.tipo` contiene el tipo de dato
-  //   const shouldShowAntiguedadRemunerada =
-  //     datos.tipo === "mensual" ||
-  //     (datos.tipo === "quincenal" && currentDay >= 1 && currentDay <= 14);
-
-  console.log(datos);
+  console.log(datos.rol);
 
   return (
     <Document>
@@ -474,7 +259,7 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
                     textTransform: "capitalize",
                     fontSize: "8px",
                     fontFamily: "Montserrat",
-                    fontWeight: "normal",
+                    fontWeight: "bold",
                     width: "100%",
                   }}
                 >
@@ -485,7 +270,7 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
                     textTransform: "capitalize",
                     fontSize: "8px",
                     fontFamily: "Montserrat",
-                    fontWeight: "normal",
+                    fontWeight: "bold",
                     width: "100%",
                   }}
                 >
@@ -496,7 +281,7 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
                     textTransform: "capitalize",
                     fontSize: "8px",
                     fontFamily: "Montserrat",
-                    fontWeight: "normal",
+                    fontWeight: "bold",
                     width: "100%",
                   }}
                 >
@@ -544,6 +329,7 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
                 >
                   Fabrica o Suc.
                 </Text>
+
                 <Text
                   style={{
                     textTransform: "capitalize",
@@ -553,7 +339,7 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
                     width: "100%",
                   }}
                 >
-                  Remuneración asignada
+                  Rol/Session
                 </Text>
               </View>
 
@@ -568,7 +354,7 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
                     textTransform: "capitalize",
                     fontSize: "8px",
                     fontFamily: "Montserrat",
-                    fontWeight: "normal",
+                    fontWeight: "bold",
                     width: "100%",
                   }}
                 >
@@ -579,7 +365,7 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
                     textTransform: "capitalize",
                     fontSize: "8px",
                     fontFamily: "Montserrat",
-                    fontWeight: "normal",
+                    fontWeight: "bold",
                     width: "100%",
                   }}
                 >
@@ -590,13 +376,59 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
                     textTransform: "capitalize",
                     fontSize: "8px",
                     fontFamily: "Montserrat",
-                    fontWeight: "normal",
+                    fontWeight: "bold",
                     width: "100%",
                   }}
                 >
-                  {Number(
-                    Number(datos.otros) + Number(datos.total_quincena)
-                  ).toLocaleString("es-AR", {
+                  {datos.rol || "-"}
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                gap: "5px",
+              }}
+            >
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  backgroundColor: "#000",
+                  color: "white",
+                  padding: "5px",
+                }}
+              >
+                <Text
+                  style={{
+                    textTransform: "capitalize",
+                    fontSize: "8px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "bold",
+                    width: "30%",
+                  }}
+                >
+                  Remuneración asignada
+                </Text>
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                <Text
+                  style={{
+                    textTransform: "capitalize",
+                    fontSize: "8px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "bold",
+                    width: "100%",
+                  }}
+                >
+                  {Number(Number(datos.total_final)).toLocaleString("es-AR", {
                     style: "currency",
                     currency: "ARS",
                   })}
@@ -720,11 +552,18 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
                     style: "currency",
                     currency: "ARS",
                   })}{" "}
-                  / Premio Producción:{" "}
-                  {Number(datos.premio_produccion).toLocaleString("es-AR", {
-                    style: "currency",
-                    currency: "ARS",
-                  })}{" "}
+                  {datos.premio_produccion === "0" ? (
+                    ""
+                  ) : (
+                    <Text>
+                      {" "}
+                      / Premio Producción:{" "}
+                      {Number(datos.premio_produccion).toLocaleString("es-AR", {
+                        style: "currency",
+                        currency: "ARS",
+                      })}
+                    </Text>
+                  )}
                 </Text>
               </View>
               <View
@@ -851,9 +690,7 @@ export const ImprimirComprobanteCinco = ({ datos }) => {
                 }}
               >
                 {" "}
-                {Number(
-                  Number(datos.otros) + Number(datos.total_quincena)
-                ).toLocaleString("es-AR", {
+                {Number(Number(datos.total_final)).toLocaleString("es-AR", {
                   style: "currency",
                   currency: "ARS",
                 })}

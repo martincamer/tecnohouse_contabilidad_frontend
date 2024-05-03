@@ -42,7 +42,7 @@ export const ModalEditarEmpleado = ({
   const [otros, setOtros] = useState(0);
   const [obs_20, setObs20] = useState("");
   const [descuento_20, setDescuento20] = useState(0);
-
+  const [rol, setRol] = useState("");
   //   const params = useParams();
 
   useEffect(() => {
@@ -74,6 +74,7 @@ export const ModalEditarEmpleado = ({
       setObs20(empleadoData.obs_20 || "");
       setOtros(empleadoData.otros || "");
       setDescuento20(empleadoData.descuento_20 || 0);
+      setRol(empleadoData.rol || "");
     }
 
     loadData();
@@ -128,6 +129,7 @@ export const ModalEditarEmpleado = ({
         tipo_fabrica,
         obs_20,
         descuento_20,
+        rol,
       });
 
       const tipoExistenteIndex = empleados.findIndex(
@@ -158,19 +160,27 @@ export const ModalEditarEmpleado = ({
           total_final: updatedEmpleado.total_final,
           obs: updatedEmpleado.obs,
           otros: updatedEmpleado.otros,
+          descuento_20: updatedEmpleado.descuento_20,
+          obs_20: updatedEmpleado.obs_20,
+          rol: updatedEmpleado.rol,
         };
         return newTipos;
       });
 
       toast.success("¡Empleado editado correctamente!", {
-        position: "top-right",
+        position: "top-center",
         autoClose: 1500,
-        hideProgressBar: false,
+        hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
+        theme: "light",
+        style: {
+          borderRadius: "10px",
+          borderStyle: "1px solid #e5e7eb",
+          padding: "10px",
+        },
       });
 
       setError(null);
@@ -195,7 +205,7 @@ export const ModalEditarEmpleado = ({
       <Transition appear show={isOpenEdit} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
+          className="fixed inset-0 z-10 overflow-y-auto scrooll-bar"
           onClose={closeModalEdit}
         >
           <Transition.Child
@@ -210,7 +220,7 @@ export const ModalEditarEmpleado = ({
             <div className="fixed inset-0 bg-black bg-opacity-10" />
           </Transition.Child>
 
-          <div className="min-h-screen px-4 text-center">
+          <div className="min-h-screen  text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -239,8 +249,8 @@ export const ModalEditarEmpleado = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-4/5 p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl z-[101]">
-                <div className="text-lg text-indigo-500 border-b-[1px] uppercase mb-10">
+              <div className="inline-block w-full h-full p-6 my-0 px-5 text-left align-middle transition-all transform bg-white shadow-xl rounded-none max-w-full z-[101]">
+                <div className="text-base text-indigo-500 border-b-[1px] uppercase mb-10 font-semibold">
                   Editar empleado /{" "}
                   <span className="font-bold text-slate-600">
                     {datos.empleado}
@@ -257,14 +267,14 @@ export const ModalEditarEmpleado = ({
                     <div className="w-full">
                       <label
                         htmlFor="Empleado"
-                        className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                        className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                       >
                         <input
                           value={empleado}
                           onChange={(e) => setEmpleado(e.target.value)}
                           type="text"
                           id="Empleado"
-                          className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3 uppercase"
+                          className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3 uppercase font-semibold"
                           placeholder="Empleado"
                         />
 
@@ -277,7 +287,7 @@ export const ModalEditarEmpleado = ({
                     <div className="w-full">
                       <label
                         htmlFor="Fecha de ingreso"
-                        className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                        className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                       >
                         <input
                           input
@@ -285,7 +295,7 @@ export const ModalEditarEmpleado = ({
                           onChange={(e) => setFecha(e.target.value)}
                           type="date"
                           id="Fecha de ingreso"
-                          className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3"
+                          className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3 font-semibold"
                           placeholder="Fecha de ingreso"
                         />
 
@@ -298,14 +308,14 @@ export const ModalEditarEmpleado = ({
                     <div className="w-full h-full">
                       <label
                         htmlFor="tipo"
-                        className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                        className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                       >
                         <select
                           value={tipo}
                           onChange={(e) => setTipo(e.target.value)}
                           type="text"
                           id="tipo"
-                          className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3 uppercase w-full"
+                          className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3 uppercase w-full font-semibold"
                           placeholder="tipo"
                         >
                           <option value="">Seleccionar</option>
@@ -322,14 +332,14 @@ export const ModalEditarEmpleado = ({
                     <div className="w-full h-full">
                       <label
                         htmlFor="tipo_fabrica"
-                        className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                        className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                       >
                         <select
                           value={tipo_fabrica}
                           onChange={(e) => setTipoFabrica(e.target.value)}
                           type="text"
                           id="tipo"
-                          className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3 uppercase w-full"
+                          className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3 uppercase w-full font-semibold"
                         >
                           <option value="">Seleccionar</option>
                           {fabricas.map((f) => (
@@ -344,6 +354,31 @@ export const ModalEditarEmpleado = ({
                         </span>
                       </label>
                     </div>
+
+                    {(tipo_fabrica === "parque industrial" ||
+                      tipo_fabrica === "long") && (
+                      <div className="w-full h-full">
+                        <label
+                          htmlFor="tipo_rol"
+                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
+                        >
+                          <select
+                            value={rol}
+                            onChange={(e) => setRol(e.target.value)}
+                            id="tipo_rol"
+                            className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3 uppercase w-full font-semibold"
+                          >
+                            <option value="">Seleccionar el rol</option>
+                            <option value="armado">Armado</option>
+                            <option value="producción">Producción</option>
+                          </select>
+
+                          <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                            Seleccionar rol/sección
+                          </span>
+                        </label>
+                      </div>
+                    )}
                   </article>
 
                   {tipo === "mensual" ? (
@@ -357,14 +392,14 @@ export const ModalEditarEmpleado = ({
                         <div className="w-full">
                           <label
                             htmlFor="antiguedad"
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                           >
                             <input
                               value={antiguedad}
                               onChange={(e) => setAntiguedad(e.target.value)}
                               type="text"
                               id="antiguedad"
-                              className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3"
+                              className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3 font-semibold"
                               placeholder="antiguedad"
                             />
 
@@ -376,7 +411,7 @@ export const ModalEditarEmpleado = ({
                         <div className="w-full">
                           <label
                             htmlFor="quincena_del_cinco"
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                           >
                             <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                               Total del sueldo mensual
@@ -390,7 +425,7 @@ export const ModalEditarEmpleado = ({
                                 onChange={(e) =>
                                   setQuincenaCinco(e.target.value)
                                 }
-                                className="outline-none py-0 px-4 text-slate-600"
+                                className="outline-none py-0 px-4 text-slate-600 uppercase font-semibold"
                                 type="text"
                                 id="quincena_del_cinco"
                               />
@@ -404,7 +439,7 @@ export const ModalEditarEmpleado = ({
                         <div className="w-full">
                           <label
                             htmlFor="total_antiguedad"
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                           >
                             <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                               Total Antiguedad
@@ -418,7 +453,7 @@ export const ModalEditarEmpleado = ({
                                 onChange={(e) =>
                                   setTotalAntiguedad(e.target.value)
                                 }
-                                className="outline-none py-0 px-4 text-slate-600"
+                                className="outline-none py-0 px-4 text-slate-600font-semibold"
                                 type="text"
                                 id="total_antiguedad"
                               />
@@ -432,7 +467,7 @@ export const ModalEditarEmpleado = ({
                         <div className="w-full">
                           <label
                             htmlFor="banco"
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                           >
                             <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                               Otros / etc
@@ -444,7 +479,7 @@ export const ModalEditarEmpleado = ({
                               <input
                                 value={banco}
                                 onChange={(e) => setBanco(e.target.value)}
-                                className="outline-none py-0 px-4 text-slate-600"
+                                className="outline-none py-0 px-4 text-slate-600 font-semibold"
                                 type="text"
                                 id="banco"
                               />
@@ -459,7 +494,7 @@ export const ModalEditarEmpleado = ({
                           <div className="w-full">
                             <label
                               htmlFor=""
-                              className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                              className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                             >
                               <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                                 Premio Produccion
@@ -473,7 +508,7 @@ export const ModalEditarEmpleado = ({
                                   onChange={(e) =>
                                     setProduccion(e.target.value)
                                   }
-                                  className="outline-none py-0 px-4 text-slate-600"
+                                  className="outline-none py-0 px-4 text-slate-600 font-semibold"
                                   type="text"
                                   id=""
                                 />
@@ -491,7 +526,7 @@ export const ModalEditarEmpleado = ({
                         <div className="w-full">
                           <label
                             htmlFor=""
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                           >
                             <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                               Premio Asistencia
@@ -503,7 +538,7 @@ export const ModalEditarEmpleado = ({
                               <input
                                 value={premio_asistencia}
                                 onChange={(e) => setAsistencia(e.target.value)}
-                                className="outline-none py-0 px-4 text-slate-600"
+                                className="outline-none py-0 px-4 text-slate-600 font-semibold"
                                 type="text"
                                 id=""
                               />
@@ -518,7 +553,7 @@ export const ModalEditarEmpleado = ({
                         <div className="w-full">
                           <label
                             htmlFor=""
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                           >
                             <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                               Comida Producción
@@ -530,7 +565,7 @@ export const ModalEditarEmpleado = ({
                               <input
                                 value={comida_produccion}
                                 onChange={(e) => setProducci(e.target.value)}
-                                className="outline-none py-0 px-4 text-slate-600"
+                                className="outline-none py-0 px-4 text-slate-600 font-semibold"
                                 type="text"
                                 id=""
                               />
@@ -544,7 +579,7 @@ export const ModalEditarEmpleado = ({
 
                         <label
                           htmlFor=""
-                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                         >
                           <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                             Banco
@@ -556,7 +591,7 @@ export const ModalEditarEmpleado = ({
                             <input
                               value={otros}
                               onChange={(e) => setOtros(e.target.value)}
-                              className="outline-none py-0 px-4 text-slate-600"
+                              className="outline-none py-0 px-4 text-slate-600 font-semibold"
                               type="text"
                               id=""
                             />
@@ -568,7 +603,7 @@ export const ModalEditarEmpleado = ({
                         </label>
                         <label
                           htmlFor=""
-                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                         >
                           <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                             Descuentos
@@ -580,7 +615,7 @@ export const ModalEditarEmpleado = ({
                             <input
                               value={descuento}
                               onChange={(e) => setDescuento(e.target.value)}
-                              className="outline-none py-0 px-4 text-slate-600"
+                              className="outline-none py-0 px-4 text-slate-600 font-semibold"
                               type="text"
                               id=""
                             />
@@ -594,14 +629,14 @@ export const ModalEditarEmpleado = ({
                       <div className="grid grid-cols-3">
                         <div className="flex flex-col gap-2 font-semibold text-gray-700 text-sm">
                           <label htmlFor="observacion">
-                            Observación del empleado quincena del 5
+                            Observación del empleado por faltas/descuentos
                           </label>
 
                           <textarea
                             value={obs}
                             onChange={(e) => setObs(e.target.value)}
-                            className="h-24 resize-none relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 w-full px-5 py-5 text-slate-700 uppercase"
-                            placeholder="Observacion por faltas o descuentos quincena del 5"
+                            className="h-24 resize-none relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 w-full px-5 py-5 text-slate-700 uppercase focus:outline-indigo-500"
+                            placeholder="Observacion por faltas o descuentos"
                             rows="8"
                             id="observacion"
                           />
@@ -619,7 +654,7 @@ export const ModalEditarEmpleado = ({
                           htmlFor=""
                           className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
                         >
-                          <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                          <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs font-bold">
                             Total sueldo con descuento banco a pagar
                           </span>
                           <div className=" relative peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3">
@@ -629,7 +664,7 @@ export const ModalEditarEmpleado = ({
                             <input
                               value={total_quincena}
                               onChange={(e) => setTotalQuincena(e.target.value)}
-                              className="outline-none py-0 px-4 text-slate-600 font-bold"
+                              className="outline-none py-0 px-4 text-slate-600 font-extrabold"
                               type="text"
                               id=""
                             />
@@ -641,7 +676,7 @@ export const ModalEditarEmpleado = ({
                         </label>
                         <label
                           htmlFor=""
-                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-bold"
                         >
                           <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                             Total Final del sueldo
@@ -653,7 +688,7 @@ export const ModalEditarEmpleado = ({
                             <input
                               value={total_final}
                               onChange={(e) => setTotalFinal(e.target.value)}
-                              className="outline-none py-0 px-4 text-slate-600 font-bold"
+                              className="outline-none py-0 px-4 text-slate-600 font-extrabold"
                               type="text"
                               id=""
                             />
@@ -677,14 +712,14 @@ export const ModalEditarEmpleado = ({
                         <div className="w-full">
                           <label
                             htmlFor="antiguedad"
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                           >
                             <input
                               value={antiguedad}
                               onChange={(e) => setAntiguedad(e.target.value)}
                               type="text"
                               id="antiguedad"
-                              className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3"
+                              className="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3 font-semibold"
                               placeholder="antiguedad"
                             />
 
@@ -696,7 +731,7 @@ export const ModalEditarEmpleado = ({
                         <div className="w-full">
                           <label
                             htmlFor="quincena_del_cinco"
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                           >
                             <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                               Total quincena del 5
@@ -710,7 +745,7 @@ export const ModalEditarEmpleado = ({
                                 onChange={(e) =>
                                   setQuincenaCinco(e.target.value)
                                 }
-                                className="outline-none py-0 px-4 text-slate-600"
+                                className="outline-none py-0 px-4 text-slate-600 font-semibold"
                                 type="text"
                                 id="quincena_del_cinco"
                               />
@@ -724,7 +759,7 @@ export const ModalEditarEmpleado = ({
                         <div className="w-full">
                           <label
                             htmlFor="total_antiguedad"
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                           >
                             <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                               Total Antiguedad
@@ -738,7 +773,7 @@ export const ModalEditarEmpleado = ({
                                 onChange={(e) =>
                                   setTotalAntiguedad(e.target.value)
                                 }
-                                className="outline-none py-0 px-4 text-slate-600"
+                                className="outline-none py-0 px-4 text-slate-600 font-semibold"
                                 type="text"
                                 id="total_antiguedad"
                               />
@@ -752,7 +787,7 @@ export const ModalEditarEmpleado = ({
                         <div className="w-full">
                           <label
                             htmlFor="banco"
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                           >
                             <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                               Otros / etc
@@ -764,7 +799,7 @@ export const ModalEditarEmpleado = ({
                               <input
                                 value={banco}
                                 onChange={(e) => setBanco(e.target.value)}
-                                className="outline-none py-0 px-4 text-slate-600"
+                                className="outline-none py-0 px-4 text-slate-600 font-semibold"
                                 type="text"
                                 id="banco"
                               />
@@ -775,37 +810,43 @@ export const ModalEditarEmpleado = ({
                             </div>
                           </label>
                         </div>
+                        {rol === "armado" ? (
+                          ""
+                        ) : (
+                          <div className="w-full">
+                            <label
+                              htmlFor=""
+                              className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
+                            >
+                              <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
+                                Premio Produccion
+                              </span>
+                              <div className=" relative peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3">
+                                <span className="absolute top-2 left-2 text-lg bg-white p-0.5 text-slate-500">
+                                  $
+                                </span>
+                                <input
+                                  value={premio_produccion}
+                                  onChange={(e) =>
+                                    setProduccion(e.target.value)
+                                  }
+                                  className="outline-none py-0 px-4 text-slate-600 font-semibold"
+                                  type="text"
+                                  id=""
+                                />
+
+                                <span className="absolute top-2 right-2 text-lg bg-white p-0.5 text-slate-500">
+                                  ARS
+                                </span>
+                              </div>
+                            </label>
+                          </div>
+                        )}
+
                         <div className="w-full">
                           <label
                             htmlFor=""
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
-                          >
-                            <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
-                              Premio Produccion
-                            </span>
-                            <div className=" relative peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 py-3 text-slate-700 px-3">
-                              <span className="absolute top-2 left-2 text-lg bg-white p-0.5 text-slate-500">
-                                $
-                              </span>
-                              <input
-                                value={premio_produccion}
-                                onChange={(e) => setProduccion(e.target.value)}
-                                className="outline-none py-0 px-4 text-slate-600"
-                                type="text"
-                                id=""
-                              />
-
-                              <span className="absolute top-2 right-2 text-lg bg-white p-0.5 text-slate-500">
-                                ARS
-                              </span>
-                            </div>
-                          </label>
-                        </div>
-
-                        <div className="w-full">
-                          <label
-                            htmlFor=""
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                           >
                             <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                               Premio Asistencia
@@ -817,7 +858,7 @@ export const ModalEditarEmpleado = ({
                               <input
                                 value={premio_asistencia}
                                 onChange={(e) => setAsistencia(e.target.value)}
-                                className="outline-none py-0 px-4 text-slate-600"
+                                className="outline-none py-0 px-4 text-slate-600 font-semibold"
                                 type="text"
                                 id=""
                               />
@@ -831,7 +872,7 @@ export const ModalEditarEmpleado = ({
 
                         <label
                           htmlFor=""
-                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                         >
                           <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                             Banco
@@ -843,7 +884,7 @@ export const ModalEditarEmpleado = ({
                             <input
                               value={otros}
                               onChange={(e) => setOtros(e.target.value)}
-                              className="outline-none py-0 px-4 text-slate-600"
+                              className="outline-none py-0 px-4 text-slate-600 font-semibold"
                               type="text"
                               id=""
                             />
@@ -855,7 +896,7 @@ export const ModalEditarEmpleado = ({
                         </label>
                         <label
                           htmlFor=""
-                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                         >
                           <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                             Descuentos
@@ -867,7 +908,7 @@ export const ModalEditarEmpleado = ({
                             <input
                               value={descuento}
                               onChange={(e) => setDescuento(e.target.value)}
-                              className="outline-none py-0 px-4 text-slate-600"
+                              className="outline-none py-0 px-4 text-slate-600 font-semibold"
                               type="text"
                               id=""
                             />
@@ -877,22 +918,21 @@ export const ModalEditarEmpleado = ({
                             </span>
                           </div>
                         </label>
-
-                        <div className="flex flex-col gap-2 font-semibold text-gray-700 text-sm">
-                          <label htmlFor="observacion">
-                            Observación del empleado quincena del 5
-                          </label>
-
-                          <textarea
-                            value={obs}
-                            onChange={(e) => setObs(e.target.value)}
-                            className="h-24 resize-none relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 w-full px-5 py-5 text-slate-700 uppercase"
-                            placeholder="Observacion por faltas o descuentos quincena del 5"
-                            rows="8"
-                            id="observacion"
-                          />
-                        </div>
                       </article>
+                      <div className="flex flex-col gap-2 font-semibold text-gray-700 text-sm w-1/4">
+                        <label htmlFor="observacion">
+                          Observación del empleado quincena del 5
+                        </label>
+
+                        <textarea
+                          value={obs}
+                          onChange={(e) => setObs(e.target.value)}
+                          className="h-24 resize-none relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 w-full px-5 py-5 text-slate-700 uppercase focus:outline-indigo-500"
+                          placeholder="Observacion por faltas o descuentos quincena del 5"
+                          rows="8"
+                          id="observacion"
+                        />
+                      </div>
 
                       <div>
                         <p className="font-bold text-slate-700 mx-3">
@@ -903,7 +943,7 @@ export const ModalEditarEmpleado = ({
                         <div className="w-full">
                           <label
                             htmlFor="quincena_del_veinte"
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                           >
                             <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                               Total quincena del 20
@@ -917,7 +957,7 @@ export const ModalEditarEmpleado = ({
                                 onChange={(e) =>
                                   setQuincenaVeinte(e.target.value)
                                 }
-                                className="outline-none py-0 px-4 text-slate-600"
+                                className="outline-none py-0 px-4 text-slate-600 font-semibold"
                                 type="text"
                                 id="quincena_del_veinte"
                               />
@@ -930,7 +970,7 @@ export const ModalEditarEmpleado = ({
                         </div>
                         <label
                           htmlFor=""
-                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                         >
                           <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                             Descuentos
@@ -942,7 +982,7 @@ export const ModalEditarEmpleado = ({
                             <input
                               value={descuento_20}
                               onChange={(e) => setDescuento20(e.target.value)}
-                              className="outline-none py-0 px-4 text-slate-600"
+                              className="outline-none py-0 px-4 text-slate-600 font-semibold"
                               type="text"
                               id=""
                             />
@@ -955,7 +995,7 @@ export const ModalEditarEmpleado = ({
                         <div className="w-full">
                           <label
                             htmlFor=""
-                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                            className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-semibold"
                           >
                             <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                               Comida Producción
@@ -967,7 +1007,7 @@ export const ModalEditarEmpleado = ({
                               <input
                                 value={comida_produccion}
                                 onChange={(e) => setProducci(e.target.value)}
-                                className="outline-none py-0 px-4 text-slate-600"
+                                className="outline-none py-0 px-4 text-slate-600 font-semibold"
                                 type="text"
                                 id=""
                               />
@@ -987,7 +1027,7 @@ export const ModalEditarEmpleado = ({
                           <textarea
                             value={obs_20}
                             onChange={(e) => setObs20(e.target.value)}
-                            className="h-24 resize-none relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 w-full px-5 py-5 text-slate-700 uppercase"
+                            className="h-24 resize-none relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 w-full px-5 py-5 text-slate-700 uppercase focus:outline-indigo-500"
                             placeholder="Observacion por faltas o descuentos quincena del 20"
                             rows="8"
                             id="observacion"
@@ -1004,7 +1044,7 @@ export const ModalEditarEmpleado = ({
                       <div className="grid grid-cols-3 gap-2">
                         <label
                           htmlFor=""
-                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-bold"
                         >
                           <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                             Total Quincena del 5
@@ -1016,7 +1056,7 @@ export const ModalEditarEmpleado = ({
                             <input
                               value={total_quincena}
                               onChange={(e) => setTotalQuincena(e.target.value)}
-                              className="outline-none py-0 px-4 text-slate-600 font-bold"
+                              className="outline-none py-0 px-4 text-slate-600 font-extrabold"
                               type="text"
                               id=""
                             />
@@ -1028,7 +1068,7 @@ export const ModalEditarEmpleado = ({
                         </label>
                         <label
                           htmlFor=""
-                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-bold"
                         >
                           <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                             Total Quincena del 20
@@ -1042,7 +1082,7 @@ export const ModalEditarEmpleado = ({
                               onChange={(e) =>
                                 setTotalQuincenaVeinte(e.target.value)
                               }
-                              className="outline-none py-0 px-4 text-slate-600 font-bold"
+                              className="outline-none py-0 px-4 text-slate-600 font-extrabold"
                               type="text"
                               id=""
                             />
@@ -1055,7 +1095,7 @@ export const ModalEditarEmpleado = ({
 
                         <label
                           htmlFor=""
-                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"
+                          className="relative block rounded-md border border-gray-200 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 font-bold"
                         >
                           <span className="absolute start-2.5 top-0 -translate-y-1/2 bg-white p-0.5 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs">
                             Total Final
@@ -1067,7 +1107,7 @@ export const ModalEditarEmpleado = ({
                             <input
                               value={total_final}
                               onChange={(e) => setTotalFinal(e.target.value)}
-                              className="outline-none py-0 px-4 text-slate-600 font-bold"
+                              className="outline-none py-0 px-4 text-slate-600 font-extrabold"
                               type="text"
                               id=""
                             />

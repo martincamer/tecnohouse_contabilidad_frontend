@@ -318,7 +318,7 @@ export const ImprimirComprobantes = ({ datos }) => {
                   width: "100%",
                 }}
               >
-                Remuneración asignada
+                Rol/Session
               </Text>
             </View>
 
@@ -355,12 +355,76 @@ export const ImprimirComprobantes = ({ datos }) => {
                   textTransform: "capitalize",
                   fontSize: "8px",
                   fontFamily: "Montserrat",
+                  fontWeight: "bold",
+                  width: "100%",
+                }}
+              >
+                {datos.rol || "-"}
+              </Text>
+              {/* <Text
+                style={{
+                  textTransform: "capitalize",
+                  fontSize: "8px",
+                  fontFamily: "Montserrat",
                   fontWeight: "normal",
                   width: "100%",
                 }}
               >
                 {Number(
                   Number(datos.otros) + Number(datos.total_quincena)
+                ).toLocaleString("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                })}
+              </Text> */}
+            </View>
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              gap: "5px",
+            }}
+          >
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                backgroundColor: "#000",
+                color: "white",
+                padding: "5px",
+              }}
+            >
+              <Text
+                style={{
+                  textTransform: "capitalize",
+                  fontSize: "8px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "bold",
+                  width: "30%",
+                }}
+              >
+                Remuneración asignada
+              </Text>
+            </View>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+              }}
+            >
+              <Text
+                style={{
+                  textTransform: "capitalize",
+                  fontSize: "8px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "bold",
+                  width: "100%",
+                }}
+              >
+                {Number(
+                  Number(datos.total_quincena) + Number(datos.otros)
                 ).toLocaleString("es-AR", {
                   style: "currency",
                   currency: "ARS",
@@ -483,11 +547,18 @@ export const ImprimirComprobantes = ({ datos }) => {
                   style: "currency",
                   currency: "ARS",
                 })}{" "}
-                / Premio Producción:{" "}
-                {Number(datos.premio_produccion).toLocaleString("es-AR", {
-                  style: "currency",
-                  currency: "ARS",
-                })}{" "}
+                {datos.premio_produccion === "0" ? (
+                  ""
+                ) : (
+                  <Text>
+                    {" "}
+                    / Premio Producción:{" "}
+                    {Number(datos.premio_produccion).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}
+                  </Text>
+                )}
               </Text>
             </View>
             <View
@@ -578,7 +649,7 @@ export const ImprimirComprobantes = ({ datos }) => {
               width: "100%",
             }}
           >
-            Remuneracion Final
+            Remuneracion Final del sueldo
             <Text
               style={{
                 marginTop: "10px",

@@ -9,6 +9,27 @@ body {
   /* font-family: "Roboto", sans-serif; */
   font-family: "Plus Jakarta Sans", sans-serif;
   background-color: rgb(243 244 246 / 0.8);
+  &::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra de desplazamiento */
+    border-radius: 2px; /* Bordes redondeados */
+  }
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color del riel */
+    border-radius: 10px; /* Bordes redondeados para el riel */
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(
+      190,
+      190,
+      190,
+      0.6
+    ); /* Color de la barra de desplazamiento */
+    border-radius: 2px; /* Bordes redondeados para el pulgar */
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #6366f1; /* Color al pasar el mouse por encima */
+    cursor: pointer;
+  }
 }
 
 @keyframes blink {
@@ -23,4 +44,28 @@ body {
 
 .animate-blink {
   animation: blink 1.5s infinite;
+}
+
+.scrooll-bar {
+  &::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra de desplazamiento */
+    border-radius: 2px; /* Bordes redondeados */
+  }
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color del riel */
+    border-radius: 10px; /* Bordes redondeados para el riel */
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(
+      190,
+      190,
+      190,
+      0.6
+    ); /* Color de la barra de desplazamiento */
+    border-radius: 2px; /* Bordes redondeados para el pulgar */
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #6366f1; /* Color al pasar el mouse por encima */
+    cursor: pointer;
+  }
 }
