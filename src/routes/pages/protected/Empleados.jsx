@@ -6,12 +6,14 @@ import { ModalEditarEmpleado } from "../../../components/empleados/ModalEditarEm
 import { ModalGuardarDatosFinal } from "../../../components/empleados/ModalGuardarDatosFinal";
 import client from "../../../api/axios";
 import { ModalCrearEmpleado } from "../../../components/empleados/ModalCrearEmpleado";
+import { ModalEmpleado } from "../../../components/empleados/ModalEmpleado";
 
 export const Empleados = () => {
   const { empleados, fabricas } = useEmpleadosContext();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenCrear, setIsOpenCrear] = useState(false);
+  const [isEmpleado, setIsEmpleado] = useState(false);
 
   const openModalCrear = () => {
     setIsOpenCrear(true);
@@ -19,6 +21,14 @@ export const Empleados = () => {
 
   const closeModalCrear = () => {
     setIsOpenCrear(false);
+  };
+
+  const openModalEmpleado = () => {
+    setIsEmpleado(true);
+  };
+
+  const closeModalEmpleado = () => {
+    setIsEmpleado(false);
   };
 
   const openModal = () => {
@@ -643,9 +653,13 @@ export const Empleados = () => {
                       >
                         <li>
                           <Link
-                            target="_blank" // Esto abre el enlace en una nueva pestaña
                             rel="noopener noreferrer" // Se recomienda para seguridad y prevención de ataques
-                            to={`/empleados/${e.id}`}
+                            // to={`/empleados/${e.id}`}
+                            onClick={() => {
+                              {
+                                handleId(e.id), openModalEmpleado();
+                              }
+                            }}
                             className=" bg-slate-200 py-2 px-3 rounded-xl text-left text-slate-700 flex gap-2 items-center text-xs font-semibold uppercase justify-between"
                           >
                             Ver
@@ -802,6 +816,11 @@ export const Empleados = () => {
       <ModalCrearEmpleado
         isOpenEdit={isOpenCrear}
         closeModalEdit={closeModalCrear}
+      />
+      <ModalEmpleado
+        obtenerId={obtenerId}
+        isOpenEdit={isEmpleado}
+        closeModalEdit={closeModalEmpleado}
       />
     </section>
   );
