@@ -144,7 +144,7 @@ export const ModalEmpleado = ({ isOpenEdit, closeModalEdit, obtenerId }) => {
             <div className="fixed inset-0 bg-black bg-opacity-10" />
           </Transition.Child>
 
-          <div className="min-h-screen   text-center">
+          <div className="text-center h-full bg-white">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -154,14 +154,11 @@ export const ModalEmpleado = ({ isOpenEdit, closeModalEdit, obtenerId }) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0" />
+              <Dialog.Overlay className="fixed inset-0 bg-white" />
             </Transition.Child>
 
             {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
+            <span className="inline-block align-middle" aria-hidden="true">
               &#8203;
             </span>
             <Transition.Child
@@ -173,7 +170,7 @@ export const ModalEmpleado = ({ isOpenEdit, closeModalEdit, obtenerId }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full h-full p-6 my-0 px-5 text-left align-middle transition-all transform bg-white shadow-xl rounded-none max-w-full z-[101]">
+              <div className="inline-block w-full h-full p-6 my-0 px-5 text-left align-middle transition-all transform bg-white rounded-none max-w-full z-[101]">
                 <div
                   className="flex justify-end px-3"
                   onClick={() => closeModalEdit()}
@@ -476,7 +473,7 @@ export const ModalEmpleado = ({ isOpenEdit, closeModalEdit, obtenerId }) => {
                     </div>
 
                     <div className="w-full grid grid-cols-3 gap-4 px-4 mt-5">
-                      <article className="border-slate-200 py-2 px-4 rounded-2xl border-[1px] flex flex-col gap-2 hover:shadow-md transition-all ease-linear cursor-pointer">
+                      <article className="border-[1px] border-gray-300 py-2 px-4 rounded-2xl flex flex-col gap-2 hover:shadow-md transition-all ease-linear cursor-pointer">
                         <p className="text-indigo-600 font-bold underline">
                           DATOS DEL EMPLEADO
                         </p>
@@ -498,6 +495,19 @@ export const ModalEmpleado = ({ isOpenEdit, closeModalEdit, obtenerId }) => {
                             {datos.tipo_fabrica}
                           </p>
                         </div>
+                        {datos.tipo_fabrica === "parque industrial" ||
+                        datos.tipo_fabrica === "long" ? (
+                          <div className="flex gap-2">
+                            <p className="uppercase text-slate-700 font-bold">
+                              Rol/Seccion.
+                            </p>
+                            <p className="uppercase text-slate-700">
+                              {datos.rol}
+                            </p>
+                          </div>
+                        ) : (
+                          ""
+                        )}
 
                         <div className="flex gap-2">
                           <p className="uppercase text-slate-700 font-bold">
@@ -527,7 +537,7 @@ export const ModalEmpleado = ({ isOpenEdit, closeModalEdit, obtenerId }) => {
                         </div>
                       </article>
 
-                      <article className="mt-0 border-slate-200 py-2 px-4 rounded-2xl border-[1px] flex flex-col gap-2 hover:shadow-md transition-all ease-linear cursor-pointer">
+                      <article className="flex flex-col gap-2 hover:shadow-xl shadow-lg transition-all ease-linear bg-white p-6 cursor-pointer uppercase rounded-2xl border border-gray-300">
                         <p className="text-indigo-600 font-bold underline">
                           DESCUENTOS, PREMIOS,BANCO ,ETC
                         </p>
@@ -628,16 +638,21 @@ export const ModalEmpleado = ({ isOpenEdit, closeModalEdit, obtenerId }) => {
                               </p>
                               <p className="uppercase text-slate-700">
                                 {datos.tipo_fabrica !== "administracion" &&
-                                datos.tipo_fabrica !== "gerencia" &&
                                 datos.tipo_fabrica !== "clubes" ? (
                                   <p>
-                                    +
-                                    {Number(
-                                      datos.premio_produccion
-                                    ).toLocaleString("es-AR", {
-                                      style: "currency",
-                                      currency: "ARS",
-                                    })}
+                                    {datos.rol === "armado" ? (
+                                      ""
+                                    ) : (
+                                      <p>
+                                        +
+                                        {Number(
+                                          datos.premio_produccion
+                                        ).toLocaleString("es-AR", {
+                                          style: "currency",
+                                          currency: "ARS",
+                                        })}
+                                      </p>
+                                    )}
                                   </p>
                                 ) : (
                                   ""
@@ -663,7 +678,7 @@ export const ModalEmpleado = ({ isOpenEdit, closeModalEdit, obtenerId }) => {
                         </div>
                       </article>
 
-                      <article className="mt-0 border-slate-200 py-2 px-4 rounded-2xl border-[1px] flex flex-col gap-2 hover:shadow-md transition-all ease-linear cursor-pointer">
+                      <article className="flex flex-col gap-2 hover:shadow-xl shadow-lg transition-all ease-linear bg-white p-6 cursor-pointer uppercase rounded-2xl border border-gray-300">
                         <p className="text-indigo-600 font-bold underline">
                           SUELDO CON ATRIBUTOS Y SIN ATRIBUTOS VER
                         </p>
@@ -750,33 +765,32 @@ export const ModalEmpleado = ({ isOpenEdit, closeModalEdit, obtenerId }) => {
                       </article>
                     </div>
                   </div>
-                </div>
+                  <div className="mt-10 flex gap-2">
+                    <button
+                      onClick={() => {
+                        openEliminar();
+                      }}
+                      className="bg-red-100 uppercase text-red-700 rounded-2xl py-3 px-5 hover:shadow-md transiton-all ease-in-out duration-200"
+                    >
+                      Deseas eliminar el empleado
+                    </button>
+                  </div>
 
-                <div className="mt-5 flex gap-2">
-                  <button
-                    onClick={() => {
-                      openEliminar();
-                    }}
-                    className="bg-red-100 uppercase text-red-700 rounded-2xl py-3 px-5 hover:shadow-md transiton-all ease-in-out duration-200"
-                  >
-                    Deseas eliminar el empleado
-                  </button>
-                </div>
+                  <ModalEliminar
+                    isOpen={isOpen}
+                    closeEliminar={closeEliminar}
+                    handleEliminar={handleEliminar}
+                  />
 
-                <ModalEliminar
-                  isOpen={isOpen}
-                  closeEliminar={closeEliminar}
-                  handleEliminar={handleEliminar}
-                />
-
-                <div className="mt-4">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 duration-300 cursor-pointer max-md:text-xs"
-                    onClick={closeModalEdit}
-                  >
-                    Cerrar Ventana
-                  </button>
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center px-4 py-2 text-sm text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 duration-300 cursor-pointer max-md:text-xs"
+                      onClick={closeModalEdit}
+                    >
+                      Cerrar Ventana
+                    </button>
+                  </div>
                 </div>
               </div>
             </Transition.Child>
@@ -871,15 +885,6 @@ const ModalEliminar = ({ isOpen, closeEliminar, handleEliminar }) => {
                         d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                       />
                     </svg>
-                  </button>
-                </div>
-                <div className="mt-4">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 duration-300 cursor-pointer max-md:text-xs"
-                    onClick={closeEliminar}
-                  >
-                    CERRAR
                   </button>
                 </div>
               </div>
