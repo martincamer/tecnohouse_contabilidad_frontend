@@ -90,7 +90,7 @@ export const Empleados = () => {
     // Reducir la lista filtrada sumando el valor de total_quincena convertido a número
     .reduce((acumulador, empleado) => {
       // Convertir el valor de total_final a número y sumarlo al acumulador
-      return acumulador + parseFloat(empleado?.total_quincena);
+      return acumulador + parseFloat(empleado?.total_final - otros);
     }, 0);
 
   const totalFinalQuincenaVeinte = resultados
