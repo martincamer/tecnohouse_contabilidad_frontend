@@ -11,7 +11,7 @@ import logo from "../../../public/logo.png";
 import normal from "../../fonts/Montserrat-Light.ttf";
 import semibold from "../../fonts/Montserrat-SemiBold.ttf";
 import bold from "../../fonts/Montserrat-Bold.ttf";
-import moment from "moment";
+import medium from "../../fonts/Montserrat-Medium.ttf";
 import React from "react";
 
 Font.register({
@@ -19,6 +19,10 @@ Font.register({
   fonts: [
     {
       src: normal,
+    },
+    {
+      src: medium,
+      fontWeight: "medium",
     },
     {
       src: semibold,
@@ -31,60 +35,11 @@ Font.register({
   ],
 });
 
-const styles = StyleSheet.create({});
-
-// Obtener la fecha actual
-const fechaActual = new Date();
-
-// Obtener el día de la semana (0 para domingo, 1 para lunes, ..., 6 para sábado)
-const diaDeLaSemana = fechaActual.getDay();
-
-// Obtener el día del mes
-const diaDelMes = fechaActual.getDate();
-
-// Obtener el mes (0 para enero, 1 para febrero, ..., 11 para diciembre)
-const mes = fechaActual.getMonth();
-
-// Obtener el año
-const ano = fechaActual.getFullYear();
-
-// Días de la semana en español
-const diasSemana = [
-  "domingo",
-  "lunes",
-  "martes",
-  "miércoles",
-  "jueves",
-  "viernes",
-  "sábado",
-];
-
-// Meses en español
-const meses = [
-  "enero",
-  "febrero",
-  "marzo",
-  "abril",
-  "mayo",
-  "junio",
-  "julio",
-  "agosto",
-  "septiembre",
-  "octubre",
-  "noviembre",
-  "diciembre",
-];
-
-// Formatear la fecha
-const fechaFormateada = `${diasSemana[diaDeLaSemana]} ${meses[mes]} / ${diaDelMes} / ${ano}`;
-
 export const ImprimirPdfEmpleados = ({ empleados }) => {
   const totalFinalSum = empleados?.reduce((acumulador, empleado) => {
     // Convertir el valor de total_final a número y sumarlo al acumulador
     return acumulador + parseFloat(empleado?.total_final);
   }, 0);
-
-  console.log(empleados);
 
   // Crear un conjunto para almacenar tipos de fábrica únicos
   const tiposFabricaUnicos = new Set(
@@ -98,7 +53,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
     <Document>
       <Page
         style={{
-          padding: "30x 50px",
+          padding: "20px 30px",
           display: "flex",
           flexDirection: "column",
           gap: "20px",
@@ -127,7 +82,14 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
               fontWeight: "light",
             }}
           >
-            {fechaFormateada}
+            <Text
+              style={{
+                fontWeight: "bold",
+              }}
+            >
+              Fecha de impresión
+            </Text>{" "}
+            {""}
           </Text>
         </View>
         <View
@@ -251,7 +213,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
         >
           <Text
             style={{
-              fontSize: "10px",
+              fontSize: "13px",
               fontWeight: "bold",
               fontFamily: "Montserrat",
               borderBottom: "2px",
@@ -269,12 +231,11 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                   fontSize: "13px",
                   fontWeight: "bold",
                   fontFamily: "Montserrat",
-                  textTransform: "uppercase",
+                  textTransform: "capitalize",
                   marginBottom: "10px",
-                  marginTop: "10px",
                 }}
               >
-                FABRICA/SUCURSAL {tipoFabrica}
+                Fabrica/Sursal {tipoFabrica}
               </Text>
               {empleados
                 .filter((empleado) => empleado.tipo_fabrica === tipoFabrica)
@@ -316,6 +277,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                         <View
                           style={{
                             display: "flex",
+                            flexWrap: "wrap",
                             flexDirection: "row",
                             gap: "8px",
                           }}
@@ -331,7 +293,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             <Text
                               style={{
                                 fontSize: "8px",
-                                fontWeight: "normal",
+                                fontWeight: "medium",
                                 textTransform: "capitalize",
                                 fontFamily: "Montserrat",
                               }}
@@ -350,7 +312,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             <Text
                               style={{
                                 fontSize: "8px",
-                                fontWeight: "normal",
+                                fontWeight: "medium",
                                 textTransform: "capitalize",
                                 fontFamily: "Montserrat",
                               }}
@@ -369,7 +331,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             <Text
                               style={{
                                 fontSize: "8px",
-                                fontWeight: "normal",
+                                fontWeight: "medium",
                                 textTransform: "capitalize",
                                 fontFamily: "Montserrat",
                               }}
@@ -388,7 +350,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             <Text
                               style={{
                                 fontSize: "8px",
-                                fontWeight: "normal",
+                                fontWeight: "medium",
                                 textTransform: "capitalize",
                                 fontFamily: "Montserrat",
                               }}
@@ -431,7 +393,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                           <Text
                             style={{
                               fontSize: "8px",
-                              fontWeight: "normal",
+                              fontWeight: "medium",
                               textTransform: "capitalize",
                               fontFamily: "Montserrat",
                             }}
@@ -459,7 +421,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                               <Text
                                 style={{
                                   fontSize: "8px",
-                                  fontWeight: "normal",
+                                  fontWeight: "medium",
                                   textTransform: "capitalize",
                                   fontFamily: "Montserrat",
                                 }}
@@ -489,7 +451,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                               <Text
                                 style={{
                                   fontSize: "8px",
-                                  fontWeight: "normal",
+                                  fontWeight: "medium",
                                   textTransform: "capitalize",
                                   fontFamily: "Montserrat",
                                 }}
@@ -517,7 +479,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                           <Text
                             style={{
                               fontSize: "8px",
-                              fontWeight: "normal",
+                              fontWeight: "medium",
                               textTransform: "capitalize",
                               fontFamily: "Montserrat",
                             }}
@@ -544,7 +506,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             <Text
                               style={{
                                 fontSize: "8px",
-                                fontWeight: "normal",
+                                fontWeight: "medium",
                                 textTransform: "capitalize",
                                 fontFamily: "Montserrat",
                               }}
@@ -571,7 +533,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                           <Text
                             style={{
                               fontSize: "8px",
-                              fontWeight: "normal",
+                              fontWeight: "medium",
                               textTransform: "capitalize",
                               fontFamily: "Montserrat",
                             }}
@@ -597,7 +559,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                           <Text
                             style={{
                               fontSize: "8px",
-                              fontWeight: "normal",
+                              fontWeight: "medium",
                               textTransform: "capitalize",
                               fontFamily: "Montserrat",
                             }}
@@ -621,7 +583,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             <Text
                               style={{
                                 fontSize: "8px",
-                                fontWeight: "normal",
+                                fontWeight: "medium",
                                 textTransform: "capitalize",
                                 fontFamily: "Montserrat",
                               }}
@@ -644,11 +606,34 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             fontFamily: "Montserrat",
                           }}
                         >
-                          Descuento{"  "}
+                          Descuento del 5{"  "}
                           <Text
                             style={{
                               fontSize: "8px",
-                              fontWeight: "normal",
+                              fontWeight: "medium",
+                              textTransform: "capitalize",
+                              fontFamily: "Montserrat",
+                            }}
+                          >
+                            {Number(e.descuento).toLocaleString("es-AR", {
+                              style: "currency",
+                              currency: "ARS",
+                            })}
+                          </Text>
+                        </Text>
+
+                        <Text
+                          style={{
+                            fontSize: "8px",
+                            fontWeight: "bold",
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          Descuento del 20{"  "}
+                          <Text
+                            style={{
+                              fontSize: "8px",
+                              fontWeight: "medium",
                               textTransform: "capitalize",
                               fontFamily: "Montserrat",
                             }}
@@ -671,7 +656,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                           <Text
                             style={{
                               fontSize: "8px",
-                              fontWeight: "normal",
+                              fontWeight: "medium",
                               textTransform: "capitalize",
                               fontFamily: "Montserrat",
                             }}
@@ -694,7 +679,7 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                           <Text
                             style={{
                               fontSize: "8px",
-                              fontWeight: "normal",
+                              fontWeight: "medium",
                               textTransform: "capitalize",
                               fontFamily: "Montserrat",
                             }}
@@ -713,15 +698,33 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                             fontFamily: "Montserrat",
                           }}
                         >
-                          Observaciónes{"  "}
+                          Observaciónes del 5{"  "}
                           <Text
                             style={{
                               fontSize: "8px",
-                              fontWeight: "normal",
+                              fontWeight: "medium",
                               fontFamily: "Montserrat",
                             }}
                           >
                             {e.obs}
+                          </Text>
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: "8px",
+                            fontWeight: "bold",
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          Observaciónes del 20{"  "}
+                          <Text
+                            style={{
+                              fontSize: "8px",
+                              fontWeight: "medium",
+                              fontFamily: "Montserrat",
+                            }}
+                          >
+                            {e.obs_20}
                           </Text>
                         </Text>
                       </View>

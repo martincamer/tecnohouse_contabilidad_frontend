@@ -28,14 +28,21 @@ export const EmpleadosTwo = () => {
 
   useEffect(() => {
     // Filtrar empleados por búsqueda y tipo de fábrica
-    const empleadosFiltrados = empleados.filter((empleado) => {
+    let empleadosFiltrados = empleados.filter((empleado) => {
       const cumpleBusqueda = empleado.empleado
         .toLowerCase()
         .includes(busqueda.toLowerCase());
       const cumpleFiltro =
         !filtroFabrica || empleado.tipo_fabrica === filtroFabrica;
-      return cumpleBusqueda && cumpleFiltro && [];
+      return cumpleBusqueda && cumpleFiltro;
     });
+
+    // Aplicar filtro solo si hay una opción seleccionada
+    if (filtroFabrica) {
+      empleadosFiltrados = empleadosFiltrados.filter(
+        (empleado) => empleado.tipo_fabrica === filtroFabrica
+      );
+    }
 
     setResultados(empleadosFiltrados);
   }, [empleados, busqueda, filtroFabrica]);
