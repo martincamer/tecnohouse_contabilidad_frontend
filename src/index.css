@@ -69,3 +69,15 @@ body {
     cursor: pointer;
   }
 }
+
+@keyframes changeColor {
+  0% {
+    background-color: #ff6a00; /* Naranja */
+  }
+  50% {
+    background-color: #663399; /* Indigo */
+  }
+  100% {
+    background-color: #ff6a00; /* Naranja */
+  }
+}

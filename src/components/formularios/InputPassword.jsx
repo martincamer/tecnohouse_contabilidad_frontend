@@ -13,7 +13,7 @@ export const InputPassword = ({ type, placeholder, register }) => {
         {...register(type, { required: true })}
         type={showPassword ? "text" : "password"}
         placeholder={placeholder}
-        className="rounded-xl py-[8px] px-2 w-full shadow-sm border-gray-300 border-[1px] bg-white outline-none  outline-[1px] placeholder:text-sm"
+        className="rounded-xl py-[8px] px-2 w-full shadow-xl bg-gray-200/50 font-semibold text-slate-700  outline-none  outline-[1px] placeholder:text-sm"
       />
       {type === "password" && (
         <button
