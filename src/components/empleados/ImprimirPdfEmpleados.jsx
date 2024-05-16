@@ -358,6 +358,25 @@ export const ImprimirPdfEmpleados = ({ empleados }) => {
                               {e.tipo_fabrica}
                             </Text>
                           </Text>
+                          <Text
+                            style={{
+                              fontSize: "8px",
+                              fontWeight: "bold",
+                              fontFamily: "Montserrat",
+                            }}
+                          >
+                            Sector/Rol{" "}
+                            <Text
+                              style={{
+                                fontSize: "8px",
+                                fontWeight: "medium",
+                                textTransform: "capitalize",
+                                fontFamily: "Montserrat",
+                              }}
+                            >
+                              {e.rol}
+                            </Text>
+                          </Text>
                         </View>
                       </View>
 
