@@ -7,6 +7,7 @@ import { ModalGuardarDatosFinal } from "../../../components/empleados/ModalGuard
 import client from "../../../api/axios";
 import { ModalCrearEmpleado } from "../../../components/empleados/ModalCrearEmpleado";
 import { ModalEmpleado } from "../../../components/empleados/ModalEmpleado";
+import { ModalAumento } from "../../../components/empleados/ModalAumento";
 
 export const Empleados = () => {
   const { empleados, fabricas } = useEmpleadosContext();
@@ -172,6 +173,16 @@ export const Empleados = () => {
 
   const closeGuardarDatosFinal = () => {
     setGuardarDatosFinal(false);
+  };
+
+  const [isModalAumento, setModalAumento] = useState(false);
+
+  const openModalAumento = () => {
+    setModalAumento(true);
+  };
+
+  const closeModalAumento = () => {
+    setModalAumento(false);
   };
 
   return (
@@ -397,6 +408,14 @@ export const Empleados = () => {
               className="bg-indigo-500 text-white font-semibold uppercase py-3 px-5 rounded-full text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
               type="button"
             >
+              <Link onClick={() => openModalAumento()}>Aumentar sueldos</Link>
+            </button>
+          </div>
+          <div>
+            <button
+              className="bg-indigo-500 text-white font-semibold uppercase py-3 px-5 rounded-full text-sm flex gap-2 items-center hover:translate-x-1 transiton-all ease-in-out duration-100"
+              type="button"
+            >
               <Link onClick={() => openModalCrear()}>
                 Cargar nuevo empleado
               </Link>
@@ -575,6 +594,18 @@ export const Empleados = () => {
                   <td className="py-3 px-3 text-sm font-normal text-left text-slate-600 uppercase">
                     {e.tipo_fabrica}
                   </td>
+                  {/* <td className="py-3 px-3 text-sm text-left text-slate-600 font-bold">
+                    {Number(e.quincena_del_cinco).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}
+                  </td>
+                  <td className="py-3 px-3 text-sm text-left text-slate-600 font-bold">
+                    {Number(e.quincena_del_veinte).toLocaleString("es-AR", {
+                      style: "currency",
+                      currency: "ARS",
+                    })}
+                  </td> */}
                   <td className="py-3 px-3 text-sm text-left text-slate-600 font-bold">
                     {Number(e.total_quincena).toLocaleString("es-AR", {
                       style: "currency",
@@ -822,6 +853,7 @@ export const Empleados = () => {
         isOpenEdit={isEmpleado}
         closeModalEdit={closeModalEmpleado}
       />
+      <ModalAumento closeModal={closeModalAumento} isOpen={isModalAumento} />
     </section>
   );
 };
