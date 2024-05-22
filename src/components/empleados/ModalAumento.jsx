@@ -92,7 +92,7 @@ export const ModalAumento = ({ isOpen, closeModal }) => {
                 >
                   <div className="flex flex-col gap-1">
                     <label htmlFor="" className="text-slate-600">
-                      Edita la fabrica
+                      Selecciona la fabrica
                     </label>
                     <select
                       {...register("fabrica", { required: true })}
